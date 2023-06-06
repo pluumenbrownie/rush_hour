@@ -1,11 +1,16 @@
 # Optimalisatie. Linear programming
 Stel het volgende probleem:
+
 $$
 S=6A+5B
 $$
+
 $A+B \le 5$
+
 $3A+2B \ge 12$
+
 $A \ge 0 \vee B \ge 0$
+
 Vind optimale oplossing voor gegeven beperkingen.
 
 ## Free Optimization Problem
