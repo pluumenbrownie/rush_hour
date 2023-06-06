@@ -1,4 +1,5 @@
 # Optimalisatie. Linear programming
+Stel het volgende probleem:
 $$
 S=6A+5B
 $$
