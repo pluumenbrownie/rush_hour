@@ -1,4 +1,4 @@
-Optimalisatie. Linear programming
+# Optimalisatie. Linear programming
 $$
 S=6A+5B
 $$
