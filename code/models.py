@@ -2,6 +2,14 @@ from typing import Any
 import math as mt
 import csv 
 
+
+class Move():
+    """ A move performed by a car """
+    def __init__(self, target_id: str, direction: tuple[str, int]) -> None:
+        self.target_id = target_id
+        self.direction = direction
+
+
 class Vehicle(): 
     """ Add a description """
 
@@ -20,6 +28,7 @@ class Vehicle():
             else:
                 coordinate_list.append((self.col, self.row + length))
         return coordinate_list
+        
     
     def __repr__(self) -> str:
         if len(self.id) > 1:
@@ -70,6 +79,13 @@ class RushHour():
                     raise ValueError("Vehicle can only be length 2 or 3.")
                 self.game_board.add_vehicle(new_vehicle)
         self.game_board.print_board()
+    
+    def show_board(self) -> None:
+        self.game_board.print_board()
+    
+    def move_vehicle(self, vehicle_id: str, direction: int) -> None:
+        move_viability = self.game_board.is_move_valid(vehicle_id, direction)
+        print("Can move:", move_viability)
 
 
 class Board():
@@ -88,6 +104,8 @@ class Board():
                 empty_row.append(None)
             self.board.append(empty_row)
         self.print_board()
+
+        self.vehicle_dict: dict[str, Car|Truck] = {}
         # self.load_gameboard("gameboards/Rushhour6x6_1.csv")
         
     
@@ -99,7 +117,44 @@ class Board():
         coordinates_to_add = vehicle.get_tiles_occupied()
         for col, row in coordinates_to_add:
             self.board[row - 1][col - 1] = vehicle
+        self.vehicle_dict[vehicle.id] = vehicle
+    
+    def is_move_valid(self, vehicle_id: str, direction: int):
+        target_vehicle = self.vehicle_dict[vehicle_id]
+        if target_vehicle.orientation == "H":
+            # move to the left <-
+            if direction == -1:
+                if target_vehicle.col - 2 < 0:
+                    return False
+                next_tile = self.board[target_vehicle.row - 1][target_vehicle.col - 2]
+            # move to the right ->
+            elif direction == 1:
+                if target_vehicle.col + target_vehicle.size > self.width:
+                    return False
+                next_tile = self.board[target_vehicle.row - 1][target_vehicle.col + target_vehicle.size - 1]
+            else:
+                raise ValueError("Invalid move direction.")
+        elif target_vehicle.orientation == "V":
+            # move up ^
+            if direction == -1:
+                if target_vehicle.row - 2 < 0:
+                    return False
+                next_tile = self.board[target_vehicle.row - 2][target_vehicle.col - 1]
+            # move down v
+            elif direction == 1:
+                if target_vehicle.row + target_vehicle.size > self.width:
+                    return False
+                next_tile = self.board[target_vehicle.row + target_vehicle.size - 1][target_vehicle.col - 1]
+            else:
+                raise ValueError("Invalid move direction.")
+        print(next_tile)
+        # return true if next_tile empty
+        if next_tile:
+            return False
+        return True
+            
 
 
 if __name__ == '__main__': 
     game = RushHour(12, "gameboards/Rushhour12x12_7.csv")
+    game.move_vehicle('B', 1)
