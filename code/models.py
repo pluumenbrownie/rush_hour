@@ -28,7 +28,13 @@ class Vehicle():
             else:
                 coordinate_list.append((self.col, self.row + length))
         return coordinate_list
-        
+
+    def move(self, direction: int) -> None:
+        assert direction == 1 or direction == -1
+        if self.orientation == "H":
+            self.col += direction
+        else:
+            self.row += direction
     
     def __repr__(self) -> str:
         if len(self.id) > 1:
@@ -86,6 +92,8 @@ class RushHour():
     def move_vehicle(self, vehicle_id: str, direction: int) -> None:
         move_viability = self.game_board.is_move_valid(vehicle_id, direction)
         print("Can move:", move_viability)
+        if move_viability:
+            self.game_board.move_vehicle(vehicle_id, direction)
 
 
 class Board():
@@ -119,7 +127,7 @@ class Board():
             self.board[row - 1][col - 1] = vehicle
         self.vehicle_dict[vehicle.id] = vehicle
     
-    def is_move_valid(self, vehicle_id: str, direction: int):
+    def is_move_valid(self, vehicle_id: str, direction: int) -> bool:
         target_vehicle = self.vehicle_dict[vehicle_id]
         if target_vehicle.orientation == "H":
             # move to the left <-
@@ -154,9 +162,20 @@ class Board():
         if next_tile:
             return False
         return True
+    
+    def move_vehicle(self, vehicle_id: str, direction: int) -> None:
+        target_vehicle = self.vehicle_dict[vehicle_id]
+        tiles_to_empty = target_vehicle.get_tiles_occupied()
+        for col, row in tiles_to_empty:
+            self.board[row - 1][col - 1] = None
+        target_vehicle.move(direction)
+        tiles_to_fill = target_vehicle.get_tiles_occupied()
+        for col, row in tiles_to_fill:
+            self.board[row - 1][col - 1] = target_vehicle
             
 
 
 if __name__ == '__main__': 
     game = RushHour(12, "gameboards/Rushhour12x12_7.csv")
-    game.move_vehicle('B', 1)
+    game.move_vehicle('AB', -1)
+    game.show_board()
