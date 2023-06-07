@@ -96,6 +96,24 @@ class RushHour():
             self.game_board.move_vehicle(vehicle_id, direction)
             return True
         return False
+    
+    def is_won(self) -> bool:
+        return self.game_board.is_won()
+
+    def start_game(self) -> None:
+        while not self.is_won():
+            target_vehicle = input("What vehicle to move? ")
+            direction = int(input("What direction? "))
+            try:
+                success = self.move_vehicle(target_vehicle, direction)
+            except ValueError:
+                success = False
+            except KeyError:
+                print("Vehicle not found.")
+                continue
+            if not success:
+                print("Move failed.")
+            self.show_board()
 
 
 class Board():
@@ -181,6 +199,6 @@ class Board():
 
 
 if __name__ == '__main__': 
-    game = RushHour(12, "gameboards/Rushhour12x12_7.csv")
-    game.move_vehicle('AB', -1)
-    game.show_board()
+    game = RushHour(6, "gameboards/Rushhour6x6_1.csv")
+    # game.move_vehicle('AB', -1)
+    game.start_game()
