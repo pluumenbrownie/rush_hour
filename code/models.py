@@ -89,11 +89,13 @@ class RushHour():
     def show_board(self) -> None:
         self.game_board.print_board()
     
-    def move_vehicle(self, vehicle_id: str, direction: int) -> None:
+    def move_vehicle(self, vehicle_id: str, direction: int) -> bool:
         move_viability = self.game_board.is_move_valid(vehicle_id, direction)
         print("Can move:", move_viability)
         if move_viability:
             self.game_board.move_vehicle(vehicle_id, direction)
+            return True
+        return False
 
 
 class Board():
@@ -102,8 +104,6 @@ class Board():
     def __init__(self, width: int) -> None:
         """ Creates a empty board object with a width (6x6, 9x9, 12x12) and an exit. """
         self.width = width
-        self.exit_height = mt.ceil(width / 2)
-        self.exit_width = width - 1
 
         self.board = []
         for _ in range(width):
@@ -172,7 +172,12 @@ class Board():
         tiles_to_fill = target_vehicle.get_tiles_occupied()
         for col, row in tiles_to_fill:
             self.board[row - 1][col - 1] = target_vehicle
-            
+    
+    def is_won(self) -> bool:
+        red_car = self.vehicle_dict["X"]
+        if red_car.col == self.width - 1:
+            return True
+        return False  
 
 
 if __name__ == '__main__': 
