@@ -10,19 +10,23 @@ class Board():
         self.width = width
         self.exit_height = mt.ceil(width / 2)
         self.exit_width = width - 1
-        self.load_gameboard("npp")
+        self.load_gameboard("gameboards/Rushhour6x6_1.csv")
 
     def load_gameboard(self, filename: str) -> Any: 
-        with open("gameboards/Rushhour6x6_1.csv") as csv_file: 
+        with open(filename) as csv_file: 
             csv_reader = csv.reader(csv_file, delimiter=',')
-            line_count = 0
-            for row in csv_reader: 
-                if line_count == 0:
-                    print(f'Column names are {",".join(row)}')
-                    line_count += 1
+            header = True
+            for line in csv_reader: 
+                if header:
+                    # print(f'Column names are {",".join(line)}')
+                    header = False
                 else:
-                    print(row)
-            print(f'Processed {line_count} lines')
+                    id = line[0].strip()
+                    orientation = line[1]
+                    col = int(line[2])
+                    row = int(line[3])
+                    length = int(line[4])
+                    print(id, orientation, col, row, length)
 
 
 class Vehicle(): 
