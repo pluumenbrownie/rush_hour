@@ -85,6 +85,7 @@ class RushHour():
                     raise ValueError("Vehicle can only be length 2 or 3.")
                 self.game_board.add_vehicle(new_vehicle)
         self.game_board.print_board()
+        self.history: list[tuple[str, int]] = []
     
     def show_board(self) -> None:
         self.game_board.print_board()
@@ -115,8 +116,18 @@ class RushHour():
                 continue
             if not success:
                 print("Move failed.")
+            else:
+                self.history.append((target_vehicle, direction))
             self.show_board()
+
+        self.export_solution()
         print(f"You won! I'm so proud of you! (Took {turns} turns)")
+
+    def export_solution(self, output_name: str = "results/output.csv"):
+        with open(output_name, 'w') as file:
+            file.write("car,move\n")
+            for id, direction in self.history:
+                file.write(f"{id},{direction}\n")
 
 
 class Board():
@@ -202,6 +213,6 @@ class Board():
 
 
 if __name__ == '__main__': 
-    game = RushHour(6, "gameboards/Rushhour6x6_1.csv")
+    game = RushHour(6, "gameboards/Rushhour6x6_2.csv")
     # game.move_vehicle('AB', -1)
     game.start_game()
