@@ -2,35 +2,6 @@ from typing import Any
 import math as mt
 import csv 
 
-class Board():
-    """ Creates a board to which cars and trucks can be added """
-
-    def __init__(self, width: int) -> None:
-        """ Creates a empty board object with a width (6x6, 9x9, 12x12) and an exit. """
-        self.width = width
-        self.exit_height = mt.ceil(width / 2)
-        self.exit_width = width - 1
-        self.load_gameboard("gameboards/Rushhour6x6_1.csv")
-
-    def load_gameboard(self, filename: str) -> Any: 
-        """ Loads the gameboard with vehicles """
-        with open(filename) as csv_file: 
-            csv_reader = csv.reader(csv_file, delimiter=',')
-            header = True
-            for line in csv_reader: 
-                if header:
-                    # print(f'Column names are {",".join(line)}')
-                    header = False
-                else:
-                    id = line[0].strip()
-                    orientation = line[1]
-                    col = int(line[2])
-                    row = int(line[3])
-                    length = int(line[4])
-                    print(id, orientation, col, row, length)
-
-
-
 class Vehicle(): 
     """ Add a description """
 
@@ -41,7 +12,6 @@ class Vehicle():
         self.row = row
 
 
-
 class Car(Vehicle):
     """ A car with a direction """
 
@@ -49,6 +19,9 @@ class Car(Vehicle):
         """ Creates a car object with a size, a direction and position on the board"""
         super().__init__(id, orientation, col, row)
         self.size = 2
+    
+    def __repr__(self) -> str:
+        return "Car "
 
 
 class Truck(Vehicle):
@@ -58,6 +31,63 @@ class Truck(Vehicle):
         """ Creates a truck object with a size, a direction and position on the board"""
         super().__init__(id, orientation, col, row)
         self.size = 3
+    
+    def __repr__(self) -> str:
+        return "Truc"
+
+class RushHour():
+
+    def __init__(self, width: int, board_file: str) -> None:
+        self.game_board = Board(width)
+        with open(board_file) as csv_file: 
+            csv_reader = csv.reader(csv_file, delimiter=',')
+            header = True
+            for line in csv_reader: 
+                if header:
+                    header = False
+                    continue
+                id = line[0].strip()
+                orientation = line[1]
+                col = int(line[2])
+                row = int(line[3])
+                length = int(line[4])
+                print(id, orientation, col, row, length)
+                if length == 2:
+                    new_vehicle = Car(id, orientation, col, row)
+                elif length == 3:
+                    new_vehicle = Truck(id, orientation, col, row)
+                self.game_board.add_vehicle(new_vehicle)
+        self.game_board.print_board()
+
+
+
+
+class Board():
+    """ Creates a board to which cars and trucks can be added """
+
+    def __init__(self, width: int) -> None:
+        """ Creates a empty board object with a width (6x6, 9x9, 12x12) and an exit. """
+        self.width = width
+        self.exit_height = mt.ceil(width / 2)
+        self.exit_width = width - 1
+
+        self.board = []
+        for _ in range(width):
+            empty_row = []
+            for _ in range(width):
+                empty_row.append(None)
+            self.board.append(empty_row)
+        self.print_board()
+        # self.load_gameboard("gameboards/Rushhour6x6_1.csv")
+        
+    
+    def print_board(self) -> None:
+        for row in self.board:
+            print(row)
+    
+    def add_vehicle(self, vehicle: Car|Truck) -> None:
+        self.board[vehicle.row - 1][vehicle.col - 1] = vehicle
+
 
 if __name__ == '__main__': 
-    bord = Board(6)
+    game = RushHour(6, "gameboards/Rushhour6x6_1.csv")
