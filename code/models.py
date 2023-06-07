@@ -13,6 +13,7 @@ class Board():
         self.load_gameboard("gameboards/Rushhour6x6_1.csv")
 
     def load_gameboard(self, filename: str) -> Any: 
+        """ Loads the gameboard with vehicles """
         with open(filename) as csv_file: 
             csv_reader = csv.reader(csv_file, delimiter=',')
             header = True
@@ -27,6 +28,7 @@ class Board():
                     row = int(line[3])
                     length = int(line[4])
                     print(id, orientation, col, row, length)
+
 
 
 class Vehicle(): 
