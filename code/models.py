@@ -147,6 +147,8 @@ class Board():
                 next_tile = self.board[target_vehicle.row + target_vehicle.size - 1][target_vehicle.col - 1]
             else:
                 raise ValueError("Invalid move direction.")
+        else:
+            raise ValueError("Invalid direction in vehicle.")
         print(next_tile)
         # return true if next_tile empty
         if next_tile:
