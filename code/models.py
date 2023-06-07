@@ -101,7 +101,9 @@ class RushHour():
         return self.game_board.is_won()
 
     def start_game(self) -> None:
+        turns = 0
         while not self.is_won():
+            turns += 1
             target_vehicle = input("What vehicle to move? ")
             direction = int(input("What direction? "))
             try:
@@ -114,6 +116,7 @@ class RushHour():
             if not success:
                 print("Move failed.")
             self.show_board()
+        print(f"You won! I'm so proud of you! (Took {turns} turns)")
 
 
 class Board():
