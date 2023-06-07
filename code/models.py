@@ -10,6 +10,22 @@ class Vehicle():
         self.orientation = orientation
         self.col = col
         self.row = row
+        self.size = 0
+    
+    def get_tiles_occupied(self) -> list[tuple[int, int]]:
+        coordinate_list = []
+        for length in range(self.size):
+            if self.orientation == "H":
+                coordinate_list.append((self.col + length, self.row))
+            else:
+                coordinate_list.append((self.col, self.row + length))
+        return coordinate_list
+    
+    def __repr__(self) -> str:
+        if len(self.id) > 1:
+            return f"{self.id * 2}"
+        return f"{(self.id + ' ') * 2}"
+        # return f"{self.col},{self.row}{self.orientation}"
 
 
 class Car(Vehicle):
@@ -19,9 +35,6 @@ class Car(Vehicle):
         """ Creates a car object with a size, a direction and position on the board"""
         super().__init__(id, orientation, col, row)
         self.size = 2
-    
-    def __repr__(self) -> str:
-        return "Car "
 
 
 class Truck(Vehicle):
@@ -31,9 +44,6 @@ class Truck(Vehicle):
         """ Creates a truck object with a size, a direction and position on the board"""
         super().__init__(id, orientation, col, row)
         self.size = 3
-    
-    def __repr__(self) -> str:
-        return "Truc"
 
 class RushHour():
 
@@ -56,10 +66,10 @@ class RushHour():
                     new_vehicle = Car(id, orientation, col, row)
                 elif length == 3:
                     new_vehicle = Truck(id, orientation, col, row)
+                else:
+                    raise ValueError("Vehicle can only be length 2 or 3.")
                 self.game_board.add_vehicle(new_vehicle)
         self.game_board.print_board()
-
-
 
 
 class Board():
@@ -86,8 +96,10 @@ class Board():
             print(row)
     
     def add_vehicle(self, vehicle: Car|Truck) -> None:
-        self.board[vehicle.row - 1][vehicle.col - 1] = vehicle
+        coordinates_to_add = vehicle.get_tiles_occupied()
+        for col, row in coordinates_to_add:
+            self.board[row - 1][col - 1] = vehicle
 
 
 if __name__ == '__main__': 
-    game = RushHour(6, "gameboards/Rushhour6x6_1.csv")
+    game = RushHour(12, "gameboards/Rushhour12x12_7.csv")
