@@ -120,27 +120,45 @@ class Board():
         self.vehicle_dict[vehicle.id] = vehicle
     
     def is_move_valid(self, vehicle_id: str, direction: int) -> bool:
-        """Check if a move is valid for a given vehicle and direction."""
+        """
+        Check if a move is valid for a given vehicle and direction.
+
+        Input:
+        - `vehicle_id: str`: String representing car to move.
+        - `direction: int`:  -1 to move up/left, 1 to move down/right (movement
+        depents on car orientation).  
+        
+        Returns False if move:
+        - moves vehicle outside of the gameboard.
+        - collides vehicle with another vehicle.
+
+        Raises ValueError if direction is not 1 or -1
+        """
         target_vehicle = self.vehicle_dict[vehicle_id]
         if target_vehicle.orientation == "H":
+
             # move to the left <-
             if direction == -1:
                 if target_vehicle.col - 2 < 0:
                     return False
                 next_tile = self.board[target_vehicle.row - 1][target_vehicle.col - 2]
+
             # move to the right ->
             elif direction == 1:
                 if target_vehicle.col + target_vehicle.size > self.width:
                     return False
                 next_tile = self.board[target_vehicle.row - 1][target_vehicle.col + target_vehicle.size - 1]
+
             else:
                 raise ValueError("Invalid move direction.")
         elif target_vehicle.orientation == "V":
+
             # move up ^
             if direction == -1:
                 if target_vehicle.row - 2 < 0:
                     return False
                 next_tile = self.board[target_vehicle.row - 2][target_vehicle.col - 1]
+
             # move down v
             elif direction == 1:
                 if target_vehicle.row + target_vehicle.size > self.width:
@@ -148,9 +166,11 @@ class Board():
                 next_tile = self.board[target_vehicle.row + target_vehicle.size - 1][target_vehicle.col - 1]
             else:
                 raise ValueError("Invalid move direction.")
+            
         else:
             raise ValueError("Invalid direction in vehicle.")
-        print(next_tile)
+        # print(next_tile)
+
         # return true if next_tile empty
         if next_tile:
             return False
@@ -191,28 +211,38 @@ def count_statespace(width: int, board_file: str) -> int:
     
     The rows are then multiplied together and returned.
     """
+    # H_cars will contain amount of horizontal vehicles per row
     H_cars = [0 for _ in range(width)]
+    # amount of empty spaces per row
     H_spaces = [width for _ in range(width)]
+    # V_cars will contain amount of vertical vehicles per column
     V_cars = [0 for _ in range(width)]
+    # amount of empty spaces per column
     V_spaces = [width for _ in range(width)]
 
     with open(board_file, 'r') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         header = True
         for line in csv_reader: 
+            # Skip the header
             if header:
                 header = False
                 continue
+            # Horizontal vehicle
             if line[1] == "H":
                 vehicle_row = int(line[3]) - 1
                 H_cars[vehicle_row] += 1
+                # Length of vehicle removes int(line[4]) empty spaces
                 H_spaces[vehicle_row] -= int(line[4])
+            # Vertical vehicle
             elif line[1] == "V":
                 vehicle_col = int(line[2]) - 1
                 V_cars[vehicle_col] += 1
+                # Length of vehicle removes int(line[4]) empty spaces
                 V_spaces[vehicle_col] -= int(line[4])
 
     states = 1
+    # using i should be fine here
     for i in range(6):
         v = H_cars[i] 
         n = H_cars[i] + H_spaces[i]
