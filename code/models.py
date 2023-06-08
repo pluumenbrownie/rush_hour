@@ -123,18 +123,25 @@ class Board():
         """
         Check if a move is valid for a given vehicle and direction.
 
-        Input:
+        ### Input
         - `vehicle_id: str`: String representing car to move.
         - `direction: int`:  -1 to move up/left, 1 to move down/right (movement
         depents on car orientation).  
-        
+
+        ### Output
         Returns False if move:
         - moves vehicle outside of the gameboard.
         - collides vehicle with another vehicle.
 
-        Raises ValueError if direction is not 1 or -1
+        Raises ValueError if direction is not 1 or -1.
+        Raises KeyError if vehicle with `id=vehicle_id` does not exist.
+
+        Returns True otherwise.
         """
         target_vehicle = self.vehicle_dict[vehicle_id]
+        if not (direction == 1 or direction == -1):
+            raise ValueError("Invalid move direction.")
+
         if target_vehicle.orientation == "H":
 
             # move to the left <-
@@ -149,8 +156,6 @@ class Board():
                     return False
                 next_tile = self.board[target_vehicle.row - 1][target_vehicle.col + target_vehicle.size - 1]
 
-            else:
-                raise ValueError("Invalid move direction.")
         elif target_vehicle.orientation == "V":
 
             # move up ^
@@ -164,8 +169,6 @@ class Board():
                 if target_vehicle.row + target_vehicle.size > self.width:
                     return False
                 next_tile = self.board[target_vehicle.row + target_vehicle.size - 1][target_vehicle.col - 1]
-            else:
-                raise ValueError("Invalid move direction.")
             
         else:
             raise ValueError("Invalid direction in vehicle.")
