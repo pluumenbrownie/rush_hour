@@ -161,6 +161,21 @@ class Board():
     
 
 def count_statespace(width: int, board_file: str) -> int:
+    """
+    Determines statespace of a given Rush Hour gameboard.
+
+    The game board is split in two games, containing either horizontally or 
+    vertically aligned vehicles. Then, the amount of horizontally aligned vehicles 
+    per row and vertically aligned vehicles per column are counted. The amount of
+    free spaces per row/column is also tracked. Then the amount of states per row 
+    is calculated via
+
+    `states = n!/(v!(n-v)!)` with
+    - `v` : #vehicles per row/column
+    - `n` : #vehicles + #free_spaces
+    
+    The rows are then multiplied together and returned.
+    """
     H_cars = [0 for _ in range(width)]
     H_spaces = [width for _ in range(width)]
     V_cars = [0 for _ in range(width)]
@@ -174,17 +189,20 @@ def count_statespace(width: int, board_file: str) -> int:
                 header = False
                 continue
             if line[1] == "H":
-                H_cars[int(line[3]) - 1] += 1
-                H_spaces[int(line[3]) - 1] -= int(line[4])
+                vehicle_row = int(line[3]) - 1
+                H_cars[vehicle_row] += 1
+                H_spaces[vehicle_row] -= int(line[4])
             elif line[1] == "V":
-                V_cars[int(line[2]) - 1] += 1
-                V_spaces[int(line[2]) - 1] -= int(line[4])
+                vehicle_col = int(line[2]) - 1
+                V_cars[vehicle_col] += 1
+                V_spaces[vehicle_col] -= int(line[4])
 
     states = 1
     for i in range(6):
         v = H_cars[i] 
         n = H_cars[i] + H_spaces[i]
         states *= (mt.factorial(n))//(mt.factorial(v)*mt.factorial(n - v))
+
         v = V_cars[i] 
         n = V_cars[i] + V_spaces[i]
         states *= (mt.factorial(n))//(mt.factorial(v)*mt.factorial(n - v))
