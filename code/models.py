@@ -62,7 +62,6 @@ class RushHour():
     def start_game(self) -> None:
         """ Start the Rush Hour game and play until the game is won. """
         turns = 0
-        turns = 0
         while not self.is_won():
             turns += 1
             target_vehicle = input("What vehicle to move? ")
