@@ -68,7 +68,8 @@ class RushHour():
             direction = int(input("What direction? "))
             try:
                 success = self.move_vehicle(target_vehicle, direction)
-            except ValueError:
+            except ValueError as verror:
+                print(verror)
                 success = False
             except KeyError:
                 print("Vehicle not found.")
