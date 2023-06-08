@@ -32,9 +32,8 @@ class Vehicle():
     def __repr__(self) -> str:
         """Return a string representation of the vehicle."""
         if len(self.id) > 1:
-            if len(self.id) > 1:
-                return f"{self.id * 2}"
-            return f"{(self.id + ' ') * 2}"
+            return f"{self.id * 2}"
+        return f"{(self.id + ' ') * 2}"
 
 class Car(Vehicle):
     """ A car with a direction """
