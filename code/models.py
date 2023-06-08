@@ -182,9 +182,13 @@ class Board():
     def move_vehicle(self, vehicle_id: str, direction: int) -> None:
         """ Move a vehicle in the specified direction. """
         target_vehicle = self.vehicle_dict[vehicle_id]
+
+        # remove the vehicle
         tiles_to_empty = target_vehicle.get_tiles_occupied()
         for col, row in tiles_to_empty:
             self.board[row - 1][col - 1] = None
+
+        # replace vehicle in new position
         target_vehicle.move(direction)
         tiles_to_fill = target_vehicle.get_tiles_occupied()
         for col, row in tiles_to_fill:
