@@ -15,7 +15,7 @@ class RushHour():
 
     def __init__(self, width: int, board_file: str) -> None:
         self.game_board = Board(width)
-        with open(board_file) as csv_file: 
+        with open(board_file, 'r') as csv_file: 
             csv_reader = csv.reader(csv_file, delimiter=',')
             header = True
             for line in csv_reader: 
@@ -166,7 +166,7 @@ def count_statespace(width: int, board_file: str) -> int:
     V_cars = [0 for _ in range(width)]
     V_spaces = [width for _ in range(width)]
 
-    with open(board_file) as csv_file:
+    with open(board_file, 'r') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         header = True
         for line in csv_reader: 
