@@ -147,11 +147,8 @@ class Board():
             for _ in range(width):
                 empty_row.append(None)
             self.board.append(empty_row)
-        self.print_board()
 
         self.vehicle_dict: dict[str, Car|Truck] = {}
-        # self.load_gameboard("gameboards/Rushhour6x6_1.csv")
-        
     
     def print_board(self) -> None:
         for row in self.board:
@@ -213,10 +210,44 @@ class Board():
         red_car = self.vehicle_dict["X"]
         if red_car.col == self.width - 1:
             return True
-        return False  
+        return False
+    
+
+def count_statespace(width: int, board_file: str) -> int:
+    H_cars = [0 for _ in range(width)]
+    H_spaces = [width for _ in range(width)]
+    V_cars = [0 for _ in range(width)]
+    V_spaces = [width for _ in range(width)]
+
+    with open(board_file) as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=',')
+        header = True
+        for line in csv_reader: 
+            if header:
+                header = False
+                continue
+            if line[1] == "H":
+                H_cars[int(line[3]) - 1] += 1
+                H_spaces[int(line[3]) - 1] -= int(line[4])
+            elif line[1] == "V":
+                V_cars[int(line[2]) - 1] += 1
+                V_spaces[int(line[2]) - 1] -= int(line[4])
+
+    states = 1
+    for i in range(6):
+        v = H_cars[i] 
+        n = H_cars[i] + H_spaces[i]
+        states *= (mt.factorial(n))//(mt.factorial(v)*mt.factorial(n - v))
+        v = V_cars[i] 
+        n = V_cars[i] + V_spaces[i]
+        states *= (mt.factorial(n))//(mt.factorial(v)*mt.factorial(n - v))
+    
+    return states
 
 
 if __name__ == '__main__': 
-    game = RushHour(6, "gameboards/Rushhour6x6_2.csv")
+    board_file = "gameboards/Rushhour12x12_7.csv"
+    print("State space size:", count_statespace(12, board_file))
+    game = RushHour(12, board_file)
     # game.move_vehicle('AB', -1)
     game.start_game()
