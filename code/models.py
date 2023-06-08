@@ -1,7 +1,5 @@
 from typing import Any
-from vehicle import Vehicle
-from vehicle import Car
-from vehicle import Truck
+from vehicle import *
 
 import math as mt
 import csv 
@@ -12,57 +10,6 @@ class Move():
     def __init__(self, target_id: str, direction: tuple[str, int]) -> None:
         self.target_id = target_id
         self.direction = direction
-
-
-# class Vehicle(): 
-#     """ Add a description """
-
-#     def __init__(self, id: str, orientation: Any, col: int, row: int) -> None:
-#         self.id = id
-#         self.orientation = orientation
-#         self.col = col
-#         self.row = row
-#         self.size = 0
-    
-#     def get_tiles_occupied(self) -> list[tuple[int, int]]:
-#         coordinate_list = []
-#         for length in range(self.size):
-#             if self.orientation == "H":
-#                 coordinate_list.append((self.col + length, self.row))
-#             else:
-#                 coordinate_list.append((self.col, self.row + length))
-#         return coordinate_list
-
-#     def move(self, direction: int) -> None:
-#         assert direction == 1 or direction == -1
-#         if self.orientation == "H":
-#             self.col += direction
-#         else:
-#             self.row += direction
-    
-#     def __repr__(self) -> str:
-#         if len(self.id) > 1:
-#             return f"{self.id * 2}"
-#         return f"{(self.id + ' ') * 2}"
-#         # return f"{self.col},{self.row}{self.orientation}"
-
-
-# class Car(Vehicle):
-#     """ A car with a direction """
-
-#     def __init__(self, id: str, orientation: Any, col: int, row: int) -> None:
-#         """ Creates a car object with a size, a direction and position on the board"""
-#         super().__init__(id, orientation, col, row)
-#         self.size = 2
-
-
-# class Truck(Vehicle):
-#     """ A truck with a direction"""
-
-#     def __init__(self, id: str, orientation: Any, col: int, row: int) -> None:
-#         """ Creates a truck object with a size, a direction and position on the board"""
-#         super().__init__(id, orientation, col, row)
-#         self.size = 3
 
 class RushHour():
 
