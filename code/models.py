@@ -30,7 +30,7 @@ class RushHour():
                 col = int(line[2])
                 row = int(line[3])
                 length = int(line[4])
-                print(id, orientation, col, row, length)
+                # print(id, orientation, col, row, length)
                 if length == 2:
                     new_vehicle = Car(id, orientation, col, row)
                 elif length == 3:
