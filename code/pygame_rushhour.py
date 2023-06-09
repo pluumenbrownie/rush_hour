@@ -20,12 +20,6 @@ class PygameRushHour(RushHour):
         self.clock = pygame.time.Clock()
         self.dt = 0
 
-<<<<<<< HEAD
-        self.player_pos = pygame.Vector2(self.screen.get_width() / 2, self.screen.get_height() / 2)
-        
-    
-=======
->>>>>>> c0d2ff0103cb57da1549fa6ef76df5836d9ac3e0
         self.color_vehicles()
 
     
