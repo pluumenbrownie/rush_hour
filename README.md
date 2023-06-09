@@ -16,7 +16,7 @@ python3 main.py
 In de lijst hieronder staat beschreven waar de belangrijkste bestanden en mappen te vinden zijn: 
 * /code: bevat alle code van het project
 * /code/algorithms: bevat de algoritmen 
-** /code/gameboards: bevat verschillende voorbeelden van hoe een bord eruit kan zien 
+* /code/gameboards: bevat verschillende voorbeelden van hoe een bord eruit kan zien 
 * /code/visualisation: bevat de code voor de visualisatie  
 * /code/data: ... 
 
