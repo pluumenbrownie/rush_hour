@@ -36,6 +36,7 @@ class PygameRushHour(RushHour):
 
     def start(self) -> None:
         running = True
+        # Based on pygame quickstart example https://www.pygame.org/docs/
         while running:
             # poll for events
             # pygame.QUIT event means the user clicked X to close your window
@@ -97,6 +98,6 @@ class PygameRushHour(RushHour):
         pygame.quit()
 
 if __name__ == '__main__':
-    board_file = "gameboards/Rushhour6x6_2.csv"
-    newgame = PygameRushHour(6, board_file)
+    board_file = "gameboards/Rushhour12x12_7.csv"
+    newgame = PygameRushHour(12, board_file)
     newgame.start()
