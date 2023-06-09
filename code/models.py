@@ -82,6 +82,7 @@ class RushHour():
         print(f"You won! I'm so proud of you! (Took {turns} turns)")
     
     def process_turn(self, target_vehicle: str, direction) -> bool:
+        """ Try to move a target vehicle in a direction. """
         try:
             success = self.move_vehicle(target_vehicle, direction)
         except ValueError as verror:
