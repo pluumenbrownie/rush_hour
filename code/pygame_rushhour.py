@@ -43,6 +43,17 @@ class PygameRushHour(RushHour):
                 
             for line_x in range(board_start_left + line_spacing, board_start_left + board_size, line_spacing):
                 pygame.draw.line(self.screen, "black", (line_x, board_start_top), (line_x, board_start_top + board_size - 1), width=3)
+            
+            car_margin = 10
+            vehicles = self.get_vehicles()
+            for vehicle in vehicles.values():
+                tiles_occupied = vehicle.get_tiles_occupied()
+                veh_x = board_start_left + (line_spacing * (tiles_occupied[0][0] - 1)) + car_margin
+                veh_y = board_start_top + (line_spacing * (tiles_occupied[0][1] - 1)) + car_margin
+                veh_width = line_spacing * (tiles_occupied[-1][0] - tiles_occupied[0][0] + 1) - 2 * car_margin
+                veh_height = line_spacing * (tiles_occupied[-1][1] - tiles_occupied[0][1] + 1) - 2 * car_margin
+                vehicle_rect = pygame.Rect(veh_x, veh_y, veh_width, veh_height)
+                pygame.draw.rect(self.screen, "blue", vehicle_rect)
 
 
             keys = pygame.key.get_pressed()

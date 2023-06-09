@@ -58,6 +58,9 @@ class RushHour():
     def is_won(self) -> bool:
         """ Check if the game is won. """
         return self.game_board.is_won()
+    
+    def get_vehicles(self) -> dict[str, Car|Truck]:
+        return self.game_board.vehicle_dict
 
     def start_game(self) -> None:
         """ Start the Rush Hour game and play until the game is won. """
