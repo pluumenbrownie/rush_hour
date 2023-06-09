@@ -1,23 +1,29 @@
-# rush_hour - Freeway Frenzies
+# Rush hour
+Hier komt een beschrijving van onze opdracht 
 
-### Studenten: Amber van der Eijden, Wessel Beumer en Dionne Spaltman
+## Aan de slag 
+### Vereisten 
+De code is geschreven met behulp van python 3.11. In requirements staat de packages die je nodig hebt om de code succesvol te kunnen laten runnen. Dit is de instructie daarvoor: 
 
-### Versimpelende aannames
-- Het bord is vierkant (bijvoorbeeld 6x6, 9x9, 12x12)
-- Voertuigen kunnen niet wisselen van rij (dit heeft te maken met hun rijrichting) 
-- Het aantal posities dat auto's op een bord kunnen hebben is de lengte van het bord min 1 (als er geen andere voertuigen zijn)
-- Het aantal posities dat vrachtwagens op een bord kunnen hebben is de lengte van het bord min 2 (als er geen andere voertuigen zijn)
+pip install -r requirements.txt
 
-### Formule 
-Aanvankelijk hadden we een formule waarin voertuigen op elkaar kunnen botsen, zowel op voertuigen in hun eigen rij als op voertuigen die dwars in hun rij staan. Uiteindelijk zijn we op een formule gekomen waarin we meenemen dat voertuigen niet op voertuigen in hun eigen rij kunnen botsen. We hebben (nog) niet meegenomen dat ze op voertuigen kunnen botsen die dwars staan. 
+### Gebruik 
+Het programma kan worden aangeroepen door: 
 
-Om een idee te geven: bij onze eerste formule was de statespace bij game 1 (6x6) 976 562 000. Bij de nieuwe formule is de statespace
-2 250 000. Dus we zijn van bijna een miljard naar iets meer dan 2 miljoen gegaan. 
+python3 main.py
 
-Op een bord van 6x6 met twee auto's, hebben we volgende situatie: V00V. V zijn de auto's/vrachtwagens en 0 zijn de lege plekken. 
-Heb je twee vrachtwagens heb je dus VV, bij een vrachtwagen en een auto heb je V0V. 
+### Structuur
+In de lijst hieronder staat beschreven waar de belangrijkste bestanden en mappen te vinden zijn: 
+* /code: bevat alle code van het project
+* /code/algorithms: bevat de algoritmen 
+* /code/gameboards: bevat verschillende voorbeelden van hoe een bord eruit kan zien 
+* /code/visualisation: bevat de code voor de visualisatie  
+* /code/data: ... 
 
-![Formula](/images/formula.jpg "Formula")
+## Auteurs
+* Amber van der Eijden
+* Wessel Beumer
+* Dionne Spaltman
 
 
 
