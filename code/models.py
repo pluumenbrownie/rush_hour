@@ -60,6 +60,7 @@ class RushHour():
         return self.game_board.is_won()
     
     def get_vehicles(self) -> dict[str, Car|Truck]:
+        """ Returns a dict with the Vehicle object in the game. """
         return self.game_board.vehicle_dict
 
     def start_game(self) -> None:
