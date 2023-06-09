@@ -10,7 +10,9 @@ COLOR_NAMES = [name for name in THECOLORS.keys()]
 
 class PygameRushHour(RushHour):
     def __init__(self, width: int, board_file: str) -> None:
-        """ Initalize the game. """
+        """ 
+        Initalize the game. 
+        """
         super().__init__(width, board_file)
 
         # pygame setup
@@ -28,7 +30,9 @@ class PygameRushHour(RushHour):
 
     
     def color_vehicles(self) -> None:
-        """ Assign colors to the vehicles. """
+        """ 
+        Assign colors to the vehicles. 
+        """
         vehicles = self.get_vehicles()
 
         # Assign vehicles a color
@@ -40,7 +44,9 @@ class PygameRushHour(RushHour):
 
 
     def start(self) -> None:
-        """ Start the game and give vehicles a position on the board. """
+        """ 
+        Start the game and give vehicles a position on the board. 
+        """
         running = True
         # Based on pygame quickstart example https://www.pygame.org/docs/
         while running:
@@ -115,7 +121,9 @@ class PygameRushHour(RushHour):
         pygame.quit()
 
     def __del__(self):
-        """ End of the game. """
+        """ 
+        End of the game. 
+        """
         pygame.quit()
 
 if __name__ == '__main__':

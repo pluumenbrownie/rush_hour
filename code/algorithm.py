@@ -3,15 +3,23 @@ from vehicle import *
 from models import RushHour
 
 class Algorithm():
-    """ Solves the rushhour game by selecing random cars and moves. """
+    """ 
+    A class to use algorithms to solve the game. 
+    """
     
     def __init__(self, game: RushHour):
+        """ 
+        Initializes an algorithm with target vehicle id, directions and the rushhour game. 
+        """
         self.game = game
         self.vehicles = game.get_vehicles()
         self.vehicle_ids = [id for id in self.vehicles.keys()]
         self.directions = [1, -1]
         
     def random_algorithm(self):
+        """ 
+        Solves the rushhour game by selecing random cars and moves. 
+        """
         while not self.game.is_won():
             # Choose a random move
             move = rd.choice(self.directions)
