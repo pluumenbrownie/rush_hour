@@ -5,18 +5,26 @@ import math as mt
 import csv 
 
 class Move():
-    """ A move performed by a car. """
+    """ 
+    A move performed by a car. 
+    """
     
     def __init__(self, target_id: str, direction: tuple[str, int]) -> None:
-        """ Initialize a move with the target vehicle ID and direction. """
+        """ 
+        Initialize a move with the target vehicle ID and direction. 
+        """
         self.target_id = target_id
         self.direction = direction
 
 class RushHour():
-    """ A class for the game rush hour. """
+    """ 
+    A class for the game rush hour. 
+    """
     
     def __init__(self, width: int, board_file: str) -> None:
-        """ Initialize the Rush Hour game with a board width and a board file."""
+        """ 
+        Initialize the Rush Hour game with a board width and a board file.
+        """
         self.game_board = Board(width)
         with open(board_file, 'r') as csv_file: 
             csv_reader = csv.reader(csv_file, delimiter=',')
@@ -43,11 +51,15 @@ class RushHour():
         self.history: list[tuple[str, int]] = []
     
     def show_board(self) -> None:
-        """ Print the current state of the game board."""
+        """ 
+        Print the current state of the game board.
+        """
         self.game_board.print_board()
     
     def move_vehicle(self, vehicle_id: str, direction: int) -> bool:
-        """ Move a vehicle in the specified direction and return whether the move was successful."""
+        """ 
+        Move a vehicle in the specified direction and return whether the move was successful.
+        """
         move_viability = self.game_board.is_move_valid(vehicle_id, direction)
         print("Can move:", move_viability)
         if move_viability:
@@ -56,15 +68,21 @@ class RushHour():
         return False
     
     def is_won(self) -> bool:
-        """ Check if the game is won. """
+        """ 
+        Check if the game is won. 
+        """
         return self.game_board.is_won()
     
     def get_vehicles(self) -> dict[str, Car|Truck]:
-        """ Returns a dict with the Vehicle object in the game. """
+        """ 
+        Returns a dict with the Vehicle object in the game. 
+        """
         return self.game_board.vehicle_dict
 
     def start_game(self) -> None:
-        """ Start the Rush Hour game and play until the game is won. """
+        """ 
+        Start the Rush Hour game and play until the game is won. 
+        """
         turns = 0
         while not self.is_won():
             turns += 1
@@ -82,7 +100,9 @@ class RushHour():
         print(f"You won! I'm so proud of you! (Took {turns} turns)")
     
     def process_turn(self, target_vehicle: str, direction) -> bool:
-        """ Try to move a target vehicle in a direction. """
+        """ 
+        Try to move a target vehicle in a direction. 
+        """
         try:
             success = self.move_vehicle(target_vehicle, direction)
         except ValueError as verror:
@@ -97,7 +117,9 @@ class RushHour():
         return success
 
     def export_solution(self, output_name: str = "results/output.csv"):
-        """ Export the solution history to a CSV file. """
+        """ 
+        Export the solution history to a CSV file. 
+        """
         with open(output_name, 'w') as file:
             file.write("car,move\n")
             for id, direction in self.history:
@@ -105,10 +127,14 @@ class RushHour():
 
 
 class Board():
-    """ Creates a board to which cars and trucks can be added """
+    """ 
+    Creates a board to which cars and trucks can be added.
+    """
 
     def __init__(self, width: int) -> None:
-        """ Creates a empty board object with a width (6x6, 9x9, 12x12) and an exit. """
+        """ 
+        Creates a empty board object with a width (6x6, 9x9, 12x12) and an exit. 
+        """
         self.width = width
 
         self.board = []
@@ -121,12 +147,16 @@ class Board():
         self.vehicle_dict: dict[str, Car|Truck] = {}
     
     def print_board(self) -> None:
-        """ Prints the board. """
+        """ 
+        Prints the board. 
+        """
         for row in self.board:
             print(row)
     
     def add_vehicle(self, vehicle: Car|Truck) -> None:
-        """ Add a vehicle to the game board. """
+        """ 
+        Add a vehicle to the game board. 
+        """
         coordinates_to_add = vehicle.get_tiles_occupied()
         for col, row in coordinates_to_add:
             self.board[row - 1][col - 1] = vehicle
@@ -193,7 +223,9 @@ class Board():
         return True
     
     def move_vehicle(self, vehicle_id: str, direction: int) -> None:
-        """ Move a vehicle in the specified direction. """
+        """ 
+        Move a vehicle in the specified direction. 
+        """
         target_vehicle = self.vehicle_dict[vehicle_id]
 
         # remove the vehicle
@@ -208,7 +240,9 @@ class Board():
             self.board[row - 1][col - 1] = target_vehicle
     
     def is_won(self) -> bool:
-        """ Check if the game is won by checking the position of the red car. """
+        """ 
+        Check if the game is won by checking the position of the red car. 
+        """
         red_car = self.vehicle_dict["X"]
         if red_car.col == self.width - 1:
             return True
