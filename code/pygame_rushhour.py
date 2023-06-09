@@ -9,7 +9,6 @@ COLOR_NAMES = [name for name in THECOLORS.keys()]
 
 
 class PygameRushHour(RushHour):
-    # Example file showing a circle moving on screen
     def __init__(self, width: int, board_file: str) -> None:
         super().__init__(width, board_file)
 
@@ -21,7 +20,6 @@ class PygameRushHour(RushHour):
         self.clock = pygame.time.Clock()
         self.dt = 0
 
-        self.player_pos = pygame.Vector2(self.screen.get_width() / 2, self.screen.get_height() / 2)
         self.color_vehicles()
 
     
@@ -75,15 +73,16 @@ class PygameRushHour(RushHour):
                 pygame.draw.rect(self.screen, vehicle.color, vehicle_rect)
 
 
-            keys = pygame.key.get_pressed()
-            if keys[pygame.K_w]:
-                self.player_pos.y -= 300 * self.dt
-            if keys[pygame.K_s]:
-                self.player_pos.y += 300 * self.dt
-            if keys[pygame.K_a]:
-                self.player_pos.x -= 300 * self.dt
-            if keys[pygame.K_d]:
-                self.player_pos.x += 300 * self.dt
+            # TODO: clickable vehicles to move
+            # keys = pygame.key.get_pressed()
+            # if keys[pygame.K_w]:
+            #     self.player_pos.y -= 300 * self.dt
+            # if keys[pygame.K_s]:
+            #     self.player_pos.y += 300 * self.dt
+            # if keys[pygame.K_a]:
+            #     self.player_pos.x -= 300 * self.dt
+            # if keys[pygame.K_d]:
+            #     self.player_pos.x += 300 * self.dt
 
             # flip() the display to put your work on screen
             pygame.display.flip()
