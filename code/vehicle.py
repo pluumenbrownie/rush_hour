@@ -10,6 +10,7 @@ class Vehicle():
         self.col = col
         self.row = row
         self.size = 0
+        self.color = "None"
     
     def get_tiles_occupied(self) -> list[tuple[int, int]]:
         """Return a list of coordinate tuples occupied by the vehicle."""

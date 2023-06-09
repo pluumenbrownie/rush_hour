@@ -1,5 +1,11 @@
-from models import RushHour
 import pygame
+from pygame.colordict import THECOLORS
+import random as rd
+
+from models import RushHour
+
+
+COLOR_NAMES = [name for name in THECOLORS.keys()]
 
 
 class PygameRushHour(RushHour):
@@ -16,6 +22,17 @@ class PygameRushHour(RushHour):
         self.dt = 0
 
         self.player_pos = pygame.Vector2(self.screen.get_width() / 2, self.screen.get_height() / 2)
+        self.color_vehicles()
+
+    
+    def color_vehicles(self) -> None:
+        vehicles = self.get_vehicles()
+        for vehicle in vehicles.values():
+            if vehicle.id == "X":
+                vehicle.color = "red"
+            else:
+                vehicle.color = rd.choice(COLOR_NAMES)
+
 
     def start(self) -> None:
         running = True
@@ -52,8 +69,9 @@ class PygameRushHour(RushHour):
                 veh_y = board_start_top + (line_spacing * (tiles_occupied[0][1] - 1)) + car_margin
                 veh_width = line_spacing * (tiles_occupied[-1][0] - tiles_occupied[0][0] + 1) - 2 * car_margin
                 veh_height = line_spacing * (tiles_occupied[-1][1] - tiles_occupied[0][1] + 1) - 2 * car_margin
+
                 vehicle_rect = pygame.Rect(veh_x, veh_y, veh_width, veh_height)
-                pygame.draw.rect(self.screen, "blue", vehicle_rect)
+                pygame.draw.rect(self.screen, vehicle.color, vehicle_rect)
 
 
             keys = pygame.key.get_pressed()
