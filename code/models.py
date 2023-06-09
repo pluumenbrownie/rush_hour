@@ -68,24 +68,32 @@ class RushHour():
         turns = 0
         while not self.is_won():
             turns += 1
+            # get user input
             target_vehicle = input("What vehicle to move? ")
             direction = int(input("What direction? "))
-            try:
-                success = self.move_vehicle(target_vehicle, direction)
-            except ValueError as verror:
-                print(verror)
-                success = False
-            except KeyError:
-                print("Vehicle not found.")
-                continue
+
+            # process turn and show board
+            success = self.process_turn(target_vehicle, direction)
             if not success:
                 print("Move failed.")
-            else:
-                self.history.append((target_vehicle, direction))
             self.show_board()
 
         self.export_solution()
         print(f"You won! I'm so proud of you! (Took {turns} turns)")
+    
+    def process_turn(self, target_vehicle: str, direction) -> bool:
+        try:
+            success = self.move_vehicle(target_vehicle, direction)
+        except ValueError as verror:
+            print(verror)
+            success = False
+        except KeyError:
+            print("Vehicle not found.")
+            success = False
+
+        if success:
+            self.history.append((target_vehicle, direction))
+        return success
 
     def export_solution(self, output_name: str = "results/output.csv"):
         """ Export the solution history to a CSV file. """
