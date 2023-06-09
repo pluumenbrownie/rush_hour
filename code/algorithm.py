@@ -8,7 +8,7 @@ class Algorithm():
     def __init__(self, game: RushHour):
         self.game = game
         self.vehicles = game.get_vehicles()
-        self.vehicle_ids = self.vehicles.keys()
+        self.vehicle_ids = [id for id in self.vehicles.keys()]
         self.directions = [1, -1]
         
     def random_algorithm(self):
