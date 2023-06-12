@@ -1,6 +1,6 @@
 import random as rd
 
-from ..classes.models import RushHour as RushHour
+from classes.models import RushHour as RushHour
 
 
 class Algorithm():
