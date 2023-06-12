@@ -1,6 +1,7 @@
 import random as rd
-from vehicle import *
-from models import RushHour
+
+from ..classes.models import RushHour as RushHour
+
 
 class Algorithm():
     """ 
