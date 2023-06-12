@@ -61,7 +61,7 @@ class RushHour():
         Move a vehicle in the specified direction and return whether the move was successful.
         """
         move_viability = self.game_board.is_move_valid(vehicle_id, direction)
-        print("Can move:", move_viability)
+        #print("Can move:", move_viability)
         if move_viability:
             self.game_board.move_vehicle(vehicle_id, direction)
             return True
