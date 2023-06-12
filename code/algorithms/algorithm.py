@@ -17,7 +17,7 @@ class Algorithm():
         self.vehicle_ids = [id for id in self.vehicles.keys()]
         self.directions = [1, -1]
         
-    def random_algorithm(self):
+    def random_algorithm(self, export: bool = True):
         """ 
         Solves the rushhour game by selecing random cars and moves. 
         """
@@ -35,8 +35,11 @@ class Algorithm():
             if success:
                 success_counter += 1
         # Print the output of the game in output.csv
-        self.game.export_solution()
+        if export:
+            self.game.export_solution()
         print(f"It took the algorithm {counter} tries, {success_counter} of which were valid.")
+        return counter, success_counter
+
 
 # if __name__ == '__main__': 
 #     board_file = "gameboards/Rushhour6x6_1.csv"
