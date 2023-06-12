@@ -22,18 +22,21 @@ class Algorithm():
         Solves the rushhour game by selecing random cars and moves. 
         """
         counter = 0
+        success_counter = 0
         while not self.game.is_won():
             # Choose a random move
             move = rd.choice(self.directions)
             # choose a random car
             vehicle = rd.choice(self.vehicle_ids) 
             # move the car in the game
-            self.game.process_turn(vehicle, move)
+            success = self.game.process_turn(vehicle, move)
             # add counter 
             counter += 1 
+            if success:
+                success_counter += 1
         # Print the output of the game in output.csv
         self.game.export_solution()
-        print(f"It took the algorithm {counter} tries")
+        print(f"It took the algorithm {counter} tries, {success_counter} of which were valid.")
 
 # if __name__ == '__main__': 
 #     board_file = "gameboards/Rushhour6x6_1.csv"
