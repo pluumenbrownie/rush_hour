@@ -2,7 +2,7 @@ import pygame
 from pygame.colordict import THECOLORS
 import random as rd
 
-from models import RushHour
+from classes.models import RushHour
 
 
 COLOR_NAMES = [name for name in THECOLORS.keys()]
