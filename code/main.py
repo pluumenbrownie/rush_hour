@@ -11,7 +11,7 @@ if __name__ == '__main__':
     random_algorithm.random_algorithm()
     
     end_time = time.time()
-    print(f"The random algorithm took {end_time - start_time} seconds.")
+    print(f"The random algorithm took {end_time - start_time:.3f} seconds.")
     
 
     
