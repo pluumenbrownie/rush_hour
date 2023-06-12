@@ -31,10 +31,10 @@ class Algorithm():
         # Print the output of the game in output.csv
         self.game.export_solution()
 
-if __name__ == '__main__': 
-    board_file = "gameboards/Rushhour6x6_1.csv"
-    game =  RushHour(6, board_file)
-    solver = Algorithm(game)
-    solver.random_algorithm()
+# if __name__ == '__main__': 
+#     board_file = "gameboards/Rushhour6x6_1.csv"
+#     game =  RushHour(6, board_file)
+#     solver = Algorithm(game)
+#     solver.random_algorithm()
 
     
