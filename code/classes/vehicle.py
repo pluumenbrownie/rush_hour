@@ -45,6 +45,9 @@ class Vehicle():
         if len(self.id) > 1:
             return f"{self.id * 2}"
         return f"{(self.id + ' ') * 2}"
+    
+    def __hash__(self) -> int:
+        return hash((self.id, self.col, self.row))
 
 class Car(Vehicle):
     """ 
