@@ -3,27 +3,27 @@ from classes.models import RushHour
 import time
 import statistics as stat
 
-if __name__ == '__main__': 
-    
+
+def determine_random_solution(board_size: int, board: str, repeat: int = 1, export: bool = False):
     start_time = time.time()
 
     tries: list[int] = []
     moves: list[int] = []
-    repeat = 100
     for _ in range(repeat):
-        game = RushHour(9, "gameboards/Rushhour9x9_4.csv")
+        game = RushHour(board_size, f"gameboards/Rushhour{board}.csv")
         random_algorithm = Algorithm(game)
         t, m = random_algorithm.run_algorithm(export=False)
         tries.append(t)
         moves.append(m)
-        # usefull code do not remove
-        # if m == min(moves):
-        #     game.export_solution(output_name="results/output9x9_4_random.csv")
-    
+        
+        if export and m == min(moves):
+            game.export_solution(output_name=f"results/output{board}_random.csv")
+   
     end_time = time.time()
     print(f"The random algorithm took {end_time - start_time:.3f} seconds.")
 
     print(f"On average, in {repeat} games, took {round(stat.mean(tries))}±{round(stat.stdev(tries))} tries and {round(stat.mean(moves))}±{round(stat.stdev(moves))} succesfull moves.")
-    
 
-    
+
+if __name__ == '__main__': 
+    determine_random_solution(6, "6x6_1")
