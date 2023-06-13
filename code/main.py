@@ -9,7 +9,7 @@ if __name__ == '__main__':
 
     tries: list[int] = []
     moves: list[int] = []
-    repeat = 1000
+    repeat = 100
     for _ in range(repeat):
         game = RushHour(9, "gameboards/Rushhour9x9_4.csv")
         random_algorithm = Algorithm(game)
