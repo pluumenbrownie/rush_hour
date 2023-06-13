@@ -3,6 +3,7 @@ from classes.vehicle import *
 
 import math as mt
 import csv 
+import pickle
 
 class Move():
     """ 
@@ -49,6 +50,7 @@ class RushHour():
                 
         self.game_board.print_board()
         self.history: list[tuple[str, int]] = []
+        self.hash_set: set[int] = set()
     
     def show_board(self) -> None:
         """ 
@@ -64,6 +66,7 @@ class RushHour():
         #print("Can move:", move_viability)
         if move_viability:
             self.game_board.move_vehicle(vehicle_id, direction)
+            self.hash_set.add(self.get_board_hash())
             return True
         return False
     
@@ -87,6 +90,7 @@ class RushHour():
         while not self.is_won():
             turns += 1
             # get user input
+            print(f"Board hash: {self.get_board_hash()}")
             target_vehicle = input("What vehicle to move? ")
             direction = int(input("What direction? "))
 
@@ -124,6 +128,9 @@ class RushHour():
             file.write("car,move\n")
             for id, direction in self.history:
                 file.write(f"{id},{direction}\n")
+    
+    def get_board_hash(self) -> int:
+        return self.game_board.pickle_hash()
 
 
 class Board():
@@ -248,8 +255,8 @@ class Board():
             return True
         return False
 
-    def __hash__(self) -> int:
-        return hash(self.vehicle_dict)
+    def pickle_hash(self) -> int:
+        return hash(pickle.dumps(self.vehicle_dict))
     
 
 def count_statespace(width: int, board_file: str) -> int:

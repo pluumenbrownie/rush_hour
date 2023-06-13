@@ -26,4 +26,5 @@ def determine_random_solution(board_size: int, board: str, repeat: int = 1, expo
 
 
 if __name__ == '__main__': 
-    determine_random_solution(6, "6x6_1")
+    game = RushHour(6, "gameboards/Rushhour6x6_test.csv")
+    game.start_game()
