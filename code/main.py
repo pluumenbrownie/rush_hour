@@ -20,7 +20,7 @@ if __name__ == '__main__':
     end_time = time.time()
     print(f"The random algorithm took {end_time - start_time:.3f} seconds.")
 
-    print(f"On average, in {repeat} games, took {stat.mean(tries)}±{stat.stdev(tries)} tries and {stat.mean(moves)}±{stat.stdev(moves)} succesfull moves.")
+    print(f"On average, in {repeat} games, took {round(stat.mean(tries))}±{round(stat.stdev(tries))} tries and {round(stat.mean(moves))}±{round(stat.stdev(moves))} succesfull moves.")
     
 
     
