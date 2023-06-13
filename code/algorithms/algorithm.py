@@ -17,17 +17,17 @@ class Algorithm():
         self.vehicle_ids = [id for id in self.vehicles.keys()]
         self.directions = [1, -1]
         
-    def random_algorithm(self, export: bool = True):
+    def run_algorithm(self, export: bool = True):
         """ 
         Solves the rushhour game by selecing random cars and moves. 
         """
         counter = 0
         success_counter = 0
         while not self.game.is_won():
-            # Choose a random move
-            move = rd.choice(self.directions)
             # choose a random car
-            vehicle = rd.choice(self.vehicle_ids) 
+            vehicle = self.choose_vehicle() 
+            # Choose a random move
+            move = self.choose_direction()
             # move the car in the game
             success = self.game.process_turn(vehicle, move)
             # add counter 
@@ -39,6 +39,18 @@ class Algorithm():
             self.game.export_solution()
         print(f"It took the algorithm {counter} tries, {success_counter} of which were valid.")
         return counter, success_counter
+
+    def choose_direction(self):
+        """
+        Choose vehicle to move by randomly selecting from list of available cars.
+        """
+        return rd.choice(self.directions)
+
+    def choose_vehicle(self):
+        """
+        Choose move direction by randomly selecting from list of available directions.
+        """
+        return rd.choice(self.vehicle_ids)
 
 
 # if __name__ == '__main__': 

@@ -9,18 +9,21 @@ if __name__ == '__main__':
 
     tries: list[int] = []
     moves: list[int] = []
-    repeat = 1
+    repeat = 100
     for _ in range(repeat):
-        game = RushHour(12, "gameboards/Rushhour12x12_7.csv")
+        game = RushHour(9, "gameboards/Rushhour9x9_4.csv")
         random_algorithm = Algorithm(game)
-        t, m = random_algorithm.random_algorithm(export=False)
+        t, m = random_algorithm.run_algorithm(export=False)
         tries.append(t)
         moves.append(m)
+        # usefull code do not remove
+        # if m == min(moves):
+        #     game.export_solution(output_name="results/output9x9_4_random.csv")
     
     end_time = time.time()
     print(f"The random algorithm took {end_time - start_time:.3f} seconds.")
 
-    print(f"On average, in {repeat} games, took {stat.mean(tries)}±{stat.stdev(tries)} tries and {stat.mean(moves)}±{stat.stdev(moves)} succesfull moves.")
+    print(f"On average, in {repeat} games, took {round(stat.mean(tries))}±{round(stat.stdev(tries))} tries and {round(stat.mean(moves))}±{round(stat.stdev(moves))} succesfull moves.")
     
 
     
