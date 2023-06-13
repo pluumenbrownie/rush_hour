@@ -9,15 +9,15 @@ if __name__ == '__main__':
 
     tries: list[int] = []
     moves: list[int] = []
-    repeat = 100
+    repeat = 1000
     for _ in range(repeat):
-        game = RushHour(12, "gameboards/Rushhour12x12_7.csv")
+        game = RushHour(9, "gameboards/Rushhour9x9_4.csv")
         random_algorithm = Algorithm(game)
-        t, m = random_algorithm.random_algorithm(export=False)
-        if m < min(moves):
-            game.export_solution()
+        t, m = random_algorithm.run_algorithm(export=False)
         tries.append(t)
         moves.append(m)
+        if m == min(moves):
+            game.export_solution(output_name="results/output9x9_4_random.csv")
     
     end_time = time.time()
     print(f"The random algorithm took {end_time - start_time:.3f} seconds.")
