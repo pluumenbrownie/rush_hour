@@ -34,11 +34,4 @@ class Algorithm():
         # Print the output of the game in output.csv
         self.game.export_solution()
         print(f"It took the algorithm {counter} tries")
-
-# if __name__ == '__main__': 
-#     board_file = "gameboards/Rushhour6x6_1.csv"
-#     game =  RushHour(6, board_file)
-#     solver = Algorithm(game)
-#     solver.random_algorithm()
-
     
