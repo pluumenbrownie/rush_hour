@@ -16,8 +16,9 @@ if __name__ == '__main__':
         t, m = random_algorithm.run_algorithm(export=False)
         tries.append(t)
         moves.append(m)
-        if m == min(moves):
-            game.export_solution(output_name="results/output9x9_4_random.csv")
+        # usefull code do not remove
+        # if m == min(moves):
+        #     game.export_solution(output_name="results/output9x9_4_random.csv")
     
     end_time = time.time()
     print(f"The random algorithm took {end_time - start_time:.3f} seconds.")
