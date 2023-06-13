@@ -14,6 +14,8 @@ if __name__ == '__main__':
         game = RushHour(12, "gameboards/Rushhour12x12_7.csv")
         random_algorithm = Algorithm(game)
         t, m = random_algorithm.random_algorithm(export=False)
+        if m < min(moves):
+            game.export_solution()
         tries.append(t)
         moves.append(m)
     
