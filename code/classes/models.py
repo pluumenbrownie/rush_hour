@@ -247,6 +247,9 @@ class Board():
         if red_car.col == self.width - 1:
             return True
         return False
+
+    def __hash__(self) -> int:
+        return hash(self.vehicle_dict)
     
 
 def count_statespace(width: int, board_file: str) -> int:
