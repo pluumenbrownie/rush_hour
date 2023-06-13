@@ -33,16 +33,16 @@ class RushHour():
                 if header:
                     header = False
                     continue
-                id = line[0].strip()
+                veh_id = line[0].strip()
                 orientation = line[1]
                 col = int(line[2])
                 row = int(line[3])
                 length = int(line[4])
                 # print(id, orientation, col, row, length)
                 if length == 2:
-                    new_vehicle = Car(id, orientation, col, row)
+                    new_vehicle = Car(veh_id, orientation, col, row)
                 elif length == 3:
-                    new_vehicle = Truck(id, orientation, col, row)
+                    new_vehicle = Truck(veh_id, orientation, col, row)
                 else:
                     raise ValueError("Vehicle can only be length 2 or 3.")
                 self.game_board.add_vehicle(new_vehicle)
