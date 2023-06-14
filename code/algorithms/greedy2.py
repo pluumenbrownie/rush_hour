@@ -1,4 +1,3 @@
-import copy
 import random as rd
 
 # from algorithms.algorithm import Algorithm
@@ -12,36 +11,40 @@ class Greedy2():
     def __init__(self, game: RushHour):
         self.game = game 
         self.vehicles = game.get_vehicles()
+        self.vehicle_ids = [id for id in self.vehicles.keys()]
+        self.directions = [1, -1]
 
     def solve(self):
-    # Uses the random algorithm and a heuristic to get a better algorithm
+    # Uses the greedy algorithm and a heuristic to get a better algorithm
 
         # Loop through the game as long as the game isn't won
+        red_car = "X"
         counter = 0 
+        random_moves = 0 
         while not self.game.is_won():  
             # Best move is to move the red car to the right
-            # Check if the red car can move to the exit
-            if self.can_red_move(): 
-                success = self.process_turn('X', 1)
+            # Check if the red car can move to the exit and if so, move the red car to the exit 
+            success = self.game.process_turn('X', 1)
+            if success: 
                 counter += 1 
-                break
             
-            # Second best move is to move a car that is blocking the red car
-            # Check if you can move a vehicle blocking the red car
-            blocking_vehicles = self.find_blocking_vehicles()
-            closest_blocking_vehicle = self.find_closest_blocking_vehicle(blocking_vehicles)
-            if self.can_blocker_move(closest_blocking_vehicle): 
-                success = self.process_turn(closest_blocking_vehicle, 1)
-                counter += 1 
-                break 
+            # Second best move is to move a vehicle that is blocking the red car
+            # Check if you can move a vehicle blocking the red car and if so, move the vehicle 
+            closest_blocking_vehicle = self.find_closest_blocking_vehicle(red_car)
+            # For now, it's a random direction 
+            direction = self.choose_direction()
+            success2 = self.game.process_turn(closest_blocking_vehicle, direction)
+            if success2:  
+                counter += 1  
             
             # Third best move is to move a car that is blocking a car that is blocking the red car
-            second_closest_blocking_vehicle = self.find_second_closest_blocking_vehicle(closest_blocking_vehicle)
-            if self.can_blocker_move(second_closest_blocking_vehicle): 
-                success = self.process_turn(second_closest_blocking_vehicle, 1)
+            second_closest_blocking_vehicle = self.find_closest_blocking_vehicle(closest_blocking_vehicle)
+            # For now, it's a random direction 
+            direction = self.choose_direction()
+            success3 = self.game.process_turn(second_closest_blocking_vehicle, direction)
+            if success3:
                 counter += 1 
-                break 
-              
+                          
             # Otherwise pick a random vehicle and a random move 
             else: 
                 # choose a random vehicle
@@ -49,35 +52,20 @@ class Greedy2():
                 # Choose a random move
                 move = self.choose_direction()
                 # move the vehicle in the game
-                success = self.game.process_turn(vehicle, move)
+                success4 = self.game.process_turn(vehicle, move)
+                if success4: 
+                    counter += 1 
+                    random_moves += 1
+
                     
         # Print the output
-        print(f"It took the algorithm {counter} tries")
+        print(f"It took the algorithm {counter} tries. {random_moves} of those were random")
 
 
-    def can_red_move(self):
-        """
-        Checks whether red car can move towards the exit 
-        """
-        target_vehicle = "X"
-        direction = 1 
-        move_viability = self.game_board.is_move_valid(target_vehicle, direction)
-        if move_viability: 
-            return True
-
-        return False 
-    
-    def can_blocker_move(self, blocker): 
-        """
-        Checks whether a vehicle that's blocking the red car can move 
-        """
-        return self.game.is_move_valid(blocker, 1) 
-
-    def find_closest_blocking_vehicle(self):
+    def find_closest_blocking_vehicle(self, target_vehicle):
         """
         Of all the vehicles that are blocking the red car, find the closest to the vehicle 
         """
-        target_vehicle = "X"
         blocking_vehicles = self.find_blocking_vehicles(target_vehicle)
 
         closest_vehicle = None
@@ -93,34 +81,18 @@ class Greedy2():
         
         return closest_vehicle
     
-    def find_second_closest_blocking_vehicle(self, closest_vehicle):
-        red_car_position = self.find_car_position('R')
-        
-        second_closest_blocking_vehicle = None
-        second_closest_distance = float('inf')
-        
-        for row, row_vals in enumerate(self.board):
-            for col, val in enumerate(row_vals):
-                if val != '-' and val != 'R' and val != closest_vehicle:
-                    if row == red_car_position[0] and col > red_car_position[1]:
-                        distance = col - red_car_position[1]
-                        if distance < second_closest_distance:
-                            second_closest_blocking_vehicle = val
-                            second_closest_distance = distance
-        
-        return second_closest_blocking_vehicle
     
     def find_vehicle_position(self, vehicle):
         """
         Find the position of a vehicle 
         """
-        for row in range(len(self.board)):
-            for col in range(len(self.board[row])):
-                if self.board[row][col] == vehicle:
+        for row in range(self.game.game_board.width):
+            for col in range(self.game.game_board.width):
+                if self.game.game_board.board[row][col] == vehicle:
                     return (row, col)
         
         return None
-
+    
 
     def find_blocking_vehicles(self, target_car):
         """
@@ -128,16 +100,19 @@ class Greedy2():
         """
         blocking_vehicles = []
         target_car_position = self.find_vehicle_position(target_car)
+
+        if target_car_position is None:
+            return blocking_vehicles
         
-        for row in range(len(self.game)):
-            for col in range(len(self.game[row])):
-                if self.game[row][col] != '-' and self.game[row][col] != target_car:
+        for row in range(self.game.game_board.width):
+            for col in range(self.game.game_board.width):
+                if self.game.game_board.board[row][col] is not None and self.game.game_board.board[row][col] != target_car:
                     if row == target_car_position[0] and col > target_car_position[1]:
-                        blocking_vehicles.append(self.board[row][col])
+                        blocking_vehicles.append(self.game.game_board[row][col])
         
         print(f"Blocking vehicle: {blocking_vehicles}")
         return blocking_vehicles
-    
+
 
     def choose_direction(self):
         """
@@ -153,7 +128,6 @@ class Greedy2():
         """
         return rd.choice(self.vehicle_ids)
 
-
 # --------------------------------------------------------------------------------------------------------#
     # Heuristics:
     # Best move is to move the red car to the right
@@ -164,10 +138,3 @@ class Greedy2():
     # -> state of the board serializing into a tuple.. (Use to hash)
     # numpy overwegen 
 
-if __name__ == '__main__': 
-    board_file = "gameboards/Rushhour6x6_1.csv"
-    game =  RushHour(6, board_file)
-    solver = Greedy2(game)
-    solver.solve()
-
-    
