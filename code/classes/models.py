@@ -8,7 +8,7 @@ class Move():
     """ 
     A move performed by a car. 
     """
-    
+
     def __init__(self, target_id: str, direction: tuple[str, int]) -> None:
         """ 
         Initialize a move with the target vehicle ID and direction. 

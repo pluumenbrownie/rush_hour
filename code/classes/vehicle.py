@@ -47,6 +47,9 @@ class Vehicle():
         return f"{(self.id + ' ') * 2}"
     
     def __hash__(self) -> int:
+        """
+        Return a hash of the tuple.
+        """
         return hash((self.id, self.col, self.row))
 
 class Car(Vehicle):
