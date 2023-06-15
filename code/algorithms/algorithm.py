@@ -14,7 +14,7 @@ class Algorithm():
         """
         self.game = game
         self.vehicles = game.get_vehicles()
-        self.vehicle_ids = [id for id in self.vehicles.keys()]
+        self.vehicle_ids = game.get_vehicle_ids()
         self.directions = [1, -1]
         
     def run_algorithm(self, export: bool = True) -> tuple[int, int]:
