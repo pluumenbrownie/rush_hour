@@ -2,7 +2,8 @@ from typing import Any
 
 class Vehicle(): 
     """ 
-    Add a description of a vehicle. 
+    A base class for the Car and Vehicle classes containing shared methods 
+    and variables. Do not use seperately.
     """
 
     def __init__(self, id: str, orientation: Any, col: int, row: int) -> None:
