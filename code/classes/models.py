@@ -117,7 +117,7 @@ class RushHour():
             self.history.append((target_vehicle, direction))
         return success
 
-    def export_solution(self, output_name: str = "results/output.csv"):
+    def export_solution(self, output_name: str = "results/output.csv") -> None:
         """ 
         Export the solution history to a CSV file. 
         """
