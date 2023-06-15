@@ -5,17 +5,6 @@ import math as mt
 import csv 
 import pickle
 
-class Move():
-    """ 
-    A move performed by a car. 
-    """
-
-    def __init__(self, target_id: str, direction: tuple[str, int]) -> None:
-        """ 
-        Initialize a move with the target vehicle ID and direction. 
-        """
-        self.target_id = target_id
-        self.direction = direction
 
 class RushHour():
     """ 
