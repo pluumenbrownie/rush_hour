@@ -1,5 +1,6 @@
 from algorithms.algorithm import Algorithm
 from algorithms.greedy2 import Greedy2
+from algorithms.greedy3 import Greedy3
 from classes.models import RushHour
 import time
 import statistics as stat
@@ -28,6 +29,9 @@ def determine_random_solution(board_size: int, board: str, repeat: int = 1, expo
 
 if __name__ == '__main__': 
     game = RushHour(6, "gameboards/Rushhour6x6_test.csv")
+    # game = RushHour(6, "gameboards/Rushhour6x6_1.csv")
+    # game = RushHour(12, "gameboards/Rushhour12x12_7.csv")
+
     
     # Run this if you want to play the game yourself
     # game.start_game()
@@ -37,5 +41,9 @@ if __name__ == '__main__':
     # random_algorithm.run_algorithm()
 
     # Run this if you want to run the greedy2 (Dionne's implementation) algorithm
-    greedy2_algorithm = Greedy2(game)
-    greedy2_algorithm.solve()
+    # greedy2_algorithm = Greedy2(game)
+    # greedy2_algorithm.solve()
+
+     # Run this if you want to run the greedy3 (Dionne's implementation) algorithm
+    greedy3_algorithm = Greedy3(game)
+    greedy3_algorithm.solve()
