@@ -41,9 +41,9 @@ if __name__ == '__main__':
     # random_algorithm.run_algorithm()
 
     # Run this if you want to run the greedy2 (Dionne's implementation) algorithm
-    # greedy2_algorithm = Greedy2(game)
-    # greedy2_algorithm.solve()
+    greedy2_algorithm = Greedy2(game)
+    greedy2_algorithm.solve()
 
      # Run this if you want to run the greedy3 (Dionne's implementation) algorithm
-    greedy3_algorithm = Greedy3(game)
-    greedy3_algorithm.solve()
+    # greedy3_algorithm = Greedy3(game)
+    # greedy3_algorithm.solve()
