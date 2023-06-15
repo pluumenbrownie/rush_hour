@@ -70,6 +70,12 @@ class RushHour():
         Returns a dict with the Vehicle object in the game. 
         """
         return self.game_board.vehicle_dict
+    
+    def get_vehicle_ids(self) -> list[str]:
+        """
+        Returns a list with the ids of all vehicles placed on the board.
+        """
+        return [id for id in self.game_board.vehicle_dict.keys()]
 
     def start_game(self) -> None:
         """ 
@@ -95,6 +101,8 @@ class RushHour():
     def process_turn(self, target_vehicle: str, direction) -> bool:
         """ 
         Try to move a target vehicle in a direction. 
+
+        `target_vehicle` should be a vehicle id from `.get_vehicles().keys()`
         """
         try:
             success = self.move_vehicle(target_vehicle, direction)
