@@ -54,6 +54,6 @@ if __name__ == '__main__':
     # greedy3_algorithm = Greedy3(game)
     # greedy3_algorithm.solve()
     board = "6x6_1"
-    determine_random_solution(6, board, 100)
+    determine_random_solution(6, board, 2000)
     histogram_plot(board)
     
