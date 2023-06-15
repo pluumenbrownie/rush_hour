@@ -1,11 +1,11 @@
 import pygame
-from pygame.colordict import THECOLORS
+from visualisation.customcolors import COLORS
 import random as rd
 
 from classes.models import RushHour
 
 
-COLOR_NAMES = [name for name in THECOLORS.keys()]
+COLOR_NAMES = [name for name in COLORS.keys()]
 
 
 class PygameRushHour(RushHour):
@@ -28,17 +28,20 @@ class PygameRushHour(RushHour):
         # Give vehicles a color 
         self.color_vehicles()
 
-    
     def color_vehicles(self) -> None:
         """ 
         Assign colors to the vehicles. 
         """
         vehicles = self.get_vehicles()
-
+        
+        red_used = False
+        
         # Assign vehicles a color
         for vehicle in vehicles.values():
-            if vehicle.id == "X":
+            if vehicle.id == "X" and not red_used:
                 vehicle.color = "red"
+                red_used = True
+                COLOR_NAMES.remove("red")                
             else:
                 vehicle.color = rd.choice(COLOR_NAMES)
 
