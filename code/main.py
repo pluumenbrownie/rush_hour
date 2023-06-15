@@ -28,7 +28,11 @@ def determine_random_solution(board_size: int, board: str, repeat: int = 1, expo
 
     print(f"On average, in {repeat} games, took {round(stat.mean(tries))}±{round(stat.stdev(tries))} tries and {round(stat.mean(moves))}±{round(stat.stdev(moves))} succesfull moves.")
 
-
+    with open(f"results/random_moves_{board}.csv", 'w') as file:
+        file.write("tries\n")
+        for value in tries:
+            file.write(f"{value}\n")
+        
 if __name__ == '__main__': 
     game = RushHour(6, "gameboards/Rushhour6x6_test.csv")
     # game = RushHour(6, "gameboards/Rushhour6x6_1.csv")
@@ -49,5 +53,7 @@ if __name__ == '__main__':
      # Run this if you want to run the greedy3 (Dionne's implementation) algorithm
     # greedy3_algorithm = Greedy3(game)
     # greedy3_algorithm.solve()
-    histogram_plot()
+    board = "6x6_1"
+    determine_random_solution(6, board, 100)
+    histogram_plot(board)
     
