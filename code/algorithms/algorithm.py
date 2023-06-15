@@ -8,16 +8,16 @@ class Algorithm():
     A class to use algorithms to solve the game. 
     """
     
-    def __init__(self, game: RushHour):
+    def __init__(self, game: RushHour) -> None:
         """ 
         Initializes an algorithm with target vehicle id, directions and the rushhour game. 
         """
         self.game = game
         self.vehicles = game.get_vehicles()
-        self.vehicle_ids = [id for id in self.vehicles.keys()]
+        self.vehicle_ids = game.get_vehicle_ids()
         self.directions = [1, -1]
         
-    def run_algorithm(self, export: bool = True):
+    def run_algorithm(self, export: bool = True) -> tuple[int, int]:
         """ 
         Solves the rushhour game by selecing random cars and moves. 
         """
@@ -40,13 +40,13 @@ class Algorithm():
         print(f"It took the algorithm {counter} tries, {success_counter} of which were valid.")
         return counter, success_counter
 
-    def choose_direction(self):
+    def choose_direction(self) -> int:
         """
         Choose vehicle to move by randomly selecting from list of available cars.
         """
         return rd.choice(self.directions)
 
-    def choose_vehicle(self):
+    def choose_vehicle(self) -> str:
         """
         Choose move direction by randomly selecting from list of available directions.
         """
