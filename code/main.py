@@ -1,6 +1,7 @@
 from algorithms.algorithm import Algorithm
 from algorithms.greedy2 import Greedy2
 from algorithms.greedy3 import Greedy3
+from algorithms.random import Random
 from classes.models import RushHour
 from visualisation.histogram import histogram_plot
 
@@ -15,8 +16,8 @@ def determine_random_solution(board_size: int, board: str, repeat: int = 1, expo
     moves: list[int] = []
     for _ in range(repeat):
         game = RushHour(board_size, f"gameboards/Rushhour{board}.csv")
-        random_algorithm = Algorithm(game)
-        t, m = random_algorithm.run_algorithm(export=False)
+        random_algorithm = Random(game)
+        t, m = random_algorithm.solve(export=False)
         tries.append(t)
         moves.append(m)
         
@@ -43,23 +44,14 @@ if __name__ == '__main__':
     # game.start_game()
 
     # Run this if you want to run the random algorithm
-    random_algorithm = Algorithm(game)
-    random_algorithm.run_algorithm()
+    random_algorithm = Random(game)
+    random_algorithm.solve()
 
     # Run this if you want to run the greedy2 (Dionne's implementation) algorithm
     # greedy2_algorithm = Greedy2(game)
     # greedy2_algorithm.solve()
 
      # Run this if you want to run the greedy3 (Dionne's implementation) algorithm
-<<<<<<< HEAD
     greedy3_algorithm = Greedy3(game)
     greedy3_algorithm.solve()
 
-=======
-    # greedy3_algorithm = Greedy3(game)
-    # greedy3_algorithm.solve()
-    board = "6x6_1"
-    determine_random_solution(6, board, 2000)
-    histogram_plot(board)
-    
->>>>>>> 35878a3deb8468cbd451a63812b7ade0a801a858

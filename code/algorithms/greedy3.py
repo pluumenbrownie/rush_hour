@@ -13,7 +13,7 @@ class Greedy3(Algorithm):
     If that's not the case, it selects a random move. 
     """
 
-    def run_algorithm(self) -> tuple[int, int, int, int, int]: 
+    def solve(self) -> tuple[int, int, int, int, int]: 
     # Uses the greedy algorithm and a heuristic to get a better algorithm
 
         # Loop through the game as long as the game isn't won

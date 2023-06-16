@@ -17,29 +17,6 @@ class Algorithm():
         self.vehicle_ids = game.get_vehicle_ids()
         self.directions = [1, -1]
         
-    def run_algorithm(self, export: bool = True) -> tuple[int, int]:
-        """ 
-        Solves the rushhour game by selecing random cars and moves. 
-        """
-        counter = 0
-        success_counter = 0
-        while not self.game.is_won():
-            # choose a random car
-            vehicle = self.choose_vehicle() 
-            # Choose a random move
-            move = self.choose_direction()
-            # move the car in the game
-            success = self.game.process_turn(vehicle, move)
-            # add counter 
-            counter += 1 
-            if success:
-                success_counter += 1
-        # Print the output of the game in output.csv
-        if export:
-            self.game.export_solution()
-        print(f"It took the algorithm {counter} tries, {success_counter} of which were valid.")
-        return counter, success_counter
-
     def choose_direction(self) -> int:
         """
         Choose vehicle to move by randomly selecting from list of available cars.
