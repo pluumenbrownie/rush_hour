@@ -1,9 +1,10 @@
 import random as rd
 
-# from algorithms.algorithm import Algorithm
+from algorithms.algorithm import Algorithm
 from classes.models import RushHour as RushHour
+from classes.vehicle import * 
 
-class Greedy3():
+class Greedy3(Algorithm):
     """ 
     This class assigns the best possible option to each car. 
     It first checks if it can move the red car. 
@@ -12,13 +13,7 @@ class Greedy3():
     If that's not the case, it selects a random move. 
     """
 
-    def __init__(self, game: RushHour):
-        self.game = game 
-        self.vehicles = game.get_vehicles()
-        self.vehicle_ids = [id for id in self.vehicles.keys()]
-        self.directions = [1, -1]
-
-    def solve(self):
+    def solve(self) -> tuple[int, int, int, int, int]: 
     # Uses the greedy algorithm and a heuristic to get a better algorithm
 
         # Loop through the game as long as the game isn't won
@@ -39,26 +34,37 @@ class Greedy3():
             
             # Second best move is to move a vehicle that is blocking the red car
             # Check if you can move a vehicle blocking the red car and if so, move the vehicle 
-            closest_blocking_vehicle = self.find_blocking_vehicles(red_car)
-            # For now, it's a random direction 
-            direction = self.choose_direction()
-            success2 = self.game.process_turn(closest_blocking_vehicle, direction)
-            if success2:  
+            closest_blocking_vehicle = self.find_blocking_vehicle(red_car)
+            move = self.game.game_board.is_move_valid(closest_blocking_vehicle[id], 1)
+            if move == True: 
+                success2 = self.game.process_turn(closest_blocking_vehicle, 1)
+                counter += 1  
+                second_choice_moves += 1 
+            else: 
+                success2 = self.game.process_turn(closest_blocking_vehicle, -1)
                 counter += 1  
                 second_choice_moves += 1 
             
             # Third best move is to move a car that is blocking a car that is blocking the red car
-            second_closest_blocking_vehicle = self.find_blocking_vehicles(closest_blocking_vehicle)
-            
-            # For now, it's a random direction 
-            direction = self.choose_direction()
-            success3 = self.game.process_turn(second_closest_blocking_vehicle, direction)
-            if success3:
-                counter += 1 
-                third_choice_moves += 1
+            if success2 is False: 
+                second_closest_blocking_vehicle = self.find_blocking_vehicle(closest_blocking_vehicle)
+                move1 = self.game.game_board.is_move_valid(second_closest_blocking_vehicle[id], 1)
+                move2 = self.game.game_board.is_move_valid(second_closest_blocking_vehicle[id], -1)
+
+                if move1: 
+                    success3 = self.game.process_turn(closest_blocking_vehicle, 1)
+                    counter += 1  
+                    third_choice_moves += 1 
+                elif move2: 
+                    success3 = self.game.process_turn(closest_blocking_vehicle, -1)
+                    counter += 1  
+                    third_choice_moves += 1 
+                else: 
+                    success3 = False
+                # Add something that success3 is otherwise False 
                           
             # Otherwise pick a random vehicle and a random move 
-            else: 
+            if success3 is False: 
                 # choose a random vehicle
                 vehicle = self.choose_vehicle() 
                 # Choose a random move
@@ -75,57 +81,23 @@ class Greedy3():
         print(f"First choice moves: {first_choice_moves}.")
         print(f"Second choice moves: {second_choice_moves}.")
         print(f"Third choice moves: {third_choice_moves}.")
-        print(f"Random moves: {random_moves}.")    
-    
-    def find_vehicle_position(self, vehicle):
-        """
-        Find the position of a vehicle 
-        """
-        for row in range(self.game.game_board.width):
-            for col in range(self.game.game_board.width):
-                if self.game.game_board.board[row][col] == vehicle:
-                    return (row, col)
-        
-        return None
+        print(f"Random moves: {random_moves}.")
+
+        return counter, first_choice_moves, second_choice_moves, third_choice_moves, random_moves
     
 
-    def find_blocking_vehicles(self, target_car):
+    def find_blocking_vehicle(self, target_car: Car|Truck) -> Car|Truck:
         """
         Find the vehicles that are blocking the red car 
         """
-        blocking_vehicles = []
-        target_car_position = self.find_vehicle_position(target_car)
+        target_tiles = set(self.get_tiles_occupied())
+        for vehicle in self.vehicles:
+        if vehicle != self:
+            occupied_tiles = set(self.get_tiles_occupied())
+            if target_tiles.intersection(occupied_tiles):
+                return vehicle
+        return None
 
-        if target_car_position is None:
-            return blocking_vehicles
-        
-        for row in range(self.game.game_board.width):
-            for col in range(self.game.game_board.width):
-                if self.game.game_board.board[row][col] is not None and self.game.game_board.board[row][col] != target_car:
-                    if row == target_car_position[0] and col > target_car_position[1]:
-                        print(f"Before: {blocking_vehicles}")
-                        blocking_vehicles.append(self.game.game_board[row][col])
-                        print(f"After: {blocking_vehicles}")
-
-        
-        print(f"Blocking vehicle: {blocking_vehicles}")
-        # Only return the first vehicle in the list 
-        return blocking_vehicles[0]
-
-
-    def choose_direction(self):
-        """
-        Choose vehicle to move by randomly selecting from list of available cars.
-        This method was copied from random algorithm 
-        """
-        return rd.choice(self.directions)
-
-    def choose_vehicle(self):
-        """
-        Choose move direction by randomly selecting from list of available directions.
-        This method was copied from random algorithm 
-        """
-        return rd.choice(self.vehicle_ids)
 
 # --------------------------------------------------------------------------------------------------------#
     # Heuristics:
