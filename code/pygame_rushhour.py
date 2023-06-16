@@ -126,6 +126,6 @@ class PygameRushHour(RushHour):
         pygame.quit()
 
 if __name__ == '__main__':
-    board_file = "gameboards/Rushhour12x12_7.csv"
-    newgame = PygameRushHour(12, board_file)
+    board_file = "gameboards/Rushhour6x6_1.csv"
+    newgame = PygameRushHour(6, board_file)
     newgame.start()

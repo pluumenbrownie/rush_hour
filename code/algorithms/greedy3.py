@@ -92,11 +92,11 @@ class Greedy3(Algorithm):
         """
         target_tiles = set(self.get_tiles_occupied())
         for vehicle in self.vehicles:
-        if vehicle != self:
-            occupied_tiles = set(self.get_tiles_occupied())
-            if target_tiles.intersection(occupied_tiles):
-                return vehicle
-        return None
+            if vehicle != self:
+                occupied_tiles = set(self.get_tiles_occupied())
+                if target_tiles.intersection(occupied_tiles):
+                    return vehicle
+            return None
 
 
 # --------------------------------------------------------------------------------------------------------#
