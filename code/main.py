@@ -34,7 +34,9 @@ def determine_random_solution(board_size: int, board: str, repeat: int = 1, expo
         for value in tries:
             file.write(f"{value}\n")
         
-if __name__ == '__main__': 
+if __name__ == '__main__':
+    
+     
     game = RushHour(6, "gameboards/Rushhour6x6_test.csv")
     # game = RushHour(6, "gameboards/Rushhour6x6_1.csv")
     # game = RushHour(12, "gameboards/Rushhour12x12_7.csv")
@@ -51,7 +53,12 @@ if __name__ == '__main__':
     # greedy2_algorithm = Greedy2(game)
     # greedy2_algorithm.solve()
 
-     # Run this if you want to run the greedy3 (Dionne's implementation) algorithm
+    # Run this if you want to run the greedy3 (Dionne's implementation) algorithm
     greedy3_algorithm = Greedy3(game)
     greedy3_algorithm.solve()
+    
+    # Make a plot of an histogram
+    board = "6x6_1"
+    determine_random_solution(6, board, 2000)
+    histogram_plot(board)
 

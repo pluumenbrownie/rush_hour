@@ -34,14 +34,10 @@ class PygameRushHour(RushHour):
         """
         vehicles = self.get_vehicles()
         
-        red_used = False
-        
         # Assign vehicles a color
         for vehicle in vehicles.values():
-            if vehicle.id == "X" and not red_used:
-                vehicle.color = "red"
-                red_used = True
-                COLOR_NAMES.remove("red")
+            if vehicle.id == "X":
+                vehicle.color = "red"                
             else:
                 vehicle.color = rd.choice(COLOR_NAMES)
 
