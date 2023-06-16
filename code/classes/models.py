@@ -77,7 +77,7 @@ class RushHour():
         """
         return [id for id in self.game_board.vehicle_dict.keys()]
     
-    def get_vehicle_from_location(self, row: int, col: int) -> Car|Truck:
+    def get_vehicle_from_location(self, row: int, col: int) -> None|Car|Truck:
         """
         Get the vehicle that's in a certain location
         """
@@ -172,7 +172,7 @@ class Board():
             self.board[row - 1][col - 1] = vehicle
         self.vehicle_dict[vehicle.id] = vehicle
 
-    def get_vehicle_from_location(self, row: int, col: int) -> Car|Truck:
+    def get_vehicle_from_location(self, row: int, col: int) -> None|Car|Truck:
         """
         Get the vehicle that's in a certain location
         """
