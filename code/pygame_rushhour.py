@@ -41,7 +41,7 @@ class PygameRushHour(RushHour):
             if vehicle.id == "X" and not red_used:
                 vehicle.color = "red"
                 red_used = True
-                COLOR_NAMES.remove("red")                
+                COLOR_NAMES.remove("red")
             else:
                 vehicle.color = rd.choice(COLOR_NAMES)
 
