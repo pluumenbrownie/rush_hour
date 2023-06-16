@@ -31,18 +31,34 @@ class Algorithm():
         return rd.choice(self.vehicle_ids)
 
 
-    def find_blocking_vehicle(self, target_car: Car|Truck) -> Car|Truck:
+    def find_blocking_vehicle(self, target_car: Car|Truck, direction: int) -> Car|Truck:
         """
         Find the vehicles that are blocking the red car 
+        Pre: get red car
+        Post: get blocking car 
         """
-        target_tiles = set(self.get_tiles_occupied())
-        for vehicle in self.vehicles:
-        if vehicle != self:
-            occupied_tiles = set(self.get_tiles_occupied())
-            if target_tiles.intersection(occupied_tiles):
-                return vehicle
-        return None
+        # Get position of target car
+        vehicle = self.vehicles[target_car.id]
+        row = vehicle.row
+        col = vehicle.col
+        orientation = vehicle.orientation
 
+        # If the car is horizontal, look at the row + 1 
+        if orientation == "H": 
+             # Get the car who's blocking the red car 
+            if direction == 1:
+                blocking_vehicle = self.game.get_vehicle_from_location(col + 1 + (vehicle.size - 1), row)
+            else: 
+                blocking_vehicle = self.game.get_vehicle_from_location(col - 1, row)
+        else: 
+            # Get the car who's blocking the red car 
+            if direction == 1:
+                blocking_vehicle = self.game.get_vehicle_from_location(col, row + 1 + (vehicle.size -1))
+            else: 
+                blocking_vehicle = self.game.get_vehicle_from_location(col, row - 1)
+
+        return blocking_vehicle
+        
 
 # if __name__ == '__main__': 
 #     board_file = "gameboards/Rushhour6x6_1.csv"

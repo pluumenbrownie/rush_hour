@@ -76,6 +76,12 @@ class RushHour():
         Returns a list with the ids of all vehicles placed on the board.
         """
         return [id for id in self.game_board.vehicle_dict.keys()]
+    
+    def get_vehicle_from_location(self, row: int, col: int) -> Car|Truck:
+        """
+        Get the vehicle that's in a certain location
+        """
+        return self.game_board.board[row-1][col-1]
 
     def start_game(self) -> None:
         """ 
