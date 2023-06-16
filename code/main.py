@@ -2,6 +2,8 @@ from algorithms.algorithm import Algorithm
 from algorithms.greedy2 import Greedy2
 from algorithms.greedy3 import Greedy3
 from algorithms.random import Random
+from algorithms.depth_first import DepthFirst
+
 from classes.models import RushHour
 from visualisation.histogram import histogram_plot
 from pygame_rushhour import PygameRushHour
@@ -47,23 +49,29 @@ if __name__ == '__main__':
     # if len(argv) == 1:
     #   print("Usage: python3 code/main.py boardsize algorithm")
     
+    
     # gameboard = argv[1]
+    # game_name = models.RushHour(gameboard)
+    
     
     # if len(argv) > 2:
     #     if argv[2] == "random":
     #           run_algorithm(random)
+    #     elif argv[2] == "greedy": 
      
-    game = RushHour(6, "gameboards/Rushhour6x6_test.csv")
+    # game = RushHour(6, "gameboards/Rushhour6x6_test.csv")
     # game = RushHour(6, "gameboards/Rushhour6x6_1.csv")
     # game = RushHour(12, "gameboards/Rushhour12x12_7.csv")
 
     
     # Run this if you want to play the game yourself
     # game.start_game()
-
-    # Run this if you want to run the random algorithm
-    random_algorithm = Random(game)
-    random_algorithm.solve()
+    
+    #---------------------------------------------------------------------Random----------------------------------------------------------------------#
+    # random_algorithm = Random(game)
+    # random_algorithm.solve()
+    
+    #---------------------------------------------------------------------Greedy----------------------------------------------------------------------#
 
     # # Run this if you want to run the greedy2 (Dionne's implementation) algorithm
     # # greedy2_algorithm = Greedy2(game)
@@ -73,12 +81,19 @@ if __name__ == '__main__':
     # greedy3_algorithm = Greedy3(game)
     # greedy3_algorithm.solve()
     
-    # Make a plot of an histogram
-    board = "6x6_1"
-    determine_random_solution(6, board, 100)
-    histogram_plot(board)
-
-    # Make the visualisation
+    #--------------------------------------------------------------------DepthFirst--------------------------------------------------------------------#
     board_file = "gameboards/Rushhour6x6_1.csv"
-    newgame = PygameRushHour(6, board_file)
-    newgame.start()
+    game = RushHour(6, board_file)
+    depth_first = DepthFirst(game)
+    depth_first.run()
+    
+    # ------------------------------------------------------------------Visualisation------------------------------------------------------------------#
+    # Make a plot of an histogram
+    # board = "6x6_1"
+    # determine_random_solution(6, board, 100)
+    # histogram_plot(board)
+
+    # # Make the visualisation
+    # board_file = "gameboards/Rushhour6x6_1.csv"
+    # newgame = PygameRushHour(6, board_file)
+    # newgame.start()
