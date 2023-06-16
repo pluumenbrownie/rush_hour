@@ -48,18 +48,3 @@ class Greedy2():
         print(f"It took the algorithm {counter} tries.")
         print(f"First choice moves: {first_choice_moves}.")
         print(f"Random moves: {random_moves}.")    
-
-
-    def choose_direction(self):
-        """
-        Choose vehicle to move by randomly selecting from list of available cars.
-        This method was copied from random algorithm 
-        """
-        return rd.choice(self.directions)
-
-    def choose_vehicle(self):
-        """
-        Choose move direction by randomly selecting from list of available directions.
-        This method was copied from random algorithm 
-        """
-        return rd.choice(self.vehicle_ids)

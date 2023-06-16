@@ -17,7 +17,7 @@ class Greedy3(Algorithm):
     # Uses the greedy algorithm and a heuristic to get a better algorithm
 
         # Loop through the game as long as the game isn't won
-        red_car = "X"
+        red_car = self.vehicles["X"]
         counter = 0 
         first_choice_moves = 0
         second_choice_moves = 0 
@@ -27,40 +27,45 @@ class Greedy3(Algorithm):
         while not self.game.is_won():  
             # Best move is to move the red car to the right
             # Check if the red car can move to the exit and if so, move the red car to the exit 
-            success = self.game.process_turn('X', 1)
-            if success: 
+            move = self.game.process_turn('X', 1)
+            if move: 
                 counter += 1 
                 first_choice_moves += 1
             
             # Second best move is to move a vehicle that is blocking the red car
             # Check if you can move a vehicle blocking the red car and if so, move the vehicle 
-            closest_blocking_vehicle = self.find_blocking_vehicle(red_car)
-            move = self.game.game_board.is_move_valid(closest_blocking_vehicle[id], 1)
-            if move == True: 
-                success2 = self.game.process_turn(closest_blocking_vehicle, 1)
+           
+            # For now, for horizontal vehicles we look at cars at their left
+            # For vertical vehicles we look at vehicles below them 
+            direction = 1 
+            closest_blocking_vehicle = self.find_blocking_vehicle(red_car, direction)
+
+            # Check if you can move this vehicle
+            move2 = self.game.game_board.is_move_valid(closest_blocking_vehicle.id, direction)
+            if move2: 
+                success2 = self.game.process_turn(closest_blocking_vehicle.id, 1)
                 counter += 1  
                 second_choice_moves += 1 
             else: 
-                success2 = self.game.process_turn(closest_blocking_vehicle, -1)
+                success2 = self.game.process_turn(closest_blocking_vehicle.id, -1)
                 counter += 1  
                 second_choice_moves += 1 
             
             # Third best move is to move a car that is blocking a car that is blocking the red car
             if success2 is False: 
-                second_closest_blocking_vehicle = self.find_blocking_vehicle(closest_blocking_vehicle)
-                move1 = self.game.game_board.is_move_valid(second_closest_blocking_vehicle[id], 1)
-                move2 = self.game.game_board.is_move_valid(second_closest_blocking_vehicle[id], -1)
+                second_closest_blocking_vehicle = self.find_blocking_vehicle(closest_blocking_vehicle, direction)
+                move1 = self.game.game_board.is_move_valid(second_closest_blocking_vehicle.id, 1)
+                move2 = self.game.game_board.is_move_valid(second_closest_blocking_vehicle.id, -1)
 
                 if move1: 
-                    success3 = self.game.process_turn(closest_blocking_vehicle, 1)
+                    success3 = self.game.process_turn(second_closest_blocking_vehicle.id, 1)
                     counter += 1  
                     third_choice_moves += 1 
                 elif move2: 
-                    success3 = self.game.process_turn(closest_blocking_vehicle, -1)
+                    success3 = self.game.process_turn(second_closest_blocking_vehicle.id, -1)
                     counter += 1  
                     third_choice_moves += 1 
-                else: 
-                    success3 = False
+                success3 = False
                 # Add something that success3 is otherwise False 
                           
             # Otherwise pick a random vehicle and a random move 
