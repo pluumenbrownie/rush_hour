@@ -81,7 +81,7 @@ class RushHour():
         """
         Get the vehicle that's in a certain location
         """
-        return self.game_board.board[row-1][col-1]
+        return self.game_board.get_vehicle_from_location(row, col)
 
     def start_game(self) -> None:
         """ 
@@ -171,6 +171,12 @@ class Board():
         for col, row in coordinates_to_add:
             self.board[row - 1][col - 1] = vehicle
         self.vehicle_dict[vehicle.id] = vehicle
+
+    def get_vehicle_from_location(self, row: int, col: int) -> Car|Truck:
+        """
+        Get the vehicle that's in a certain location
+        """
+        return self.board[row-1][col-1]
     
     def is_move_valid(self, vehicle_id: str, direction: int) -> bool:
         """
@@ -202,6 +208,7 @@ class Board():
                 if target_vehicle.col - 2 < 0:
                     return False
                 next_tile = self.board[target_vehicle.row - 1][target_vehicle.col - 2]
+                next_tile = self.get_vehicle_from_location
 
             # move to the right ->
             elif direction == 1:
@@ -231,6 +238,7 @@ class Board():
         if next_tile:
             return False
         return True
+    
     
     def move_vehicle(self, vehicle_id: str, direction: int) -> None:
         """ 
