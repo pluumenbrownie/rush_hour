@@ -207,14 +207,13 @@ class Board():
             if direction == -1:
                 if target_vehicle.col - 2 < 0:
                     return False
-                next_tile = self.board[target_vehicle.row - 1][target_vehicle.col - 2]
-                next_tile = self.get_vehicle_from_location
+                next_tile = self.get_vehicle_from_location(target_vehicle.row, target_vehicle.col - 1)
 
             # move to the right ->
             elif direction == 1:
                 if target_vehicle.col + target_vehicle.size > self.width:
                     return False
-                next_tile = self.board[target_vehicle.row - 1][target_vehicle.col + target_vehicle.size - 1]
+                next_tile = self.get_vehicle_from_location(target_vehicle.row, target_vehicle.col + target_vehicle.size)
 
         elif target_vehicle.orientation == "V":
 
@@ -222,13 +221,13 @@ class Board():
             if direction == -1:
                 if target_vehicle.row - 2 < 0:
                     return False
-                next_tile = self.board[target_vehicle.row - 2][target_vehicle.col - 1]
+                next_tile = self.get_vehicle_from_location(target_vehicle.row - 1, target_vehicle.col)
 
             # move down v
             elif direction == 1:
                 if target_vehicle.row + target_vehicle.size > self.width:
                     return False
-                next_tile = self.board[target_vehicle.row + target_vehicle.size - 1][target_vehicle.col - 1]
+                next_tile = self.get_vehicle_from_location(target_vehicle.row + target_vehicle.size, target_vehicle.col)
             
         else:
             raise ValueError("Invalid direction in vehicle.")
