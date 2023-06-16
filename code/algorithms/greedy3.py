@@ -90,18 +90,13 @@ class Greedy3(Algorithm):
         """
         Find the vehicles that are blocking the red car 
         """
-        for row in range(self.game.game_board.width):
-            for col in range(self.game.game_board.width):
-                if self.game.game_board.board[row][col] is not None and self.game.game_board.board[row][col] != target_car:
-                    if row == target_car_position[0] and col > target_car_position[1]:
-                        print(f"Before: {blocking_vehicle}")
-                        blocking_vehicles.append(self.game.game_board[row][col])
-                        print(f"After: {blocking_vehicle}")
-
-        
-        print(f"Blocking vehicle: {blocking_vehicle}")
-        # Only return the first vehicle in the list 
-        return blocking_vehicle 
+        target_tiles = set(self.get_tiles_occupied())
+        for vehicle in self.vehicles:
+        if vehicle != self:
+            occupied_tiles = set(self.get_tiles_occupied())
+            if target_tiles.intersection(occupied_tiles):
+                return vehicle
+        return None
 
 
 # --------------------------------------------------------------------------------------------------------#
