@@ -1,6 +1,7 @@
 import random as rd
 
 from classes.models import RushHour as RushHour
+from classes.vehicle import * 
 
 
 class Algorithm():
@@ -29,6 +30,35 @@ class Algorithm():
         """
         return rd.choice(self.vehicle_ids)
 
+
+    def find_blocking_vehicle(self, target_car: Car|Truck, direction: int) -> Car|Truck:
+        """
+        Find the vehicles that are blocking the red car 
+        Pre: get red car
+        Post: get blocking car 
+        """
+        # Get position of target car
+        vehicle = self.vehicles[target_car.id]
+        row = vehicle.row
+        col = vehicle.col
+        orientation = vehicle.orientation
+
+        # If the car is horizontal, look at the row + 1 
+        if orientation == "H": 
+             # Get the car who's blocking the red car 
+            if direction == 1:
+                blocking_vehicle = self.game.get_vehicle_from_location(col + 1 + (vehicle.size - 1), row)
+            else: 
+                blocking_vehicle = self.game.get_vehicle_from_location(col - 1, row)
+        else: 
+            # Get the car who's blocking the red car 
+            if direction == 1:
+                blocking_vehicle = self.game.get_vehicle_from_location(col, row + 1 + (vehicle.size -1))
+            else: 
+                blocking_vehicle = self.game.get_vehicle_from_location(col, row - 1)
+
+        return blocking_vehicle
+        
 
 # if __name__ == '__main__': 
 #     board_file = "gameboards/Rushhour6x6_1.csv"

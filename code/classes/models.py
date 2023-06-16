@@ -76,6 +76,12 @@ class RushHour():
         Returns a list with the ids of all vehicles placed on the board.
         """
         return [id for id in self.game_board.vehicle_dict.keys()]
+    
+    def get_vehicle_from_location(self, row: int, col: int) -> None|Car|Truck:
+        """
+        Get the vehicle that's in a certain location
+        """
+        return self.game_board.get_vehicle_from_location(row, col)
 
     def start_game(self) -> None:
         """ 
@@ -165,6 +171,12 @@ class Board():
         for col, row in coordinates_to_add:
             self.board[row - 1][col - 1] = vehicle
         self.vehicle_dict[vehicle.id] = vehicle
+
+    def get_vehicle_from_location(self, row: int, col: int) -> None|Car|Truck:
+        """
+        Get the vehicle that's in a certain location
+        """
+        return self.board[row-1][col-1]
     
     def is_move_valid(self, vehicle_id: str, direction: int) -> bool:
         """
@@ -195,13 +207,13 @@ class Board():
             if direction == -1:
                 if target_vehicle.col - 2 < 0:
                     return False
-                next_tile = self.board[target_vehicle.row - 1][target_vehicle.col - 2]
+                next_tile = self.get_vehicle_from_location(target_vehicle.row, target_vehicle.col - 1)
 
             # move to the right ->
             elif direction == 1:
                 if target_vehicle.col + target_vehicle.size > self.width:
                     return False
-                next_tile = self.board[target_vehicle.row - 1][target_vehicle.col + target_vehicle.size - 1]
+                next_tile = self.get_vehicle_from_location(target_vehicle.row, target_vehicle.col + target_vehicle.size)
 
         elif target_vehicle.orientation == "V":
 
@@ -209,13 +221,13 @@ class Board():
             if direction == -1:
                 if target_vehicle.row - 2 < 0:
                     return False
-                next_tile = self.board[target_vehicle.row - 2][target_vehicle.col - 1]
+                next_tile = self.get_vehicle_from_location(target_vehicle.row - 1, target_vehicle.col)
 
             # move down v
             elif direction == 1:
                 if target_vehicle.row + target_vehicle.size > self.width:
                     return False
-                next_tile = self.board[target_vehicle.row + target_vehicle.size - 1][target_vehicle.col - 1]
+                next_tile = self.get_vehicle_from_location(target_vehicle.row + target_vehicle.size, target_vehicle.col)
             
         else:
             raise ValueError("Invalid direction in vehicle.")
@@ -225,6 +237,7 @@ class Board():
         if next_tile:
             return False
         return True
+    
     
     def move_vehicle(self, vehicle_id: str, direction: int) -> None:
         """ 
