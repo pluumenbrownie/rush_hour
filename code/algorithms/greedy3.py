@@ -84,19 +84,6 @@ class Greedy3(Algorithm):
         print(f"Random moves: {random_moves}.")
 
         return counter, first_choice_moves, second_choice_moves, third_choice_moves, random_moves
-    
-
-    def find_blocking_vehicle(self, target_car: Car|Truck) -> Car|Truck:
-        """
-        Find the vehicles that are blocking the red car 
-        """
-        target_tiles = set(self.get_tiles_occupied())
-        for vehicle in self.vehicles:
-        if vehicle != self:
-            occupied_tiles = set(self.get_tiles_occupied())
-            if target_tiles.intersection(occupied_tiles):
-                return vehicle
-        return None
 
 
 # --------------------------------------------------------------------------------------------------------#

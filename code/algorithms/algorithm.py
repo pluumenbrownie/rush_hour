@@ -1,6 +1,7 @@
 import random as rd
 
 from classes.models import RushHour as RushHour
+from classes.vehicle import * 
 
 
 class Algorithm():
@@ -28,6 +29,19 @@ class Algorithm():
         Choose move direction by randomly selecting from list of available directions.
         """
         return rd.choice(self.vehicle_ids)
+
+
+    def find_blocking_vehicle(self, target_car: Car|Truck) -> Car|Truck:
+        """
+        Find the vehicles that are blocking the red car 
+        """
+        target_tiles = set(self.get_tiles_occupied())
+        for vehicle in self.vehicles:
+        if vehicle != self:
+            occupied_tiles = set(self.get_tiles_occupied())
+            if target_tiles.intersection(occupied_tiles):
+                return vehicle
+        return None
 
 
 # if __name__ == '__main__': 
