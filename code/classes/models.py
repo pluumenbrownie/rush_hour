@@ -14,6 +14,8 @@ class RushHour():
     def __init__(self, width: int, board_file: str) -> None:
         """ 
         Initialize the Rush Hour game with a board width and a board file.
+        Pre: width of board and board file 
+        Post: vehicles and board are created and vehicles are placed on the board 
         """
         self.game_board = Board(width)
         with open(board_file, 'r') as csv_file: 
@@ -44,12 +46,18 @@ class RushHour():
     def show_board(self) -> None:
         """ 
         Print the current state of the game board.
+        Pre: nothing
+        Post: board is printed 
         """
         self.game_board.print_board()
     
     def move_vehicle(self, vehicle_id: str, direction: int) -> bool:
         """ 
         Move a vehicle in the specified direction and return whether the move was successful.
+        Pre: id of a vehicle (NOT of a car or truck class) and direction
+        Post: returns true is move is possible, returns false if not 
+        TO DO it is unclear whether vehicle actually moves 
+        TO DO this method is redundant because we already have process_turn()
         """
         move_viability = self.game_board.is_move_valid(vehicle_id, direction)
         #print("Can move:", move_viability)
@@ -62,30 +70,42 @@ class RushHour():
     def is_won(self) -> bool:
         """ 
         Check if the game is won. 
+        Pre: nothing
+        Post: returns True if game is won
         """
         return self.game_board.is_won()
     
     def get_vehicles(self) -> dict[str, Car|Truck]:
         """ 
         Returns a dict with the Vehicle object in the game. 
+        Pre: nothing
+        Post: returns all vehicles as a dict 
         """
         return self.game_board.vehicle_dict
     
     def get_vehicle_ids(self) -> list[str]:
         """
         Returns a list with the ids of all vehicles placed on the board.
+        Pre: nothing
+        Post: list of strings with the id's of vehicles placed on the board (not as objects)
+        TO DO: Can't we delete this beceause we already have get_vehicles()
         """
         return [id for id in self.game_board.vehicle_dict.keys()]
     
     def get_vehicle_from_location(self, row: int, col: int) -> None|Car|Truck:
         """
         Get the vehicle that's in a certain location
+        Pre: a row and a column
+        Post: you get an object (Car or Truck) or nothing 
         """
         return self.game_board.get_vehicle_from_location(row, col)
 
     def start_game(self) -> None:
         """ 
         Start the Rush Hour game and play until the game is won. 
+        Pre: nothing
+        During: user input is necessary
+        Post: whether you won gets printed to the screen
         """
         turns = 0
         while not self.is_won():
@@ -107,8 +127,8 @@ class RushHour():
     def process_turn(self, target_vehicle: str, direction) -> bool:
         """ 
         Try to move a target vehicle in a direction. 
-
-        `target_vehicle` should be a vehicle id from `.get_vehicles().keys()`
+        Pre: id of a target verhicle (NOT an object) and a direction
+        Post: if the move was succesful, it returns True 
         """
         try:
             success = self.move_vehicle(target_vehicle, direction)
@@ -126,6 +146,8 @@ class RushHour():
     def export_solution(self, output_name: str = "results/output.csv") -> None:
         """ 
         Export the solution history to a CSV file. 
+        Pre: name of the file where you want to save the results
+        Post: file will be filled with all the moves 
         """
         with open(output_name, 'w') as file:
             file.write("car,move\n")
@@ -133,6 +155,11 @@ class RushHour():
                 file.write(f"{id},{direction}\n")
     
     def get_board_hash(self) -> int:
+        """
+        TO DO: Doc strings and pre and post should be added 
+        Pre: 
+        Post: 
+        """
         return self.game_board.pickle_hash()
 
 
@@ -144,6 +171,8 @@ class Board():
     def __init__(self, width: int) -> None:
         """ 
         Creates a empty board object with a width (6x6, 9x9, 12x12) and an exit. 
+        Pre: width of board
+        Post: empty board is created as a list 
         """
         self.width = width
 
@@ -159,6 +188,8 @@ class Board():
     def print_board(self) -> None:
         """ 
         Prints the board. 
+        Pre: nothing
+        Post: board gets printed to the screen
         """
         for row in self.board:
             print(row)
@@ -166,6 +197,8 @@ class Board():
     def add_vehicle(self, vehicle: Car|Truck) -> None:
         """ 
         Add a vehicle to the game board. 
+        Pre: object of vehicle that needs to be added to the board
+        Post: vehicle is added to the board 
         """
         coordinates_to_add = vehicle.get_tiles_occupied()
         for col, row in coordinates_to_add:
@@ -175,6 +208,8 @@ class Board():
     def get_vehicle_from_location(self, row: int, col: int) -> None|Car|Truck:
         """
         Get the vehicle that's in a certain location
+        Pre: get the row and column 
+        Post: it returns the object if there is one in the location, otherwise none 
         """
         return self.board[row-1][col-1]
     
@@ -182,13 +217,12 @@ class Board():
         """
         Check if a move is valid for a given vehicle and direction.
 
-        ### Input
+        Pre: 
         - `vehicle_id: str`: String representing car to move.
         - `direction: int`:  -1 to move up/left, 1 to move down/right (movement
         depents on car orientation).  
 
-        ### Output
-        Returns False if move:
+        Post: Returns False if move:
         - moves vehicle outside of the gameboard.
         - collides vehicle with another vehicle.
 
@@ -242,6 +276,7 @@ class Board():
     def move_vehicle(self, vehicle_id: str, direction: int) -> None:
         """ 
         Move a vehicle in the specified direction. 
+        TO DO: isn't this redundant as we already have two very similar methods? 
         """
         target_vehicle = self.vehicle_dict[vehicle_id]
 
@@ -259,6 +294,7 @@ class Board():
     def is_won(self) -> bool:
         """ 
         Check if the game is won by checking the position of the red car. 
+        TO DO: is this redundant? 
         """
         red_car = self.vehicle_dict["X"]
         if red_car.col == self.width - 1:
@@ -266,6 +302,9 @@ class Board():
         return False
 
     def pickle_hash(self) -> int:
+        """
+        TO DO: add information to docstrings and pre and post statements
+        """
         return hash(pickle.dumps(self.vehicle_dict))
     
 
@@ -327,11 +366,3 @@ def count_statespace(width: int, board_file: str) -> int:
         states *= (mt.factorial(n))//(mt.factorial(v)*mt.factorial(n - v))
     
     return states
-
-
-if __name__ == '__main__': 
-    board_file = "gameboards/Rushhour12x12_7.csv"
-    print("State space size:", count_statespace(12, board_file))
-    game = RushHour(12, board_file)
-    # game.move_vehicle('AB', -1)
-    game.start_game()

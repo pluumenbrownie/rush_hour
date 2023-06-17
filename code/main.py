@@ -21,7 +21,7 @@ def determine_random_solution(board_size: int, board: str, repeat: int = 1, expo
     for _ in range(repeat):
         game = RushHour(board_size, f"gameboards/Rushhour{board}.csv")
         random_algorithm = Random(game)
-        t, m = random_algorithm.solve(export=False)
+        t, m = random_algorithm.run(export=False)
         tries.append(t)
         moves.append(m)
         
