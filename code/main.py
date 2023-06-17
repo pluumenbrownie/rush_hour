@@ -2,14 +2,19 @@ from algorithms.algorithm import Algorithm
 from algorithms.greedy2 import Greedy2
 from algorithms.greedy3 import Greedy3
 from algorithms.random import Random
+from algorithms.depth_first import DepthFirst
+
 from classes.models import RushHour
-# from visualisation.histogram import histogram_plot
+from visualisation.histogram import histogram_plot
 
 import time
 import statistics as stat
 
 
 def determine_random_solution(board_size: int, board: str, repeat: int = 1, export: bool = False):
+    """
+    Determine a random solution for the Rush Hour game.
+    """
     start_time = time.time()
 
     tries: list[int] = []
@@ -29,6 +34,7 @@ def determine_random_solution(board_size: int, board: str, repeat: int = 1, expo
 
     print(f"On average, in {repeat} games, took {round(stat.mean(tries))}±{round(stat.stdev(tries))} tries and {round(stat.mean(moves))}±{round(stat.stdev(moves))} succesfull moves.")
 
+    # Open file to get all the tries
     with open(f"results/random_moves_{board}.csv", 'w') as file:
         file.write("tries\n")
         for value in tries:
@@ -36,8 +42,23 @@ def determine_random_solution(board_size: int, board: str, repeat: int = 1, expo
         
 if __name__ == '__main__':
     
+    # Code to ask user for input, boardsize and algorithm
+    # from sys import argv
+    
+    # if len(argv) == 1:
+    #   print("Usage: python3 code/main.py boardsize algorithm")
+    
+    
+    # gameboard = argv[1]
+    # game_name = models.RushHour(gameboard)
+    
+    
+    # if len(argv) > 2:
+    #     if argv[2] == "random":
+    #           run_algorithm(random)
+    #     elif argv[2] == "greedy": 
      
-    game = RushHour(6, "gameboards/Rushhour6x6_test.csv")
+    # game = RushHour(6, "gameboards/Rushhour6x6_test.csv")
     # game = RushHour(6, "gameboards/Rushhour6x6_1.csv")
     # game = RushHour(12, "gameboards/Rushhour12x12_7.csv")
 
@@ -46,15 +67,24 @@ if __name__ == '__main__':
     # game.start_game()
 
     # Run this if you want to run the random algorithm
-    # random_algorithm = Random(game)
-    # random_algorithm.solve()
+    random_algorithm = Random(game)
+    random_algorithm.solve()
+
+    # Run this if you want to run the greedy2 (Dionne's implementation) algorithm
+    # greedy2_algorithm = Greedy2(game)
+    # greedy2_algorithm.solve()
 
     # Run this if you want to run the greedy3 (Dionne's implementation) algorithm
     greedy3_algorithm = Greedy3(game)
     greedy3_algorithm.solve()
     
+    # ------------------------------------------------------------------Visualisation------------------------------------------------------------------#
     # Make a plot of an histogram
-    # board = "6x6_1"
-    # determine_random_solution(6, board, 2000)
-    # histogram_plot(board)
+    board = "6x6_1"
+    determine_random_solution(6, board, 2000)
+    histogram_plot(board)
 
+    # # Make the visualisation
+    # board_file = "gameboards/Rushhour6x6_1.csv"
+    # newgame = PygameRushHour(6, board_file)
+    # newgame.start()
