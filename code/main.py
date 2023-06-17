@@ -3,7 +3,7 @@ from algorithms.greedy2 import Greedy2
 from algorithms.greedy3 import Greedy3
 from algorithms.random import Random
 from classes.models import RushHour
-from visualisation.histogram import histogram_plot
+# from visualisation.histogram import histogram_plot
 
 import time
 import statistics as stat
@@ -46,19 +46,15 @@ if __name__ == '__main__':
     # game.start_game()
 
     # Run this if you want to run the random algorithm
-    random_algorithm = Random(game)
-    random_algorithm.solve()
-
-    # Run this if you want to run the greedy2 (Dionne's implementation) algorithm
-    # greedy2_algorithm = Greedy2(game)
-    # greedy2_algorithm.solve()
+    # random_algorithm = Random(game)
+    # random_algorithm.solve()
 
     # Run this if you want to run the greedy3 (Dionne's implementation) algorithm
     greedy3_algorithm = Greedy3(game)
     greedy3_algorithm.solve()
     
     # Make a plot of an histogram
-    board = "6x6_1"
-    determine_random_solution(6, board, 2000)
-    histogram_plot(board)
+    # board = "6x6_1"
+    # determine_random_solution(6, board, 2000)
+    # histogram_plot(board)
 

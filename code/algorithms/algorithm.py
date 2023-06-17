@@ -31,7 +31,7 @@ class Algorithm():
         return rd.choice(self.vehicle_ids)
 
 
-    def find_blocking_vehicle(self, target_car: Car|Truck, direction: int) -> Car|Truck:
+    def find_blocking_vehicle(self, target_car: Car|Truck, direction: int) -> Car|Truck|None:
         """
         Find the vehicles that are blocking the red car 
         Pre: get red car
