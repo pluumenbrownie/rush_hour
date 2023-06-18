@@ -217,19 +217,18 @@ class Board():
         """
         Check if a move is valid for a given vehicle and direction.
 
-        Pre: 
+        ## Pre: 
         - `vehicle_id: str`: String representing car to move.
         - `direction: int`:  -1 to move up/left, 1 to move down/right (movement
-        depents on car orientation).  
+        depents on car orientation).
 
-        Post: Returns False if move:
-        - moves vehicle outside of the gameboard.
-        - collides vehicle with another vehicle.
-
-        Raises ValueError if direction is not 1 or -1.
-        Raises KeyError if vehicle with `id=vehicle_id` does not exist.
-
-        Returns True otherwise.
+        ## Post: 
+        - Returns False if move:
+            - moves vehicle outside of the gameboard.
+            - collides vehicle with another vehicle.
+        - Raises ValueError if direction is not 1 or -1.
+        - Raises KeyError if vehicle with `id=vehicle_id` does not exist.
+        - Returns True otherwise.
         """
         target_vehicle = self.vehicle_dict[vehicle_id]
         if not (direction == 1 or direction == -1):
@@ -275,7 +274,16 @@ class Board():
     
     def move_vehicle(self, vehicle_id: str, direction: int) -> None:
         """ 
-        Move a vehicle in the specified direction. 
+        Move a vehicle in the specified direction.
+        - Pre: `self.board` has vehicles on it, including `vehicle_id` and the move
+        has been checked via `self.is_move_valid`.
+        - Post: `vehicle_id` row and col are changed and `self.board` is updated.
+
+        WARNING: THIS METHOD IS NOT SAFE. `Board.move_vehicle` should not be used 
+        without first check the validity of the move via `Board.is_move_valid`. This
+        method could move vehicles off the board or overwrite other vehicles. Bad 
+        stuff. 
+        
         TO DO: isn't this redundant as we already have two very similar methods? 
         """
         target_vehicle = self.vehicle_dict[vehicle_id]
@@ -294,7 +302,9 @@ class Board():
     def is_won(self) -> bool:
         """ 
         Check if the game is won by checking the position of the red car. 
+
         TO DO: is this redundant? 
+        W: Why would it be?
         """
         red_car = self.vehicle_dict["X"]
         if red_car.col == self.width - 1:
