@@ -29,6 +29,12 @@ class Algorithm():
         Choose move direction by randomly selecting from list of available directions.
         """
         return rd.choice(self.vehicle_ids)
+    
+    def choose_vehicle_from_movable_vehicles(self, movable_vehicles: list[tuple[str, int]]) -> tuple[str, int]:
+        """
+        Choose move direction by randomly selecting from list of available directions.
+        """
+        return rd.choice(movable_vehicles)
 
 
     def find_blocking_vehicle(self, target_car: Car|Truck, direction: int) -> Car|Truck|None:

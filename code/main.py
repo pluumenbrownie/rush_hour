@@ -4,7 +4,8 @@ from algorithms.random import Random
 from algorithms.depth_first import DepthFirst
 
 from classes.models import RushHour
-# from visualisation.histogram import histogram_plot
+from visualisation.histogram import histogram_plot
+import pandas as pd
 
 import time
 import statistics as stat
@@ -57,8 +58,8 @@ if __name__ == '__main__':
     #           run_algorithm(random)
     #     elif argv[2] == "greedy": 
      
-    game = RushHour(6, "gameboards/Rushhour6x6_test.csv")
-    # game = RushHour(6, "gameboards/Rushhour6x6_1.csv")
+    # game = RushHour(6, "gameboards/Rushhour6x6_test.csv")
+    game = RushHour(6, "gameboards/Rushhour6x6_1.csv")
     # game = RushHour(12, "gameboards/Rushhour12x12_7.csv")
 
     
