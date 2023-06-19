@@ -8,13 +8,14 @@ class DepthFirst:
     """
     
     def __init__(self, game:RushHour):
-        """
+        """ 
         Initializes an algorithm with the rushhour game.
         """
         self.game = copy.deepcopy(game)
         
         # Make a stack with a begin state
         self.stack = [copy.deepcopy(self.game)]
+        
         self.visited_states = set()
         
     def get_next_state(self) -> RushHour:
@@ -86,8 +87,3 @@ class DepthFirst:
         
         print("Done!")
         
-if __name__ == '__main__':
-    board_file = "gameboards/Rushhour6x6_1.csv"
-    game = RushHour(6, board_file)
-    depth_first = DepthFirst(game)
-    depth_first.run()

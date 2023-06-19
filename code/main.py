@@ -42,22 +42,28 @@ def determine_random_solution(board_size: int, board: str, repeat: int = 1, expo
 if __name__ == '__main__':
     
     # Code to ask user for input, boardsize and algorithm
-    # from sys import argv
+    from sys import argv
     
-    # if len(argv) == 1:
-    #   print("Usage: python3 code/main.py boardsize algorithm")
+    if len(argv) == 1:
+      print("Usage: python3 code/main.py [boardsize] [boardfile] algorithm")
+      exit(1)
     
+    boardsize = int(argv[1])
+    boardfile = argv[2]  
+    game = RushHour(boardsize, boardfile)
     
-    # gameboard = argv[1]
-    # game_name = models.RushHour(gameboard)
-    
-    
-    # if len(argv) > 2:
-    #     if argv[2] == "random":
-    #           run_algorithm(random)
-    #     elif argv[2] == "greedy": 
+    if len(argv) > 3:   
+        if argv[3] == "random":
+            random_algorithm = Random(game)
+            random_algorithm.run()
+        elif argv[3] == "depthfirst":
+            depthfirst_algorithm = DepthFirst(game)
+            depthfirst_algorithm.run()
+        elif argv[3] == "greedy":
+            greedy3_algorithm = Greedy3(game)
+            greedy3_algorithm.run()
      
-    game = RushHour(6, "gameboards/Rushhour6x6_test.csv")
+    # game = RushHour(6, "gameboards/Rushhour6x6_test.csv")
     # game = RushHour(6, "gameboards/Rushhour6x6_1.csv")
     # game = RushHour(12, "gameboards/Rushhour12x12_7.csv")
 
@@ -75,8 +81,8 @@ if __name__ == '__main__':
     # greedy3_algorithm.run()
     
     # --------------------------- DepthFirst ---------------------------------------
-    depthfirst_algorithm = DepthFirst(game)
-    depthfirst_algorithm.run()    
+    # depthfirst_algorithm = DepthFirst(game)
+    # depthfirst_algorithm.run()    
     
     # ------------------------------------------------------------------Visualisation------------------------------------------------------------------#
     # Make a plot of an histogram
