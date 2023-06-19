@@ -40,7 +40,7 @@ class RushHour():
                 self.game_board.add_vehicle(new_vehicle)
                 
         self.game_board.print_board()
-        self.history: list[tuple[str, int]] = []
+        self.history: list[tuple[str, int, int]] = []
         self.hash_set: set[int] = set()
     
     def show_board(self) -> None:
@@ -140,7 +140,7 @@ class RushHour():
             success = False
 
         if success:
-            self.history.append((target_vehicle, direction))
+            self.history.append((target_vehicle, direction, self.get_board_hash()))
         return success
 
     def export_solution(self, output_name: str = "results/output.csv") -> None:
@@ -151,8 +151,48 @@ class RushHour():
         """
         with open(output_name, 'w') as file:
             file.write("car,move\n")
-            for id, direction in self.history:
+            for id, direction, hash in self.history:
                 file.write(f"{id},{direction}\n")
+    
+    def optimize_solution(self) -> None:
+        """
+        Try to remove unnecesairy moves from found solution with hashes.
+
+        - Pre: The board is in a winning state
+        - Post: `self.history` is replaced with an optimized, valid solution.
+        """
+        hash_seen: dict[int, int] = {}
+
+        # count how often unique board_hashes exist in self.history
+        for _, _, board_hash in self.history:
+            if hash_seen.get(board_hash, False):
+                hash_seen[board_hash] += 1
+            else:
+                hash_seen[board_hash] = 1
+        
+        new_history: list[tuple[str, int, int]] = []
+        important_hash = None
+        removed_steps = 0
+
+        # build new history
+        for veh_id, direction, board_hash in self.history:
+            # print(f"{veh_id=}, {direction=}, {board_hash=}, {important_hash=}, {hash_seen[board_hash]=}" )
+            # if we are not in a loop
+            if not important_hash:
+                new_history.append((veh_id, direction, board_hash))
+            else:
+                removed_steps += 1
+
+            hash_seen[board_hash] -= 1
+            # important_hash is set to the hash to indicate a loop
+            if hash_seen[board_hash] > 0 and not important_hash:
+                important_hash = board_hash
+            elif hash_seen[board_hash] == 0 and important_hash == board_hash:
+                important_hash = None
+        
+        percentage = round(removed_steps/len(self.history)*100, 1)
+        print(f"Removed {removed_steps} steps ({percentage} %).")
+        self.history = new_history
     
     def get_board_hash(self) -> int:
         """
