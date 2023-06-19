@@ -44,7 +44,7 @@ class DepthFirst:
             # self.stack.append(new_state)
             
             #check if state is already been visited
-            visited = str(new_state)
+            visited = new_state.get_board_hash()
             if visited not in self.visited_states:
                 self.visited_states.add(visited)
                 self.stack.append(new_state)
@@ -79,7 +79,6 @@ class DepthFirst:
             #         break
             #     else: 
             #         continue
-            
             
             
             self.game = state                            

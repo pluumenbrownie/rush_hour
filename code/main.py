@@ -2,8 +2,8 @@ from algorithms.algorithm import Algorithm
 from algorithms.greedy3 import Greedy3
 from algorithms.random import Random
 from algorithms.depth_first import DepthFirst
-
 from classes.models import RushHour
+
 # from visualisation.histogram import histogram_plot
 
 import time
