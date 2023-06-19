@@ -71,8 +71,12 @@ if __name__ == '__main__':
 
     # --------------------------- Greedy ---------------------------------------
     # Run this if you want to run the greedy3 (Dionne's implementation) algorithm
-    greedy3_algorithm = Greedy3(game)
-    greedy3_algorithm.run()
+    # greedy3_algorithm = Greedy3(game)
+    # greedy3_algorithm.run()
+    
+    # --------------------------- DepthFirst ---------------------------------------
+    depthfirst_algorithm = DepthFirst(game)
+    depthfirst_algorithm.run()    
     
     # ------------------------------------------------------------------Visualisation------------------------------------------------------------------#
     # Make a plot of an histogram
