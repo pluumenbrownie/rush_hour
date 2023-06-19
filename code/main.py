@@ -74,6 +74,12 @@ if __name__ == '__main__':
     # --------------------------- Random ---------------------------------------
     # random_algorithm = Random(game)
     # random_algorithm.run()
+    
+    # --------------------------- Random Optimized ---------------------------------------
+    # random_algorithm = Random(game)
+    # random_algorithm.run()
+    # game.optimize_solution()
+    # game.export_solution(output_name="results/output_optimized.csv")
 
     # --------------------------- Greedy ---------------------------------------
     # Run this if you want to run the greedy3 (Dionne's implementation) algorithm
