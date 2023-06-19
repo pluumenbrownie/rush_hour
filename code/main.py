@@ -56,6 +56,11 @@ if __name__ == '__main__':
         if argv[3] == "random":
             random_algorithm = Random(game)
             random_algorithm.run()
+        elif argv[3] == "random_optimized":
+            random_algorithm = Random(game)
+            random_algorithm.run()
+            game.optimize_solution()
+            game.export_solution(output_name="results/output_optimized.csv")
         elif argv[3] == "depthfirst":
             depthfirst_algorithm = DepthFirst(game)
             depthfirst_algorithm.run()
