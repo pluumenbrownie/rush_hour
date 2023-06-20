@@ -17,6 +17,16 @@ class BeamSearch(BreadthFirst):
         self.queue = [copy.deepcopy(self.game)]
         self.visited_states = set()
         self.beam_size = beam_size
+        self.best_beams = []
+
+    def run(self, game:RushHour): 
+        """""
+        TO DO: add description of beam search
+        """""
+
+
+
+        
 
 
 

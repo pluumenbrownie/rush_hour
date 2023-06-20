@@ -11,6 +11,14 @@ class Greedy(Algorithm):
     If that's not the case, it checks whether it can move the car that blocking the red car. 
     If that's not the case, it selects a random move. 
     """
+    def __init__(self, game: RushHour) -> None: 
+        self.game = game
+        self.vehicles = game.get_vehicles()
+        self.vehicle_ids = game.get_vehicle_ids()
+        self.directions = [1, -1]
+
+        self.visited_states = set()
+
     def run(self) -> int:
         counter = 0
         last_move: tuple[str, int] = 'A', 1
@@ -22,7 +30,6 @@ class Greedy(Algorithm):
 
             counter += 1
             # to prevent ending up in a loop
- 
 
             # try to move red car to the right
             red_move = self.game.process_turn("X", 1)
@@ -42,6 +49,9 @@ class Greedy(Algorithm):
                 direction = self.choose_direction()
                 # check if we are not undoing the last move and end up in a loop
                 if last_move[0] == blocking_vehicle.id and last_move[1] == direction * -1: 
+                    movable_vehicles = self.game.get_movable_vehicles()
+                    vehicle, direction = self.choose_vehicle_from_movable_vehicles(movable_vehicles)
+                    random_move = self.game.process_turn(vehicle, direction)
                     continue
                 
                 # make move
