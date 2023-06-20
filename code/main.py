@@ -7,10 +7,8 @@ from visualisation.histogram import histogram_plot
 from classes.models import RushHour, count_statespace
 from pygame_rushhour import PygameRushHour
 from experiments.random_experiment import determine_random_solution
-
 from sys import argv
-
-      
+  
 if __name__ == '__main__':
     
     # Code to ask user for input, boardsize and algorithm    
@@ -22,6 +20,7 @@ if __name__ == '__main__':
     boardfile = argv[2]  
     game = RushHour(boardsize, boardfile)
     
+# --------------------------------------------Algorithms--------------------------------------------#
     if len(argv) > 3:   
         if argv[3] == "random":
             random_algorithm = Random(game)
@@ -54,12 +53,8 @@ if __name__ == '__main__':
         determine_random_solution(boardsize, board, 100)
         histogram_plot(board)
     
-    # Animate the game using pygame (only for random)
+    # Animate the game using pygame (only for random_optimized)
     elif len(argv) > 4 and argv[4] == "animate":
         results_file = "results/output_optimized.csv"
         newgame = PygameRushHour(boardsize, boardfile, results_file)
-        newgame.start()    
-    
-    # game = RushHour(6, "gameboards/Rushhour6x6_test.csv")
-    # game = RushHour(6, "gameboards/Rushhour6x6_1.csv")
-    # game = RushHour(12, "gameboards/Rushhour12x12_7.csv")
+        newgame.start()
