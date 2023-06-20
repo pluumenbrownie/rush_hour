@@ -92,6 +92,13 @@ class RushHour():
         Returns a dict with the Vehicle object in the game. 
         Pre: nothing
         Post: returns all vehicles as a dict 
+        ## Example: 
+        Game with `Car`s "A", "B" and "C" returns:
+        ```
+        {"A": Car,
+        "B": Car,
+        "C": Car}
+        ```
         """
         return self.game_board.vehicle_dict
     
@@ -100,7 +107,11 @@ class RushHour():
         Returns a list with the ids of all vehicles placed on the board.
         Pre: nothing
         Post: list of strings with the id's of vehicles placed on the board (not as objects)
-        TO DO: Can't we delete this beceause we already have get_vehicles()
+        ## Example: 
+        Game with `Car`s "A", "B" and "C" returns:
+        ```
+        ["A", "B", "C"]
+        ```
         """
         return [id for id in self.game_board.vehicle_dict.keys()]
     
