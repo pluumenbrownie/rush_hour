@@ -6,6 +6,7 @@ from algorithms.depth_first import DepthFirst
 class BreadthFirst(DepthFirst):
     """ 
     This class gives implements a breadth first algorithm
+    FIFO: first in, first out
     """
             
     def get_next_state(self) -> RushHour:
