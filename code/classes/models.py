@@ -164,6 +164,7 @@ class RushHour():
 
         if success:
             self.history.append((target_vehicle_id, direction, self.get_board_hash()))
+            print(target_vehicle_id, direction)
         return success
     
     def get_movable_vehicles(self) -> list[tuple[str, int]]:
@@ -258,6 +259,8 @@ class RushHour():
         Post: 
         """
         return self.game_board.pickle_hash()
+    
+
 
 class Board():
     """ 
@@ -312,6 +315,7 @@ class Board():
         Pre: get the row and column 
         Post: it returns the object if there is one in the location, otherwise none 
         """
+
         return self.board[row-1][col-1]
     
     def is_move_valid(self, vehicle_id: str, direction: int) -> bool:

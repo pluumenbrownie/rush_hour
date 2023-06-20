@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 
-from algorithms.algorithm import Algorithm as Algorithm
+# from algorithms.algorithm import Algorithm as Algorithm
 
 def histogram_plot(board):
     # Read the data from the csv file
@@ -13,8 +13,7 @@ def histogram_plot(board):
     plot_t.savefig(f'results/output{board}_random_graph_tries.png')
     
     # Make histogram for valid moves
-    histogram_m = data.plot.hist(bins=100, column=['moves'])
-    plot_m = histogram_m.get_figure()
-    plot_m.savefig(f'results/output{board}_random_graph_moves.png')
-    
-    
+    # histogram_m = data.plot.hist(bins=100, column=['moves'])
+    # plot_m = histogram_m.get_figure()
+    # plot_m.savefig(f'results/output{board}_random_graph_moves.png')
+
