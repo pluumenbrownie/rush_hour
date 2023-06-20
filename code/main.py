@@ -38,8 +38,8 @@ if __name__ == '__main__':
             depthfirst_algorithm = DepthFirst(game)
             depthfirst_algorithm.run(first_only = True)
         elif argv[3] == "greedy":
-            greedy3_algorithm = Greedy3(game)
-            greedy3_algorithm.run()
+            greedy_algorithm = Greedy(game)
+            greedy_algorithm.run()
         elif argv[3] == "breadthfirst":
             breadthfirst_algorithm = BreadthFirst(game)
             breadthfirst_algorithm.run()

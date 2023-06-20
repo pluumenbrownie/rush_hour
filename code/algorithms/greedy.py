@@ -4,7 +4,7 @@ from algorithms.algorithm import Algorithm
 from classes.models import RushHour as RushHour
 from classes.vehicle import * 
 
-class Greedy3(Algorithm):
+class Greedy(Algorithm):
     """ 
     This class assigns the best possible option to each car. 
     It first checks if it can move the red car. 
