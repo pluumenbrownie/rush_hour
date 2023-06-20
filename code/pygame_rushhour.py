@@ -227,18 +227,6 @@ class PygameRushHour(RushHour):
                     game_move = self.solution_moves.pop(0)
                     self.process_turn(*game_move)
 
-            # This will be used later to create a game
-            # TODO: clickable vehicles to move
-            # keys = pygame.key.get_pressed()
-            # if keys[pygame.K_w]:
-            #     self.player_pos.y -= 300 * self.dt
-            # if keys[pygame.K_s]:
-            #     self.player_pos.y += 300 * self.dt
-            # if keys[pygame.K_a]:
-            #     self.player_pos.x -= 300 * self.dt
-            # if keys[pygame.K_d]:
-            #     self.player_pos.x += 300 * self.dt
-
             # Pop up the display to put your work on screen (or overwrites the screen)
             pygame.display.flip()
 
