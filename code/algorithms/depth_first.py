@@ -18,6 +18,9 @@ class DepthFirst:
         
         self.visited_states = set()
         
+        self.best_solution = None
+        self.best_move_count = float('inf')
+        
     def get_next_state(self) -> RushHour:
         """
         Method that get the next state from the list of states.
@@ -40,21 +43,25 @@ class DepthFirst:
         for move in moves:
             new_state = copy.deepcopy(self.game)
             vehicle_id, direction = move
-            new_state.move_vehicle(vehicle_id, direction)
-            # self.stack.append(new_state)
+            new_state.process_turn(vehicle_id, direction)
             
             #check if state is already been visited
             visited = new_state.get_board_hash()
             if visited not in self.visited_states:
                 self.visited_states.add(visited)
                 self.stack.append(new_state)
- 
-    def check_solution(self):
+        
+         
+    def check_solution(self, new_state: RushHour) -> None:
         """
         Checks and accepts better solutions than the current solution.
         """
-        pass
-        
+        if new_state.is_won():
+            new_move_count = new_state.count_valid_move()
+            if new_move_count < self.best_move_count:
+                self.best_solution = new_state
+                self.best_move_count = new_move_count
+            
     
     def run(self, first_only: bool = False) -> None:
         """
@@ -68,21 +75,27 @@ class DepthFirst:
             
             # If game is won print output to csv
             if self.game.is_won():
+                self.check_solution(self.game)
                 self.game.export_solution()
             
-            state = self.get_next_state()
-            # check = self.check_solution()
+            new_state = self.get_next_state()
+            # self.check_solution(new_state)
             
-            # if not check:
-            #     self. = state
-            #     if first_only:
-            #         break
-            #     else: 
-            #         continue
+            if first_only and self.game.is_won():
+                break
             
+            # if check is not None:
+            #     self.build_children()
+            # else:
+            #     self.check_solution(new_state)
+                # if first_only:
+                #     break
+                # else: 
+                #     continue
             
-            self.game = state                            
+            self.game = new_state                            
             self.build_children()
         
+        print(f"New best move count: {self.best_move_count}")   
         print("Done!")
         
