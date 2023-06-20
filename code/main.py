@@ -52,9 +52,9 @@ if __name__ == '__main__':
     if len(argv) > 4 and argv[4] == "histogram":
         board = "6x6_1"
         if argv[3] == "random": # in histogram moet bij column['moves'] staan 
-            determine_random_solution(boardsize, board, 10)
+            determine_random_solution(boardsize, board, 1000)
         elif argv[3]== "random_optimized": # in histogram moet bij column['tries'] staan 
-            determine_optimized_random_solution(boardsize, board, 10)
+            determine_optimized_random_solution(boardsize, board, 1000)
         histogram_plot(board)
     
     # Animate the game using pygame (only for random_optimized)
