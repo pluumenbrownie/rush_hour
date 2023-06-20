@@ -4,8 +4,9 @@ from algorithms.random import Random
 from algorithms.depth_first import DepthFirst
 from algorithms.breadth_first import BreadthFirst
 from classes.models import RushHour
-# from visualisation.histogram import histogram_plot
+from visualisation.histogram import Histogram
 
+from sys import argv
 import time
 import statistics as stat
 
@@ -41,9 +42,7 @@ def determine_random_solution(board_size: int, board: str, repeat: int = 1, expo
         
 if __name__ == '__main__':
     
-    # Code to ask user for input, boardsize and algorithm
-    from sys import argv
-    
+    # Code to ask user for input, boardsize and algorithm    
     if len(argv) == 1:
       print("Usage: python3 code/main.py [boardsize] [boardfile] algorithm")
       exit(1)
@@ -70,6 +69,14 @@ if __name__ == '__main__':
         elif argv[3] == "breadthfirst":
             breadthfirst_algorithm = BreadthFirst(game)
             breadthfirst_algorithm.run()
+            
+# ------------------------------------------------------------------Visualisation------------------------------------------------------------------#
+    # Make a plot of a histogram
+    if len(argv) > 4 and argv[4] == "histogram":
+        board = argv[2]
+        algorithm = argv[3]
+        hist = Histogram(board, algorithm)
+        hist.plot()
      
     # game = RushHour(6, "gameboards/Rushhour6x6_test.csv")
     # game = RushHour(6, "gameboards/Rushhour6x6_1.csv")
