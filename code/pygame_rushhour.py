@@ -259,11 +259,11 @@ class PygameRushHour(RushHour):
                 # program tries to pop more items than are in the list at the end of the solution
                 pass
         # Wait one frame or more between each move
-        elif playback_frame_counter % (1/self.cars_per_frame):
+        elif playback_frame_counter % (1/self.cars_per_frame) == 0:
             game_move = self.solution_moves.pop(0)
             self.process_turn(*game_move)
             turn_nr += 1
-
+            print(self.cars_per_frame)
         return turn_nr, playback_frame_counter + 1
 
     def __del__(self):
@@ -274,7 +274,7 @@ class PygameRushHour(RushHour):
 
 
 if __name__ == "__main__":
-    board_file = "gameboards/Rushhour12x12_7.csv"
-    results_file = "results/output_optimized.csv"
-    newgame = PygameRushHour(12, board_file, results_file)
+    board_file = "gameboards/Rushhour6x6_3.csv"
+    results_file = "results/output.csv"
+    newgame = PygameRushHour(6, board_file, results_file)
     newgame.start()
