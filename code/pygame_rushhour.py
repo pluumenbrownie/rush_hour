@@ -263,7 +263,7 @@ class PygameRushHour(RushHour):
             game_move = self.solution_moves.pop(0)
             self.process_turn(*game_move)
             turn_nr += 1
-            print(self.cars_per_frame)
+
         return turn_nr, playback_frame_counter + 1
 
     def __del__(self):
