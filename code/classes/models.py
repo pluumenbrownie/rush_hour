@@ -247,7 +247,21 @@ class RushHour():
         Post: 
         """
         return self.game_board.pickle_hash()
+    
+    def count_valid_move(self) -> int: 
+        """
+        Count the valid moves for solving the algorithm.
+        """
+        moves = 0
+        # success_counter = 0
 
+        # Loop over all the different states the vehicles can be in
+        for vehicle_id in self.get_vehicle_ids():
+            for direction in [-1, 1]:
+                if self.game_board.is_move_valid(vehicle_id, direction):
+                    moves += 1
+                
+        return moves
 
 class Board():
     """ 
