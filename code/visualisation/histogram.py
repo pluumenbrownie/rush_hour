@@ -8,9 +8,9 @@ def histogram_plot(board):
     data = pd.read_csv(f"results/random_moves_{board}.csv")
     
     # Use the right parameters
-    histogram_t = data.plot.hist(bins=100, column=['tries'])
+    histogram_t = data.plot.hist(bins=100, column=['moves'])
     plot_t = histogram_t.get_figure()
-    plot_t.savefig(f'results/output{board}_random_graph_tries.png')
+    plot_t.savefig(f'results/output{board}_random_graph_moves.png')
     
     # Make histogram for valid moves
     # histogram_m = data.plot.hist(bins=100, column=['moves'])

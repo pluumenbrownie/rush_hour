@@ -10,6 +10,14 @@ class Random(Algorithm):
     A class to use algorithms to solve the game. 
     """
             
+    def optimize_random(self):
+        """
+        Optimizes the solution by removing unnecessary moves.
+        Return the amount of moves. 
+        """
+        self.game.optimize_solution()
+        return len(self.game.history)
+    
     def run(self, export: bool = True) -> tuple[int, int]:
         """ 
         Solves the rushhour game by selecing random cars and moves. 
