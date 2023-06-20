@@ -79,19 +79,9 @@ class DepthFirst:
                 self.check_solution(self.game)
             
             new_state = self.get_next_state()
-            # self.check_solution(new_state)
             
             if first_only and self.game.is_won():
                 break
-            
-            # if check is not None:
-            #     self.build_children()
-            # else:
-            #     self.check_solution(new_state)
-                # if first_only:
-                #     break
-                # else: 
-                #     continue
             
             self.check_solution(new_state)
             self.game = new_state                            
