@@ -3,7 +3,7 @@ from algorithms.greedy3 import Greedy3
 from algorithms.random import Random
 from algorithms.depth_first import DepthFirst
 from algorithms.breadth_first import BreadthFirst
-from classes.models import RushHour
+from classes.models import RushHour, count_statespace
 # from visualisation.histogram import histogram_plot
 
 import time
@@ -70,6 +70,8 @@ if __name__ == '__main__':
         elif argv[3] == "breadthfirst":
             breadthfirst_algorithm = BreadthFirst(game)
             breadthfirst_algorithm.run()
+        elif argv[3] == "statespace":
+            print(count_statespace(boardsize, boardfile))
      
     # game = RushHour(6, "gameboards/Rushhour6x6_test.csv")
     # game = RushHour(6, "gameboards/Rushhour6x6_1.csv")
