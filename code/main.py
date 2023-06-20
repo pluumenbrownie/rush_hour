@@ -4,8 +4,9 @@ from algorithms.random import Random
 from algorithms.depth_first import DepthFirst
 from algorithms.breadth_first import BreadthFirst
 from classes.models import RushHour
-from visualisation.histogram import Histogram
+from visualisation.histogram import histogram_plot
 from classes.models import RushHour, count_statespace
+from pygame_rushhour import PygameRushHour
 
 from sys import argv
 import time
@@ -72,30 +73,24 @@ if __name__ == '__main__':
             breadthfirst_algorithm.run()
         elif argv[3] == "statespace":
             print(count_statespace(boardsize, boardfile))
+        
+        # Run this if you want to play the game yourself
+        elif argv[3] == "play":
+            game.start_game()
             
-# ------------------------------------------------------------------Visualisation------------------------------------------------------------------#
-    # Make a plot of a histogram
+# --------------------------------------------Visualisation--------------------------------------------#
+    # Make a plot of a histogram for random
     if len(argv) > 4 and argv[4] == "histogram":
-        board = argv[2]
-        algorithm = argv[3]
-        hist = Histogram(board, algorithm)
-        hist.plot()
-     
+        board = "6x6_1"
+        determine_random_solution(boardsize, board, 100)
+        histogram_plot(board)
+    
+    # Animate the game using pygame (only for random)
+    elif len(argv) > 4 and argv[4] == "animate":
+        results_file = "results/output_optimized.csv"
+        newgame = PygameRushHour(boardsize, boardfile, results_file)
+        newgame.start()    
+    
     # game = RushHour(6, "gameboards/Rushhour6x6_test.csv")
     # game = RushHour(6, "gameboards/Rushhour6x6_1.csv")
     # game = RushHour(12, "gameboards/Rushhour12x12_7.csv")
-
-    
-    # Run this if you want to play the game yourself
-    # game.start_game()
-
-    # ------------------------------------------------------------------Visualisation------------------------------------------------------------------#
-    # Make a plot of an histogram
-    # board = "6x6_1"
-    # determine_random_solution(6, board, 2000)
-    # histogram_plot(board)
-
-    # # Make the visualisation
-    # board_file = "gameboards/Rushhour6x6_1.csv"
-    # newgame = PygameRushHour(6, board_file)
-    # newgame.start()
