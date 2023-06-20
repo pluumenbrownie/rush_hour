@@ -5,6 +5,7 @@ from algorithms.depth_first import DepthFirst
 from algorithms.breadth_first import BreadthFirst
 from classes.models import RushHour
 from visualisation.histogram import Histogram
+from classes.models import RushHour, count_statespace
 
 from sys import argv
 import time
@@ -69,6 +70,8 @@ if __name__ == '__main__':
         elif argv[3] == "breadthfirst":
             breadthfirst_algorithm = BreadthFirst(game)
             breadthfirst_algorithm.run()
+        elif argv[3] == "statespace":
+            print(count_statespace(boardsize, boardfile))
             
 # ------------------------------------------------------------------Visualisation------------------------------------------------------------------#
     # Make a plot of a histogram
