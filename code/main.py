@@ -1,4 +1,4 @@
-from algorithms.greedy3 import Greedy3
+from algorithms.greedy import Greedy
 from algorithms.random import Random
 from algorithms.depth_first import DepthFirst
 from algorithms.breadth_first import BreadthFirst
