@@ -2,8 +2,8 @@ from algorithms.algorithm import Algorithm
 from algorithms.greedy3 import Greedy3
 from algorithms.random import Random
 from algorithms.depth_first import DepthFirst
+from algorithms.breadth_first import BreadthFirst
 from classes.models import RushHour
-
 # from visualisation.histogram import histogram_plot
 
 import time
@@ -67,8 +67,11 @@ if __name__ == '__main__':
         elif argv[3] == "greedy":
             greedy3_algorithm = Greedy3(game)
             greedy3_algorithm.run()
+        elif argv[3] == "breadthfirst":
+            breadthfirst_algorithm = BreadthFirst(game)
+            breadthfirst_algorithm.run()
      
-    # game = RushHour(6, "gameboards/Rushhour6x6_test.csv")
+    game = RushHour(6, "gameboards/Rushhour6x6_test.csv")
     # game = RushHour(6, "gameboards/Rushhour6x6_1.csv")
     # game = RushHour(12, "gameboards/Rushhour12x12_7.csv")
 
@@ -76,25 +79,6 @@ if __name__ == '__main__':
     # Run this if you want to play the game yourself
     # game.start_game()
 
-    # --------------------------- Random ---------------------------------------
-    # random_algorithm = Random(game)
-    # random_algorithm.run()
-    
-    # --------------------------- Random Optimized ---------------------------------------
-    # random_algorithm = Random(game)
-    # random_algorithm.run()
-    # game.optimize_solution()
-    # game.export_solution(output_name="results/output_optimized.csv")
-
-    # --------------------------- Greedy ---------------------------------------
-    # Run this if you want to run the greedy3 (Dionne's implementation) algorithm
-    # greedy3_algorithm = Greedy3(game)
-    # greedy3_algorithm.run()
-    
-    # --------------------------- DepthFirst ---------------------------------------
-    # depthfirst_algorithm = DepthFirst(game)
-    # depthfirst_algorithm.run()    
-    
     # ------------------------------------------------------------------Visualisation------------------------------------------------------------------#
     # Make a plot of an histogram
     # board = "6x6_1"

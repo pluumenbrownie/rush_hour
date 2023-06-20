@@ -57,7 +57,6 @@ class RushHour():
         Pre: id of a vehicle (NOT of a car or truck class) and direction
         Post: returns true is move is possible, returns false if not 
         TO DO it is unclear whether vehicle actually moves 
-        TO DO this method is redundant because we already have process_turn()
         """
         move_viability = self.game_board.is_move_valid(vehicle_id, direction)
         #print("Can move:", move_viability)
@@ -142,6 +141,27 @@ class RushHour():
         if success:
             self.history.append((target_vehicle, direction, self.get_board_hash()))
         return success
+    
+    def get_movable_vehicles(self) -> list[tuple[str, int]]:
+        # returns a dict with str and Vehicle object 
+        vehicles = self.get_vehicles()
+        # make empty list 
+        movable_vehicles: list[tuple[str, int]] = []
+        movable_vehicles_ids: list[str] = []
+        
+        # loop over all the vehicles on the board 
+        for vehicle in vehicles: 
+            if self.game_board.is_move_valid(vehicle, 1):
+                # add tuple to list 
+                movable_vehicles.append((vehicle, 1))
+
+
+            if self.game_board.is_move_valid(vehicle, -1): 
+                # add tuple to list 
+                movable_vehicles.append((vehicle, -1))
+
+        return movable_vehicles
+
 
     def export_solution(self, output_name: str = "results/output.csv") -> None:
         """ 
