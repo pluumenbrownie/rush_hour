@@ -1,4 +1,4 @@
-from algorithms.greedy3 import Greedy3
+from algorithms.greedy import Greedy
 from algorithms.random import Random
 from algorithms.depth_first import DepthFirst
 from algorithms.breadth_first import BreadthFirst
@@ -19,6 +19,9 @@ if __name__ == '__main__':
     boardsize = int(argv[1])
     boardfile = argv[2]  
     game = RushHour(boardsize, boardfile)
+    print("locatie van x")
+    print(game.get_vehicle_from_location(2, 4))
+
     
 # --------------------------------------------Algorithms--------------------------------------------#
     if len(argv) > 3:   
@@ -34,8 +37,8 @@ if __name__ == '__main__':
             depthfirst_algorithm = DepthFirst(game)
             depthfirst_algorithm.run(first_only = True)
         elif argv[3] == "greedy":
-            greedy3_algorithm = Greedy3(game)
-            greedy3_algorithm.run()
+            greedy_algorithm = Greedy(game)
+            greedy_algorithm.run()
         elif argv[3] == "breadthfirst":
             breadthfirst_algorithm = BreadthFirst(game)
             breadthfirst_algorithm.run()
