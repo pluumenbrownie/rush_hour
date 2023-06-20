@@ -7,6 +7,8 @@ from visualisation.histogram import histogram_plot
 from classes.models import RushHour, count_statespace
 from pygame_rushhour import PygameRushHour
 from experiments.random_experiment import determine_random_solution
+from experiments.random_optimized_experiment import determine_optimized_random_solution
+
 from sys import argv
   
 if __name__ == '__main__':
@@ -49,7 +51,10 @@ if __name__ == '__main__':
     # Make a plot of a histogram for random
     if len(argv) > 4 and argv[4] == "histogram":
         board = "6x6_1"
-        determine_random_solution(boardsize, board, 2000)
+        if argv[3] == "random": # in histogram moet bij column['moves'] staan 
+            determine_random_solution(boardsize, board, 1000)
+        elif argv[3]== "random_optimized": # in histogram moet bij column['tries'] staan 
+            determine_optimized_random_solution(boardsize, board, 1000)
         histogram_plot(board)
     
     # Animate the game using pygame (only for random_optimized)

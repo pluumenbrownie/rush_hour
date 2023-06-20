@@ -45,7 +45,6 @@ class Algorithm():
         """
         # Get position of target car
         vehicle = self.vehicles[target_car.id]
-        print(vehicle.id)
         row = vehicle.row
         col = vehicle.col
         # print(f"row of target car: {row}, column of target car: {col}")
