@@ -44,16 +44,16 @@ class PygameRushHour(RushHour):
         # Distance between the boxes
         self.line_spacing = self.board_size // (self.game_board.width)
 
-        self.solution_moves = []
+        self.solution_moves: list[tuple[str, int]] = []
         if solution_file:
-            with open(board_file, 'r') as csv_file: 
+            with open(solution_file, 'r') as csv_file: 
                 csv_reader = csv.reader(csv_file, delimiter=',')
                 header = True
                 for line in csv_reader: 
                     if header:
                         header = False
                         continue
-                    self.solution_moves.append((line[0], line[1]))
+                    self.solution_moves.append((line[0], int(line[1])))
 
     def color_vehicles(self) -> None:
         """ 
@@ -113,6 +113,7 @@ class PygameRushHour(RushHour):
         """ 
         Start the game and give vehicles a position on the board. 
         """
+        play_pressed = False
         running = True
         # Based on pygame quickstart example https://www.pygame.org/docs/
         while running:
@@ -121,6 +122,9 @@ class PygameRushHour(RushHour):
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
+            
+            mouse_position = pygame.mouse.get_pos()
+            mouse_first_button_pressed = pygame.mouse.get_pressed()[0]
 
             # Fill the screen with a color to wipe away anything from last frame
             self.screen.fill("white")
@@ -130,6 +134,14 @@ class PygameRushHour(RushHour):
             
             if self.solution_moves:
                 play_button = self.draw_playbutton()
+                if mouse_first_button_pressed and play_button.collidepoint(mouse_position):
+                    play_pressed = True
+                
+                if play_pressed:
+                    game_move = self.solution_moves.pop(0)
+                    self.process_turn(*game_move)
+
+
 
             # This will be used later to create a game 
             # TODO: clickable vehicles to move
