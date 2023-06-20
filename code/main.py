@@ -63,7 +63,7 @@ if __name__ == '__main__':
             game.export_solution(output_name="results/output_optimized.csv")
         elif argv[3] == "depthfirst":
             depthfirst_algorithm = DepthFirst(game)
-            depthfirst_algorithm.run(first_only = False)
+            depthfirst_algorithm.run(first_only = True)
         elif argv[3] == "greedy":
             greedy3_algorithm = Greedy3(game)
             greedy3_algorithm.run()
@@ -71,7 +71,7 @@ if __name__ == '__main__':
             breadthfirst_algorithm = BreadthFirst(game)
             breadthfirst_algorithm.run()
      
-    game = RushHour(6, "gameboards/Rushhour6x6_test.csv")
+    # game = RushHour(6, "gameboards/Rushhour6x6_test.csv")
     # game = RushHour(6, "gameboards/Rushhour6x6_1.csv")
     # game = RushHour(12, "gameboards/Rushhour12x12_7.csv")
 
