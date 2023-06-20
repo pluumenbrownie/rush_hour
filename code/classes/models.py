@@ -95,9 +95,9 @@ class RushHour():
         ## Example: 
         Game with `Car`s "A", "B" and "C" returns:
         ```
-        {"A": Car,
-        "B": Car,
-        "C": Car}
+        {"A": Car A,
+        "B": Car B,
+        "C": Car C}
         ```
         """
         return self.game_board.vehicle_dict
