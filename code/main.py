@@ -21,11 +21,7 @@ if __name__ == '__main__':
     boardsize = int(argv[1])
     boardfile = argv[2]  
     game = RushHour(boardsize, boardfile)
-    print("locatie van x")
-    print(game.get_vehicle_from_location(2, 4))
 
-    
-# --------------------------------------------Algorithms--------------------------------------------#
     if len(argv) > 3:   
         if argv[3] == "random":
             random_algorithm = Random(game)
@@ -64,5 +60,6 @@ if __name__ == '__main__':
     # Animate the game using pygame (only for random_optimized)
     elif len(argv) > 4 and argv[4] == "animate":
         results_file = "results/output_optimized.csv"
+        newgame = PygameRushHour(boardsize, boardfile, results_file)
         newgame = PygameRushHour(boardsize, boardfile, results_file)
         newgame.start()
