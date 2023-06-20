@@ -82,8 +82,8 @@ class RushHour():
     def is_won(self) -> bool:
         """ 
         Check if the game is won. 
-        Pre: nothing
-        Post: returns True if game is won
+        Pre: Vehicle with `id == "X"` exists.
+        Post: returns True if game is won.
         """
         return self.game_board.is_won()
     
