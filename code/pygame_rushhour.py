@@ -10,46 +10,48 @@ COLOR_NAMES = [name for name in COLORS.keys()]
 
 
 class PygameRushHour(RushHour):
-    def __init__(self, width: int, board_file: str, solution_file: str|None = None) -> None:
-        """ 
-        Initalize the game. 
+    def __init__(
+        self, width: int, board_file: str, solution_file: str | None = None
+    ) -> None:
+        """
+        Initalize the game.
         """
         super().__init__(width, board_file)
 
         # pygame setup
         pygame.init()
 
-        # Set width and height of the screen 
+        # Set width and height of the screen
         self.screen = pygame.display.set_mode((1280, 720))
 
-        # Set internal clock of game 
+        # Set internal clock of game
         self.clock = pygame.time.Clock()
         self.dt = 0
 
         self.vehicles = self.get_vehicles()
 
-        # Give vehicles a color 
+        # Give vehicles a color
         self.color_vehicles()
 
         # Assign board a size
         self.board_size = 600
-        # Make sure there is some white space around the cars 
+        # Make sure there is some white space around the cars
         self.car_margin = 10
         self.resolution = self.screen.get_size()
 
-        # Make sure board is in the middle of the screen 
-        self.board_start_left = (self.resolution[0] - self.board_size)//2
-        self.board_start_top = (self.resolution[1] - self.board_size)//2
+        # Make sure board is in the middle of the screen
+        self.board_start_left = (self.resolution[0] - self.board_size) // 2
+        self.board_start_top = (self.resolution[1] - self.board_size) // 2
 
         # Distance between the boxes
         self.line_spacing = self.board_size // (self.game_board.width)
 
         self.solution_moves: list[tuple[str, int]] = []
         if solution_file:
-            with open(solution_file, 'r') as csv_file: 
-                csv_reader = csv.reader(csv_file, delimiter=',')
+            with open(solution_file, "r") as csv_file:
+                csv_reader = csv.reader(csv_file, delimiter=",")
                 header = True
-                for line in csv_reader: 
+                for line in csv_reader:
                     if header:
                         header = False
                         continue
@@ -57,11 +59,11 @@ class PygameRushHour(RushHour):
         self.playback_speed = 1
 
     def color_vehicles(self) -> None:
-        """ 
-        Assign colors to the vehicles. 
+        """
+        Assign colors to the vehicles.
         """
         vehicles = self.get_vehicles()
-        
+
         # Assign vehicles a color
         for vehicle in vehicles.values():
             if vehicle.id == "X":
@@ -70,44 +72,83 @@ class PygameRushHour(RushHour):
                 vehicle.color = rd.choice(COLOR_NAMES)
 
     def draw_board(self) -> None:
-        # Create "outside" of board 
-        board = pygame.Rect(self.board_start_left, self.board_start_top, self.board_size, self.board_size)
+        # Create "outside" of board
+        board = pygame.Rect(
+            self.board_start_left,
+            self.board_start_top,
+            self.board_size,
+            self.board_size,
+        )
         pygame.draw.rect(self.screen, "black", board, 3)
-        
-        # Create the vertical lines 
-        for line_y in range(self.board_start_top + self.line_spacing, self.board_start_top + self.board_size, self.line_spacing):
-            pygame.draw.line(self.screen, "black", (self.board_start_left, line_y), (self.board_start_left + self.board_size - 1, line_y), width=3)
 
-        # Create the horizontal lines  
-        for line_x in range(self.board_start_left + self.line_spacing, self.board_start_left + self.board_size, self.line_spacing):
-            pygame.draw.line(self.screen, "black", (line_x, self.board_start_top), (line_x, self.board_start_top + self.board_size - 1), width=3)
-    
+        # Create the vertical lines
+        for line_y in range(
+            self.board_start_top + self.line_spacing,
+            self.board_start_top + self.board_size,
+            self.line_spacing,
+        ):
+            pygame.draw.line(
+                self.screen,
+                "black",
+                (self.board_start_left, line_y),
+                (self.board_start_left + self.board_size - 1, line_y),
+                width=3,
+            )
+
+        # Create the horizontal lines
+        for line_x in range(
+            self.board_start_left + self.line_spacing,
+            self.board_start_left + self.board_size,
+            self.line_spacing,
+        ):
+            pygame.draw.line(
+                self.screen,
+                "black",
+                (line_x, self.board_start_top),
+                (line_x, self.board_start_top + self.board_size - 1),
+                width=3,
+            )
+
     def draw_cars(self) -> None:
-        # Give vehicles a position on the board 
+        # Give vehicles a position on the board
         for vehicle in self.vehicles.values():
             tiles_occupied = vehicle.get_tiles_occupied()
-            veh_x = self.board_start_left + (self.line_spacing * (tiles_occupied[0][0] - 1)) + self.car_margin
-            veh_y = self.board_start_top + (self.line_spacing * (tiles_occupied[0][1] - 1)) + self.car_margin
-            veh_width = self.line_spacing * (tiles_occupied[-1][0] - tiles_occupied[0][0] + 1) - 2 * self.car_margin
-            veh_height = self.line_spacing * (tiles_occupied[-1][1] - tiles_occupied[0][1] + 1) - 2 * self.car_margin
+            veh_x = (
+                self.board_start_left
+                + (self.line_spacing * (tiles_occupied[0][0] - 1))
+                + self.car_margin
+            )
+            veh_y = (
+                self.board_start_top
+                + (self.line_spacing * (tiles_occupied[0][1] - 1))
+                + self.car_margin
+            )
+            veh_width = (
+                self.line_spacing * (tiles_occupied[-1][0] - tiles_occupied[0][0] + 1)
+                - 2 * self.car_margin
+            )
+            veh_height = (
+                self.line_spacing * (tiles_occupied[-1][1] - tiles_occupied[0][1] + 1)
+                - 2 * self.car_margin
+            )
 
             vehicle_rect = pygame.Rect(veh_x, veh_y, veh_width, veh_height)
 
-            # Vehicle gets placed on the board 
+            # Vehicle gets placed on the board
             pygame.draw.rect(self.screen, vehicle.color, vehicle_rect)
-        
+
     def draw_playbutton(self) -> pygame.Rect:
         button_x = self.board_size + self.board_start_left + 50
         button_y = self.board_start_top
         button_size = 100
         return pygame.draw.polygon(
-            self.screen, 
-            "black", 
+            self.screen,
+            "black",
             (
-                (button_x, button_y), 
-                (button_x, button_y + button_size), 
-                (button_x+button_size, button_y + button_size//2)
-            )
+                (button_x, button_y),
+                (button_x, button_y + button_size),
+                (button_x + button_size, button_y + button_size // 2),
+            ),
         )
 
     def draw_speed_setting(self) -> tuple[pygame.Rect, pygame.Rect]:
@@ -119,8 +160,12 @@ class PygameRushHour(RushHour):
 
         plus_text_surface = text_font.render("+", True, "black", "white")
         minus_text_surface = text_font.render("-", True, "black", "white")
-        speed_text_surface = text_font.render(f"{round(60/self.playback_speed, 1)}", True, "black", "white")
-        description_text_surface = small_text_font.render("Moves per second:", True, "black", "white")
+        speed_text_surface = text_font.render(
+            f"{round(60/self.playback_speed, 1)}", True, "black", "white"
+        )
+        description_text_surface = small_text_font.render(
+            "Moves per second:", True, "black", "white"
+        )
 
         minus = self.screen.blit(minus_text_surface, (display_x - 30, display_y))
         plus = self.screen.blit(plus_text_surface, (display_x + 150, display_y))
@@ -130,8 +175,8 @@ class PygameRushHour(RushHour):
         return minus, plus
 
     def start(self) -> None:
-        """ 
-        Start the game and give vehicles a position on the board. 
+        """
+        Start the game and give vehicles a position on the board.
         """
         play_pressed = False
         detect_hold = False
@@ -143,9 +188,11 @@ class PygameRushHour(RushHour):
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
-            
+
             mouse_position = pygame.mouse.get_pos()
-            mouse_first_button_pressed = pygame.mouse.get_pressed()[0] if not detect_hold else False
+            mouse_first_button_pressed = (
+                pygame.mouse.get_pressed()[0] if not detect_hold else False
+            )
             detect_hold = pygame.mouse.get_pressed()[0]
 
             # Fill the screen with a color to wipe away anything from last frame
@@ -153,24 +200,34 @@ class PygameRushHour(RushHour):
 
             self.draw_board()
             self.draw_cars()
-            
+
             if self.solution_moves:
                 play_button = self.draw_playbutton()
                 minus_button, plus_button = self.draw_speed_setting()
-                if mouse_first_button_pressed and play_button.collidepoint(mouse_position):
+                # clicked on play
+                if (
+                    mouse_first_button_pressed 
+                    and play_button.collidepoint(mouse_position)
+                ):
                     play_pressed = True
-                if mouse_first_button_pressed and minus_button.collidepoint(mouse_position):
+                # clicked on --
+                if (
+                    mouse_first_button_pressed 
+                    and minus_button.collidepoint(mouse_position)
+                ):
                     self.playback_speed += 1 if self.playback_speed < 60 else 0
-                if mouse_first_button_pressed and plus_button.collidepoint(mouse_position):
+                # clicked on +
+                if (
+                    mouse_first_button_pressed 
+                    and  plus_button.collidepoint(mouse_position)
+                ):
                     self.playback_speed -= 1 if self.playback_speed > 1 else 0
-                
+
                 if play_pressed:
                     game_move = self.solution_moves.pop(0)
                     self.process_turn(*game_move)
 
-
-
-            # This will be used later to create a game 
+            # This will be used later to create a game
             # TODO: clickable vehicles to move
             # keys = pygame.key.get_pressed()
             # if keys[pygame.K_w]:
@@ -195,12 +252,13 @@ class PygameRushHour(RushHour):
         pygame.quit()
 
     def __del__(self):
-        """ 
-        End of the game. 
+        """
+        End of the game.
         """
         pygame.quit()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     board_file = "gameboards/Rushhour6x6_1.csv"
     results_file = "results/output_optimized.csv"
     newgame = PygameRushHour(6, board_file, results_file)
