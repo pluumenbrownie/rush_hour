@@ -36,7 +36,7 @@ class BeamSearch(BreadthFirst):
         self.stack.sort(key=self.amount_of_boxes)
 
 
-    def build_children(self, beamsize: int = 100) -> None: 
+    def build_children(self, beamsize: int = 50) -> None: 
         """""
         Creates all possible child-states and adds them to the list of states.
         lengte van stack moet altijd hoogstens zo groot zijn als beam size

@@ -23,13 +23,12 @@ class Greedy(Algorithm):
         counter = 0
         last_move: tuple[str, int] = 'A', 1
 
-        while not self.game.is_won():\
-        # while counter <= 20:
+        while not self.game.is_won():
+        # while counter <= 40:
             self.game.show_board()
             print("\n")
 
             counter += 1
-            # to prevent ending up in a loop
 
             # try to move red car to the right
             red_move = self.game.process_turn("X", 1)
