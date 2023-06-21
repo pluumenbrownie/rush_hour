@@ -25,7 +25,7 @@ class Greedy(Algorithm):
 
         while not self.game.is_won():\
         # while counter <= 20:
-            # self.game.show_board()
+            self.game.show_board()
             print("\n")
 
             counter += 1
@@ -36,6 +36,7 @@ class Greedy(Algorithm):
 
             # if red can move, continue to another round of the loop
             if red_move:
+                print("red move")
                 continue 
 
             # look to right of the red car to see which vehicle is blocking
@@ -78,15 +79,14 @@ class Greedy(Algorithm):
             # if no other move was possible, make a random move 
             movable_vehicles = self.game.get_movable_vehicles()
             vehicle, direction = self.choose_vehicle_from_movable_vehicles(movable_vehicles)
-            print(vehicle, direction)
+            print(f"random move: {vehicle}, {direction}")
             if last_move[0] == vehicle and last_move[1] == direction * -1: 
                 continue
             random_move = self.game.process_turn(vehicle, direction)
             if random_move: 
                 last_move = vehicle, direction
-                print("random move")
 
-            print(counter)
+            # print(counter)
 
         print(f"It took the algorithm {counter} tries")
         return counter

@@ -56,7 +56,8 @@ class PygameRushHour(RushHour):
                         header = False
                         continue
                     self.solution_moves.append((line[0], int(line[1])))
-        self.playback_speed = 1
+            self.total_moves = len(self.solution_moves)
+        self.cars_per_frame = 1.0
 
     def color_vehicles(self) -> None:
         """
@@ -151,26 +152,36 @@ class PygameRushHour(RushHour):
             ),
         )
 
-    def draw_speed_setting(self) -> tuple[pygame.Rect, pygame.Rect]:
+    def draw_speed_setting(self, turn_nr: int) -> tuple[pygame.Rect, pygame.Rect]:
         display_x = self.board_size + self.board_start_left + 50
-        display_y = self.board_size + self.board_start_top - 70
+        display_y = self.board_size + self.board_start_top - 100
         font_path = pygame.font.match_font(pygame.font.get_default_font())
         text_font = pygame.font.Font(font_path, 100)
         small_text_font = pygame.font.Font(font_path, 30)
 
+        if self.cars_per_frame > 1:
+            cps_text = round(60*self.cars_per_frame)
+        else:
+            cps_text = round(60*self.cars_per_frame, 1)
+
+
         plus_text_surface = text_font.render("+", True, "black", "white")
         minus_text_surface = text_font.render("-", True, "black", "white")
         speed_text_surface = text_font.render(
-            f"{round(60/self.playback_speed, 1)}", True, "black", "white"
+            f"{cps_text}", True, "black", "white"
         )
         description_text_surface = small_text_font.render(
             "Moves per second:", True, "black", "white"
         )
+        counter_text_surface = small_text_font.render(
+            f"{turn_nr}/{self.total_moves}", True, "black", "white"
+        )
 
         minus = self.screen.blit(minus_text_surface, (display_x - 30, display_y))
-        plus = self.screen.blit(plus_text_surface, (display_x + 150, display_y))
+        plus = self.screen.blit(plus_text_surface, (display_x + 160, display_y))
         self.screen.blit(speed_text_surface, (display_x, display_y))
         self.screen.blit(description_text_surface, (display_x - 30, display_y - 25))
+        self.screen.blit(counter_text_surface, (display_x - 30, display_y + 75))
 
         return minus, plus
 
@@ -181,6 +192,8 @@ class PygameRushHour(RushHour):
         play_pressed = False
         detect_hold = False
         running = True
+        turn_nr = 0
+        playback_frame_counter = 0
         # Based on pygame quickstart example https://www.pygame.org/docs/
         while running:
             # poll for events
@@ -203,7 +216,7 @@ class PygameRushHour(RushHour):
 
             if self.solution_moves:
                 play_button = self.draw_playbutton()
-                minus_button, plus_button = self.draw_speed_setting()
+                minus_button, plus_button = self.draw_speed_setting(turn_nr)
                 # clicked on play
                 if (
                     mouse_first_button_pressed 
@@ -215,29 +228,43 @@ class PygameRushHour(RushHour):
                     mouse_first_button_pressed 
                     and minus_button.collidepoint(mouse_position)
                 ):
-                    self.playback_speed += 1 if self.playback_speed < 60 else 0
+                    self.cars_per_frame /= 2 if self.cars_per_frame > 0.01 else 1
                 # clicked on +
                 if (
                     mouse_first_button_pressed 
                     and  plus_button.collidepoint(mouse_position)
                 ):
-                    self.playback_speed -= 1 if self.playback_speed > 1 else 0
+                    self.cars_per_frame *= 2 if self.cars_per_frame < 100 else 1
 
                 if play_pressed:
-                    game_move = self.solution_moves.pop(0)
-                    self.process_turn(*game_move)
+                    turn_nr, playback_frame_counter = self.play_frame(turn_nr, playback_frame_counter)
 
             # Pop up the display to put your work on screen (or overwrites the screen)
             pygame.display.flip()
 
             # Limits frames per second (FPS) to 60
             # dt is delta time in seconds since last frame, used for framerate independent physics
-            if play_pressed:
-                framerate = 60 / self.playback_speed
-            else:
-                framerate = 60
-            self.dt = self.clock.tick(framerate) / 1000
+            self.dt = self.clock.tick(60) / 1000
         pygame.quit()
+
+    def play_frame(self, turn_nr: int, playback_frame_counter: int) -> tuple[int, int]:
+        # Move vehicles every frame
+        if self.cars_per_frame >= 1:
+            try:
+                for _ in range(int(self.cars_per_frame)):
+                    game_move = self.solution_moves.pop(0)
+                    self.process_turn(*game_move)
+                    turn_nr += 1
+            except IndexError:
+                # program tries to pop more items than are in the list at the end of the solution
+                pass
+        # Wait one frame or more between each move
+        elif playback_frame_counter % (1/self.cars_per_frame) == 0:
+            game_move = self.solution_moves.pop(0)
+            self.process_turn(*game_move)
+            turn_nr += 1
+
+        return turn_nr, playback_frame_counter + 1
 
     def __del__(self):
         """
