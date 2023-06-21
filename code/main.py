@@ -2,6 +2,7 @@ from algorithms.greedy import Greedy
 from algorithms.random import Random
 from algorithms.depth_first import DepthFirst
 from algorithms.breadth_first import BreadthFirst
+from algorithms.beam_search import BeamSearch
 from classes.models import RushHour
 from visualisation.histogram import histogram_plot
 from visualisation.hist_compare_algorithms import compare_plot
@@ -44,6 +45,9 @@ if __name__ == '__main__':
         elif argv[3] == "breadthfirst":
             breadthfirst_algorithm = BreadthFirst(game)
             breadthfirst_algorithm.run()
+        elif argv[3] == "beamsearch":
+            beamsearch_algorithm = BeamSearch(game)
+            beamsearch_algorithm.run()
         elif argv[3] == "statespace":
             print(count_statespace(boardsize, boardfile))
         elif argv[3] == "compare":

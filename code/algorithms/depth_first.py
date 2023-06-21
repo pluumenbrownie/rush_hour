@@ -50,7 +50,6 @@ class DepthFirst:
             if visited not in self.visited_states:
                 self.visited_states.add(visited)
                 self.stack.append(new_state)
-        
          
     def check_solution(self, new_state: RushHour) -> None:
         """
@@ -64,14 +63,14 @@ class DepthFirst:
                 self.best_solution.show_board()
                 self.best_solution.export_solution() 
     
-    def run(self, first_only: bool = False) -> None:
+    def run(self, first_only: bool = True) -> None:
         """
         This method runs the depth first algorithm.
         """
         
         while self.stack:
             # print("")
-            # # self.game.show_board()
+            # self.game.show_board()
             # print(f"{self.game.is_won()=}")
             
             # If game is won print output to csv
