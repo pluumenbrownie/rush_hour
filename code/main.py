@@ -4,10 +4,14 @@ from algorithms.depth_first import DepthFirst
 from algorithms.breadth_first import BreadthFirst
 from classes.models import RushHour
 from visualisation.histogram import histogram_plot
+from visualisation.hist_compare_algorithms import compare_plot
 from classes.models import RushHour, count_statespace
 from pygame_rushhour import PygameRushHour
 from experiments.random_experiment import determine_random_solution
 from experiments.random_optimized_experiment import determine_optimized_random_solution
+from experiments.breadthfirst_experiment import breadth_first_experiment
+from experiments.depthfirst_experiment import depth_first_experiment
+
 
 from sys import argv
   
@@ -33,7 +37,7 @@ if __name__ == '__main__':
             game.export_solution(output_name="results/output_optimized.csv")
         elif argv[3] == "depthfirst":
             depthfirst_algorithm = DepthFirst(game)
-            depthfirst_algorithm.run(first_only = True)
+            depthfirst_algorithm.run(first_only = False)
         elif argv[3] == "greedy":
             greedy_algorithm = Greedy(game)
             greedy_algorithm.run()
@@ -42,6 +46,13 @@ if __name__ == '__main__':
             breadthfirst_algorithm.run()
         elif argv[3] == "statespace":
             print(count_statespace(boardsize, boardfile))
+        elif argv[3] == "compare":
+            board = "6x6_1"
+            determine_random_solution(boardsize, board, 15)
+            determine_optimized_random_solution(boardsize, board, 15)
+            breadth_first_experiment(boardsize, board, 15)
+            depth_first_experiment(boardsize, board, 15)
+            compare_plot(board)
         
         # Run this if you want to play the game yourself
         elif argv[3] == "play":
@@ -52,14 +63,15 @@ if __name__ == '__main__':
     if len(argv) > 4 and argv[4] == "histogram":
         board = "6x6_1"
         if argv[3] == "random": # in histogram moet bij column['moves'] staan 
-            determine_random_solution(boardsize, board, 10)
+            determine_random_solution(boardsize, board, 1000)
+            histogram_plot(f"results/random_moves_{board}.csv", f'results/output{board}_random_graph_moves.png')
         elif argv[3]== "random_optimized": # in histogram moet bij column['tries'] staan 
-            determine_optimized_random_solution(boardsize, board, 10)
-        histogram_plot(board)
-    
+            determine_optimized_random_solution(boardsize, board, 1000)
+            histogram_plot(f"results/random_optimized_moves_{board}.csv", f'results/output{board}_random_graph_optimized_moves.png')       
+         
+           
     # Animate the game using pygame (only for random_optimized)
     elif len(argv) > 4 and argv[4] == "animate":
         results_file = "results/output_optimized.csv"
-        newgame = PygameRushHour(boardsize, boardfile, results_file)
         newgame = PygameRushHour(boardsize, boardfile, results_file)
         newgame.start()

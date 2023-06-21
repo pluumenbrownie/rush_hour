@@ -164,7 +164,7 @@ class RushHour():
 
         if success:
             self.history.append((target_vehicle_id, direction, self.get_board_hash()))
-            print(target_vehicle_id, direction)
+            # print(target_vehicle_id, direction)
         return success
     
     def get_movable_vehicles(self) -> list[tuple[str, int]]:
