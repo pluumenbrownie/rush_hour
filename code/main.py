@@ -25,6 +25,7 @@ if __name__ == '__main__':
     boardsize = int(argv[1])
     boardfile = argv[2]  
     game = RushHour(boardsize, boardfile)
+    board = "6x6_1"
 
     if len(argv) > 3:   
         if argv[3] == "random":
@@ -47,12 +48,16 @@ if __name__ == '__main__':
         elif argv[3] == "statespace":
             print(count_statespace(boardsize, boardfile))
         elif argv[3] == "compare":
-            board = "6x6_1"
             determine_random_solution(boardsize, board, 15)
             determine_optimized_random_solution(boardsize, board, 15)
             breadth_first_experiment(boardsize, board, 15)
             depth_first_experiment(boardsize, board, 15)
             compare_plot(board)
+        elif argv[3] == "depth_exp":
+            depth_first_experiment(boardsize, board, 15)
+        elif argv[3] == "breadth_exp":
+            breadth_first_experiment(boardsize, board, 15)
+        
         
         # Run this if you want to play the game yourself
         elif argv[3] == "play":
@@ -70,8 +75,8 @@ if __name__ == '__main__':
             histogram_plot(f"results/random_optimized_moves_{board}.csv", f'results/output{board}_random_graph_optimized_moves.png')       
          
            
-    # Animate the game using pygame (only for random_optimized)
+    # Animate every algorithm game using pygame
     elif len(argv) > 4 and argv[4] == "animate":
-        results_file = "results/output_optimized.csv"
+        results_file = "results/output.csv"
         newgame = PygameRushHour(boardsize, boardfile, results_file)
         newgame.start()
