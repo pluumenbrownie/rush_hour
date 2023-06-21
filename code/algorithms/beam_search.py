@@ -52,15 +52,16 @@ class BeamSearch(BreadthFirst):
 
         # Loop over all the possible moves
         for move in moves:
-            new_state = copy.deepcopy(self.game)
+            # new_state = copy.deepcopy(self.game)
             vehicle_id, direction = move
-            new_state.process_turn(vehicle_id, direction)
+            self.game.process_turn(vehicle_id, direction)
             
             # check if state is already been visited
-            visited = new_state.get_board_hash()
+            visited = self.game.get_board_hash()
             if visited not in self.visited_states:
                 self.visited_states.add(visited)                    
-                self.stack.append(new_state)
+                self.stack.append(copy.deepcopy(self.game))
+            self.game.process_undo()
 
         # sort the stack so that the most promising are at the front 
         self.sort()

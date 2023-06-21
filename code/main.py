@@ -12,6 +12,7 @@ from experiments.random_experiment import determine_random_solution
 from experiments.random_optimized_experiment import determine_optimized_random_solution
 from experiments.breadthfirst_experiment import breadth_first_experiment
 from experiments.depthfirst_experiment import depth_first_experiment
+from experiments.beamsearch_experiment import beam_search_experiment
 
 
 from sys import argv
@@ -61,6 +62,8 @@ if __name__ == '__main__':
             depth_first_experiment(boardsize, board, 15)
         elif argv[3] == "breadth_exp":
             breadth_first_experiment(boardsize, board, 15)
+        elif argv[3] == "beam_exp":
+            beam_search_experiment(boardsize, board, 1)
         
         
         # Run this if you want to play the game yourself
