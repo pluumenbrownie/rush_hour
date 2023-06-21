@@ -166,6 +166,27 @@ class RushHour():
             self.history.append((target_vehicle_id, direction, self.get_board_hash()))
             # print(target_vehicle_id, direction)
         return success
+
+    def process_undo(self, remove_from_set: bool = False) -> None:
+        """
+        Undoes the last turn performed in the `self.history`.
+        ## Pre:
+        - Board has vehicles.
+        - Turns have been played via `self.process_turn()`.
+        - `remove_from_set` has been carefully chosen for the problem. 
+            - `remove_from_set` should only be used when uniqueness of undone 
+            state can be garanteed.
+        ## Post:
+        - Last move is removed from `self.history`.
+        - Vehicle is moved back to previous position.
+        - If `remove_from_set`:
+            - `== True` - Old hash is removed from `self.hash_set`.
+            - `== False`- `self.hash_set` remains untouched.
+        """
+        latest_move_vehicle, latest_move_direction, latest_move_hash = self.history.pop()
+        self.move_vehicle(latest_move_vehicle, latest_move_direction * -1)
+        if remove_from_set:
+            self.hash_set.discard(latest_move_hash)
     
     def get_movable_vehicles(self) -> list[tuple[str, int]]:
         """
@@ -193,7 +214,6 @@ class RushHour():
                 movable_vehicles.append((vehicle, -1))
 
         return movable_vehicles
-
 
     def export_solution(self, output_name: str = "results/output.csv") -> None:
         """ 
