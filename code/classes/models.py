@@ -274,9 +274,9 @@ class RushHour():
     
     def get_board_hash(self) -> int:
         """
-        TO DO: Doc strings and pre and post should be added 
-        Pre: 
-        Post: 
+        Returns an unique number representing the current board state.
+        Pre: The board exists.
+        Post: Returns hash of the board state.
         """
         return self.game_board.pickle_hash()
     
@@ -442,7 +442,7 @@ class Board():
         - Pre: Board exists.
         - Post: Returns hash of the board state.
         """
-        return hash(pickle.dumps(self.vehicle_dict))
+        return hash(pickle.dumps(self.vehicle_dict, protocol=5, fix_imports=False))
     
 
 def count_statespace(width: int, board_file: str) -> int:

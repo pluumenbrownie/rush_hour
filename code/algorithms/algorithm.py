@@ -54,7 +54,9 @@ class Algorithm():
         if orientation == "H": 
              # Get the car who's blocking the red car 
             if direction == 1:
-                blocking_vehicle = self.game.get_vehicle_from_location(col + 1 + (vehicle.size - 1), row)
+                # blocking_vehicle = self.game.get_vehicle_from_location(col + 1 + (vehicle.size - 1), row)
+                blocking_vehicle = self.game.get_vehicle_from_location(row, col + 1 + (vehicle.size - 1))
+
             else: 
                 blocking_vehicle = self.game.get_vehicle_from_location(col - 1, row)
         else: 
