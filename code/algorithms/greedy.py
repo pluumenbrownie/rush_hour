@@ -28,7 +28,7 @@ class Greedy(Algorithm):
         """
         red_move = self.game.process_turn("X", 1)
         if red_move:
-            print("red move")
+            # print("red move")
             # set last move 
             self.last_move = 'X', 1
             return True 
@@ -85,7 +85,6 @@ class Greedy(Algorithm):
 
     def run(self) -> int:
         counter = 0
-        last_move: tuple[str, int] = 'A', 1
 
         while not self.game.is_won():
         # while counter <= 40:
@@ -98,7 +97,7 @@ class Greedy(Algorithm):
                 continue
 
             # try to move the vehicle that is blocking the red car
-            if self.move_blocking_vehicle(last_move): 
+            if self.move_blocking_vehicle(): 
                 continue
             
             # last option is to move a random car
