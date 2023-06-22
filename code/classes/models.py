@@ -2,8 +2,7 @@ from typing import Type
 from classes.vehicle import *
 
 import math as mt
-import csv 
-import pickle
+import csv
 
 
 class RushHour():
@@ -40,8 +39,10 @@ class RushHour():
                 self.game_board.add_vehicle(new_vehicle)
                 
         self.game_board.print_board()
+        self.board_hash: int = hash(self.game_board)
         self.history: list[tuple[str, int, int]] = []
         self.hash_set: set[int] = set()
+        self.hash_set.add(self.board_hash)
     
     def show_board(self) -> None:
         """ 
@@ -70,12 +71,13 @@ class RushHour():
             - Returns False if move collides with vehicle or wall.
             - Raises ValueError if direction is not 1 or -1.
             - Raises KeyError if vehicle with `id=vehicle_id` does not exist.
+        - `self.history` and `self.hash_set` are not updated.
         """
         move_viability = self.game_board.is_move_valid(vehicle_id, direction)
         #print("Can move:", move_viability)
         if move_viability:
             self.game_board.move_vehicle(vehicle_id, direction)
-            self.hash_set.add(self.get_board_hash())
+            self.board_hash = hash(self.game_board)
             return True
         return False
     
@@ -163,6 +165,7 @@ class RushHour():
             success = False
 
         if success:
+            self.hash_set.add(self.get_board_hash())
             self.history.append((target_vehicle_id, direction, self.get_board_hash()))
             # print(target_vehicle_id, direction)
         return success
@@ -275,11 +278,10 @@ class RushHour():
     def get_board_hash(self) -> int:
         """
         Returns an unique number representing the current board state.
-        Pre: The board exists.
+        Pre: Current board state hash been reached with process_turn
         Post: Returns hash of the board state.
         """
-        return self.game_board.pickle_hash()
-    
+        return self.board_hash
 
 
 class Board():
@@ -328,6 +330,8 @@ class Board():
         for col, row in coordinates_to_add:
             self.board[row - 1][col - 1] = vehicle
         self.vehicle_dict[vehicle.id] = vehicle
+        self.hashing_tuple: tuple[Car|Truck|None] = tuple(self.vehicle_dict.values())
+
 
     def get_vehicle_from_location(self, row: int, col: int) -> None|Car|Truck:
         """
@@ -435,14 +439,15 @@ class Board():
             return True
         return False
 
-    def pickle_hash(self) -> int:
+    def __hash__(self) -> int:
         """
         Returns unique number representing the current board state. Boards with 
         identical `self.pickle_hash()` are in the same state.
         - Pre: Board exists.
         - Post: Returns hash of the board state.
         """
-        return hash(pickle.dumps(self.vehicle_dict, protocol=5, fix_imports=False))
+        return hash(self.hashing_tuple)
+        # return hash(pickle.dumps(self.vehicle_dict, protocol=5, fix_imports=False))
     
 
 def count_statespace(width: int, board_file: str) -> int:
