@@ -7,6 +7,7 @@ from classes.models import RushHour
 from visualisation.histogram import histogram_plot
 from visualisation.hist_compare_algorithms import compare_plot
 from classes.models import RushHour, count_statespace
+from classes.graphs import test
 from pygame_rushhour import PygameRushHour
 from experiments.random_experiment import determine_random_solution
 from experiments.random_optimized_experiment import determine_optimized_random_solution
@@ -21,8 +22,8 @@ if __name__ == '__main__':
     
     # Code to ask user for input, boardsize and algorithm    
     if len(argv) == 1:
-      print("Usage: python3 code/main.py [boardsize] [boardfile] algorithm")
-      exit(1)
+        print("Usage: python3 code/main.py [boardsize] [boardfile] algorithm")
+        exit(1)
     
     boardsize = int(argv[1])
     boardfile = argv[2]  
@@ -64,6 +65,8 @@ if __name__ == '__main__':
             breadth_first_experiment(boardsize, board, 15)
         elif argv[3] == "beam_exp":
             beam_search_experiment(boardsize, board, 1)
+        elif argv[3] == "graph":
+            test(game)
         
         
         # Run this if you want to play the game yourself
