@@ -3,6 +3,7 @@ from algorithms.random import Random
 from algorithms.depth_first import DepthFirst
 from algorithms.breadth_first import BreadthFirst
 from algorithms.beam_search import BeamSearch
+from algorithms.GraphBased import Dijkstra
 from classes.models import RushHour
 from visualisation.histogram import histogram_plot
 from visualisation.hist_compare_algorithms import compare_plot
@@ -67,7 +68,12 @@ if __name__ == '__main__':
         elif argv[3] == "beam_exp":
             beam_search_experiment(boardsize, board, 1)
         elif argv[3] == "graph":
-            test(game)
+            test(boardsize, boardfile)
+        elif argv[3] == "dijkstra":
+            dijkstras_algorithm = Dijkstra(boardsize, boardfile)
+            dijkstras_algorithm.build_graph()
+            dijkstras_algorithm.run()
+            dijkstras_algorithm.export_solution()
         
         # Run this if you want to play the game yourself
         elif argv[3] == "play":
