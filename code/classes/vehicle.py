@@ -1,5 +1,6 @@
 from typing import Any
 
+
 class Vehicle(): 
     """ 
     A base class for the Car and Vehicle classes containing shared methods 
@@ -16,7 +17,7 @@ class Vehicle():
         self.row = row
         self.size = 0
         self.color = "None"
-    
+
     def get_tiles_occupied(self) -> list[tuple[int, int]]:
         """ 
         Return a list of coordinate tuples occupied by the vehicle. 

@@ -305,6 +305,7 @@ class Board():
             self.board.append(empty_row)
 
         self.vehicle_dict: dict[str, Car|Truck] = {}
+        self.hashing_tuple: tuple[Car|Truck|None] = tuple(self.vehicle_dict.values())
     
     def print_board(self) -> None:
         """ 
@@ -331,7 +332,6 @@ class Board():
             self.board[row - 1][col - 1] = vehicle
         self.vehicle_dict[vehicle.id] = vehicle
         self.hashing_tuple: tuple[Car|Truck|None] = tuple(self.vehicle_dict.values())
-
 
     def get_vehicle_from_location(self, row: int, col: int) -> None|Car|Truck:
         """
@@ -399,7 +399,6 @@ class Board():
         if next_tile:
             return False
         return True
-    
     
     def move_vehicle(self, vehicle_id: str, direction: int) -> None:
         """ 
