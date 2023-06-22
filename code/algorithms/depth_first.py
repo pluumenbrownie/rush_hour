@@ -1,4 +1,5 @@
 import copy
+import random as rd
 
 from classes.models import RushHour
 
@@ -39,41 +40,20 @@ class DepthFirst:
                 if self.game.game_board.is_move_valid(vehicle_id, direction):
                     moves.append((vehicle_id, direction))
 
-        # Loop over all the possible moves
-        for move in moves:
-            new_state = copy.deepcopy(self.game)
-            vehicle_id, direction = move
-            new_state.process_turn(vehicle_id, direction)
-            
-            #check if state is already been visited
-            visited = new_state.get_board_hash()
-            if visited not in self.visited_states:
-                self.visited_states.add(visited)
-                self.stack.append(new_state)
-    
-    def build_children2(self) -> None:
-        """
-        Creates all possible child-states and adds them to the list of states.
-        """
-        moves = []
-
-        # Loop over all the different states the vehicles can be in
-        for vehicle_id in self.game.get_vehicle_ids():
-            for direction in [-1, 1]:
-                if self.game.game_board.is_move_valid(vehicle_id, direction):
-                    moves.append((vehicle_id, direction))
-
+        # Shuffle the moves
+        rd.shuffle(moves)
+        
         # Loop over all the possible moves
         for move in moves:
             # new_state = copy.deepcopy(self.game)
             vehicle_id, direction = move
             self.game.process_turn(vehicle_id, direction)
             
-            #check if state is already been visited
+            # Check if state is already been visited
             visited = self.game.get_board_hash()
             if visited not in self.visited_states:
                 self.visited_states.add(visited)
-                # copying is delayed until we're sure it's necessary
+                # Copying is delayed until we're sure it's necessary
                 self.stack.append(copy.deepcopy(self.game))
             self.game.process_undo()
          
@@ -82,7 +62,7 @@ class DepthFirst:
         Checks and accepts better solutions than the current solution.
         """
         if new_state.is_won():
-            print("State is won")
+            # print("State is won")
             new_move_count = len(new_state.history)
             if new_move_count < self.best_move_count:
                 self.best_solution = new_state
@@ -96,8 +76,8 @@ class DepthFirst:
         """
         
         while self.stack:
-            print("")
-            self.game.show_board()
+            # print("")
+            # self.game.show_board()
             # print(f"{self.game.is_won()=}")
             
             # If game is won print output to csv
@@ -110,8 +90,7 @@ class DepthFirst:
                 break
             
             self.check_solution(new_state)
-            self.game = new_state                            
-            self.build_children2()
+            self.game = new_state                           
+            self.build_children()
         
-        print(f"New best move count: {self.best_move_count}")   
-        print("Done!")
+        print(f"New best move count: {self.best_move_count}")

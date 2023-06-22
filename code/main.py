@@ -15,7 +15,6 @@ from experiments.breadthfirst_experiment import breadth_first_experiment
 from experiments.depthfirst_experiment import depth_first_experiment
 from experiments.beamsearch_experiment import beam_search_experiment
 
-
 from sys import argv
   
 if __name__ == '__main__':
@@ -28,6 +27,8 @@ if __name__ == '__main__':
     boardsize = int(argv[1])
     boardfile = argv[2]  
     game = RushHour(boardsize, boardfile)
+    
+    # To experiment add the board to the command
     board = "6x6_1"
 
     if len(argv) > 3:   
@@ -75,9 +76,8 @@ if __name__ == '__main__':
 # --------------------------------------------Visualisation--------------------------------------------#
     # Make a plot of a histogram for random
     if len(argv) > 4 and argv[4] == "histogram":
-        board = "6x6_1"
         if argv[3] == "random": 
-            determine_random_solution(boardsize, board, 1000)
+            determine_random_solution(boardsize, board, 100)
             histogram_plot(f"results/random_moves_{board}.csv", f'results/output{board}_random_graph_moves.png')
         elif argv[3]== "random_optimized":   
             determine_optimized_random_solution(boardsize, board, 1000)
