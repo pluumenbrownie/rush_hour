@@ -96,8 +96,8 @@ class DepthFirst:
         """
         
         while self.stack:
-            # print("")
-            # self.game.show_board()
+            print("")
+            self.game.show_board()
             # print(f"{self.game.is_won()=}")
             
             # If game is won print output to csv

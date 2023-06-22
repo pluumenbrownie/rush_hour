@@ -59,12 +59,11 @@ if __name__ == '__main__':
             depth_first_experiment(boardsize, board, 15)
             compare_plot(board)
         elif argv[3] == "depth_exp":
-            depth_first_experiment(boardsize, board, 15)
+            depth_first_experiment(boardsize, board, 1)
         elif argv[3] == "breadth_exp":
-            breadth_first_experiment(boardsize, board, 15)
+            breadth_first_experiment(boardsize, board, 1)
         elif argv[3] == "beam_exp":
             beam_search_experiment(boardsize, board, 1)
-        
         
         # Run this if you want to play the game yourself
         elif argv[3] == "play":
@@ -74,10 +73,10 @@ if __name__ == '__main__':
     # Make a plot of a histogram for random
     if len(argv) > 4 and argv[4] == "histogram":
         board = "6x6_1"
-        if argv[3] == "random": # in histogram moet bij column['moves'] staan 
+        if argv[3] == "random": 
             determine_random_solution(boardsize, board, 1000)
             histogram_plot(f"results/random_moves_{board}.csv", f'results/output{board}_random_graph_moves.png')
-        elif argv[3]== "random_optimized": # in histogram moet bij column['tries'] staan 
+        elif argv[3]== "random_optimized":   
             determine_optimized_random_solution(boardsize, board, 1000)
             histogram_plot(f"results/random_optimized_moves_{board}.csv", f'results/output{board}_random_graph_optimized_moves.png')       
          
