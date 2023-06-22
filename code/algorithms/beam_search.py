@@ -41,7 +41,7 @@ class BeamSearch(BreadthFirst):
         Creates all possible child-states and adds them to the list of states.
         lengte van stack moet altijd hoogstens zo groot zijn als beam size
         """""
-        moves = []
+        moves = [] 
 
         # Loop over all the different states the vehicles can be in
         # End: list of all states
