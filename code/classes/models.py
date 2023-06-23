@@ -232,7 +232,7 @@ class RushHour():
         """
         with open(output_name, 'w') as file:
             file.write("car,move\n")
-            for id, direction, _ in self.history:
+            for id, direction, hash in self.history:
                 file.write(f"{id},{direction}\n")
     
     def optimize_solution(self) -> None:
