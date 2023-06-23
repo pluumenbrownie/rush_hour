@@ -91,15 +91,13 @@ class Graph:
                 # print("Game history to large.")
                 self.reset_game()
                 current_node = self.nodes[self.starting_node]
-                useless = 0
+                # useless = 0
                 continue
 
             if useless > max_useless:
-                # print("Useless threshold reached.")
-                self.reset_game()
-                current_node = self.nodes[self.starting_node]
-                useless = 0
-                continue
+                print("Useless threshold reached. Stopping graph construction")
+                break
+
             current_node = next_node
         # snapshot = tracemalloc.take_snapshot()
         # top_stats = snapshot.statistics('lineno')

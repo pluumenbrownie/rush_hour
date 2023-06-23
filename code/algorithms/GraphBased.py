@@ -20,6 +20,7 @@ class Dijkstra:
         self.graph.stats()
     
     def run(self) -> None:
+        print("Started Dijkstra solver")
         self.processing_queue = SortedList()
         starting_hash = self.graph.starting_node
         # visited_states: set[Node] = set()
