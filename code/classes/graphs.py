@@ -63,7 +63,8 @@ class Graph:
         # tracemalloc.start()
         current_node = self.nodes[self.starting_node]
         useless = 0
-        for _ in tqdm.tqdm(range(max_iterations), desc=self.file_location):
+        progress_bar = tqdm.tqdm(range(max_iterations), desc=self.file_location)
+        for _ in progress_bar:
             random_vehicle = rd.choice(self.vehicle_ids)
             random_direction = rd.choice([-1, 1])
             success = self.game.process_turn(random_vehicle, random_direction)
@@ -86,8 +87,8 @@ class Graph:
                 next_node.connections[current_node] = (vehicle_moved, direction_moved * -1)
                 useless = 0
             # print(current_node)
-
-            if len(self.game.history) > 10_000:
+            progress_bar.set_description(f"Useless moves: {useless}", refresh=False)
+            if len(self.game.history) > 300:
                 # print("Game history to large.")
                 self.reset_game()
                 current_node = self.nodes[self.starting_node]
@@ -97,7 +98,6 @@ class Graph:
             if useless > max_useless:
                 print("Useless threshold reached. Stopping graph construction")
                 break
-
             current_node = next_node
         # snapshot = tracemalloc.take_snapshot()
         # top_stats = snapshot.statistics('lineno')
