@@ -53,16 +53,17 @@ class Graph:
             self.starting_node: Node(self.starting_node, self.game.is_won())
         }
         self.vehicle_ids = self.game.get_vehicle_ids()
+        self.game.show_board()
     
     def reset_game(self) -> None:
         del self.game
         self.game = RushHour(self.board_size, self.file_location)
         
     def build_graph(self, max_iterations: int = 10_000_000, max_useless: int = 10_000) -> None:
-        tracemalloc.start()
+        # tracemalloc.start()
         current_node = self.nodes[self.starting_node]
         useless = 0
-        for _ in tqdm.tqdm(range(max_iterations), desc="Building graph..."):
+        for _ in tqdm.tqdm(range(max_iterations), desc=self.file_location):
             random_vehicle = rd.choice(self.vehicle_ids)
             random_direction = rd.choice([-1, 1])
             success = self.game.process_turn(random_vehicle, random_direction)
@@ -86,26 +87,26 @@ class Graph:
                 useless = 0
             # print(current_node)
 
-            if len(self.game.history) > 1_000:
-                print("Game history to large.")
+            if len(self.game.history) > 10_000:
+                # print("Game history to large.")
                 self.reset_game()
                 current_node = self.nodes[self.starting_node]
                 useless = 0
                 continue
 
             if useless > max_useless:
-                print("Useless threshold reached.")
+                # print("Useless threshold reached.")
                 self.reset_game()
                 current_node = self.nodes[self.starting_node]
                 useless = 0
                 continue
             current_node = next_node
-        snapshot = tracemalloc.take_snapshot()
-        top_stats = snapshot.statistics('lineno')
+        # snapshot = tracemalloc.take_snapshot()
+        # top_stats = snapshot.statistics('lineno')
 
-        print("[ Top 10 ]")
-        for stat in top_stats[:10]:
-            print(stat)
+        # print("[ Top 10 ]")
+        # for stat in top_stats[:10]:
+        #     print(stat)
         self.reset_game()
     
     def stats(self) -> None:
