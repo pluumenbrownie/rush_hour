@@ -66,7 +66,7 @@ class BeamSearch(BreadthFirst):
 
         # loop through the boxes in front of the red car 
         for i in range(col_red_car, width): 
-            print(i)
+            # print(i)
             # look for vehicle in this sport 
             vehicle = self.game.get_vehicle_from_location(row_red_car, i)
             if vehicle: 
@@ -77,7 +77,7 @@ class BeamSearch(BreadthFirst):
 
     def sort_by_blocking_vehicles(self):
         """ 
-        Using h1 to sort
+        Using h2 to sort
         """
         self.stack.sort(key=self.count_blocking_vehicles)
     
@@ -88,14 +88,20 @@ class BeamSearch(BreadthFirst):
         
         The lower, the better
         """
-        count = self.game.count_blocking_vehicles()
-        amount_of_boxes = self.game.amount_of_boxes()
+        count = self.count_blocking_vehicles(game)
+        amount_of_boxes = self.amount_of_boxes(game)
 
         combination = count * amount_of_boxes
 
         return combination 
-
-    def build_children(self, beamsize: int = 10, sorting_method: str = 'h1') -> None: 
+    
+    def sort_by_h3(self):
+        """ 
+        Using combination heuristic to sort
+        """
+        self.stack.sort(key=self.combination_heuristic)
+    
+    def build_children(self, beam_size: int = 50, sorting_method: str = 'h1') -> None: 
         """""
         Creates all possible child-states and adds them to the list of states.
         Length of stack needs to be at least as high as the beam size 
@@ -123,25 +129,25 @@ class BeamSearch(BreadthFirst):
 
         if sorting_method == "h1": 
             # sort the stack so that the most promising are at the front (from short to long distance)
-            print("beam search: sort by distance")
+            # print("beam search: sort by distance")
             self.sort_by_distance()
 
         elif sorting_method == "h2": 
             # sort the stack so that the states with the least blocking cars in front of red car
-            print("beam search: sort by blocking vehicles")
+            # print("beam search: sort by blocking vehicles")
             self.sort_by_blocking_vehicles()
 
         else: 
             # sort the stack with a combination of the two heuristics (from low to high)
-            print("beam search: combination of the two heuristics")
-            self.combination_heuristic()
+            # print("beam search: combination of the two heuristics")
+            self.combination_heuristic(self.game)
 
-        # if len(self.stack) > beamsize:
+        # if len(self.stack) > beam_size:
         #     print(len(self.stack))
 
         # if n is bigger than beam size: take only those at front of the queue 
-        if len(self.stack) > beamsize: 
-            self.stack = self.stack[:beamsize]
+        if len(self.stack) > beam_size: 
+            self.stack = self.stack[:beam_size]
 
             
 
