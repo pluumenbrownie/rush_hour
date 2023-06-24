@@ -2,6 +2,7 @@ from algorithms.greedy import Greedy
 from algorithms.random import Random
 from algorithms.depth_first import DepthFirst
 from algorithms.breadth_first import BreadthFirst
+from algorithms.branch_and_bound import BranchAndBound
 from algorithms.beam_search import BeamSearch
 from algorithms.GraphBased import Dijkstra
 from classes.models import RushHour
@@ -28,9 +29,10 @@ if __name__ == '__main__':
     boardsize = int(argv[1])
     boardfile = argv[2]  
     game = RushHour(boardsize, boardfile)
+    game.show_board()
     
     # To experiment add the board to the command
-    board = "6x6_1"
+    board = "9x9_6"
 
     if len(argv) > 3:   
         if argv[3] == "random":
@@ -40,7 +42,7 @@ if __name__ == '__main__':
             random_algorithm = Random(game)
             random_algorithm.run()
             game.optimize_solution()
-            game.export_solution(output_name="results/output_optimized.csv")
+            game.export_solution()
         elif argv[3] == "depthfirst":
             depthfirst_algorithm = DepthFirst(game)
             depthfirst_algorithm.run(first_only = False)
@@ -50,6 +52,10 @@ if __name__ == '__main__':
         elif argv[3] == "breadthfirst":
             breadthfirst_algorithm = BreadthFirst(game)
             breadthfirst_algorithm.run()
+        elif argv[3] == "branchandbound":
+            branchandbound_algorithm = BranchAndBound(game)
+            branchandbound_algorithm.bound_guess()
+            branchandbound_algorithm.run(first_only = False)
         elif argv[3] == "beamsearch":
             beamsearch_algorithm = BeamSearch(game)
             beamsearch_algorithm.run()
