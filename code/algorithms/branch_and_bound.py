@@ -78,13 +78,13 @@ class BranchAndBound(DepthFirst):
                 self.best_move_count = new_move_count
                 self.best_solution.show_board()
                 print(f"New best solution: {self.best_move_count} moves.")
-                self.best_solution.export_solution() 
+                self.best_solution.export_solution(output_name=self.output_file) 
     
-    def run(self, first_only: bool = True) -> None:
+    def run(self, first_only: bool = True, output_file: str = "results/output.csv") -> None:
         """
         This method runs the depth first algorithm.
         """
-        
+        self.output_file = output_file
         while self.stack:
             # print("")
             # self.game.show_board()

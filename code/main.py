@@ -53,9 +53,9 @@ if __name__ == '__main__':
             breadthfirst_algorithm = BreadthFirst(game)
             breadthfirst_algorithm.run()
         elif argv[3] == "branchandbound":
-            branchandbound_algorithm = BranchAndBound(game)
-            branchandbound_algorithm.bound_guess()
-            branchandbound_algorithm.run(first_only = False)
+            branchandbound_algorithm = BranchAndBound(game, bound=185)
+            # branchandbound_algorithm.bound_guess()
+            branchandbound_algorithm.run(first_only = False, output_file="results/output_depthfirst_12x12_7.csv")
         elif argv[3] == "beamsearch":
             beamsearch_algorithm = BeamSearch(game)
             beamsearch_algorithm.run()

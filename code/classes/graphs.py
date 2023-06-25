@@ -107,6 +107,14 @@ class Graph:
         #     print(stat)
         self.reset_game()
     
+    def reset_dijkstra(self) -> None:
+        """
+        Empty the variables used for the dijkstra algorithm.
+        """
+        for node in self.nodes.values():
+            node.dijkstra_value = 0
+            node.node_back = None
+    
     def stats(self) -> None:
         print(f"{len(self.nodes)} nodes.")
         connection_total = 0
