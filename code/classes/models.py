@@ -38,11 +38,9 @@ class RushHour():
                     raise ValueError("Vehicle can only be length 2 or 3.")
                 self.game_board.add_vehicle(new_vehicle)
                 
-        self.game_board.print_board()
+        # self.game_board.print_board()
         self.board_hash: int = hash(self.game_board)
         self.history: list[tuple[str, int, int]] = []
-        self.hash_set: set[int] = set()
-        self.hash_set.add(self.board_hash)
     
     def show_board(self) -> None:
         """ 
@@ -165,31 +163,31 @@ class RushHour():
             success = False
 
         if success:
-            self.hash_set.add(self.get_board_hash())
             self.history.append((target_vehicle_id, direction, self.get_board_hash()))
             # print(target_vehicle_id, direction)
         return success
 
-    def process_undo(self, remove_from_set: bool = False) -> None:
+    def process_undo(self) -> None:
         """
         Undoes the last turn performed in the `self.history`.
         ## Pre:
         - Board has vehicles.
         - Turns have been played via `self.process_turn()`.
-        - `remove_from_set` has been carefully chosen for the problem. 
-            - `remove_from_set` should only be used when uniqueness of undone 
-            state can be garanteed.
         ## Post:
         - Last move is removed from `self.history`.
         - Vehicle is moved back to previous position.
-        - If `remove_from_set`:
-            - `== True` - Old hash is removed from `self.hash_set`.
-            - `== False`- `self.hash_set` remains untouched.
         """
+        # """
+        # Set has been removed.
+        # - `remove_from_set` has been carefully chosen for the problem. 
+        #     - `remove_from_set` should only be used when uniqueness of undone 
+        #     state can be garanteed.
+        # - If `remove_from_set`:
+        #     - `== True` - Old hash is removed from `self.hash_set`.
+        #     - `== False`- `self.hash_set` remains untouched.
+        # """
         latest_move_vehicle, latest_move_direction, latest_move_hash = self.history.pop()
         self.move_vehicle(latest_move_vehicle, latest_move_direction * -1)
-        if remove_from_set:
-            self.hash_set.discard(latest_move_hash)
     
     def get_movable_vehicles(self) -> list[tuple[str, int]]:
         """

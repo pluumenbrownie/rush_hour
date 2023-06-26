@@ -70,6 +70,7 @@ class Greedy(Algorithm):
 
             self.game.process_undo()
             return False 
+        return False
 
     
     def move_random_movable_car(self) -> bool: 
