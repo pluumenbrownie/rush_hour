@@ -104,7 +104,7 @@ class BeamSearch(BreadthFirst):
         """
         self.stack.sort(key=self.combination_heuristic)
     
-    def build_children(self, beam_size: int = 20, sorting_method: str = 'h2') -> None: 
+    def build_children(self, beam_size: int = 50, heuristic: str = 'h1') -> None: 
         """""
         Creates all possible child-states and adds them to the list of states.
         Length of stack needs to be at least as high as the beam size 
@@ -130,12 +130,12 @@ class BeamSearch(BreadthFirst):
                 self.stack.append(copy.deepcopy(self.game))
             self.game.process_undo()
 
-        if sorting_method == "h1": 
+        if heuristic == "h1": 
             # sort the stack so that the most promising are at the front (from short to long distance)
             # print("beam search: sort by distance")
             self.sort_by_distance()
 
-        elif sorting_method == "h2": 
+        elif heuristic == "h2": 
             # sort the stack so that the states with the least blocking cars in front of red car
             # print("beam search: sort by blocking vehicles")
             self.sort_by_blocking_vehicles()
@@ -151,6 +151,30 @@ class BeamSearch(BreadthFirst):
         # if n is bigger than beam size: take only those at front of the queue 
         if len(self.stack) > beam_size: 
             self.stack = self.stack[:beam_size]
+
+    def run(self, first_only: bool = True, beam_size: int = 50, heuristic: str = 'h1') -> None:
+        """
+        This method runs the beam search algorithm.
+        """
+        print(f"heuristic: {heuristic}")
+        print(f"beam size: {beam_size}")
+
+        while self.stack:
+            # If game is won print output to csv
+            if self.game.is_won():
+                self.check_solution(self.game)
+            
+            new_state = self.get_next_state()
+            
+            if first_only and self.game.is_won():
+                break
+            
+            self.check_solution(new_state)
+            self.game = new_state 
+            # Beam search needs input: beam size (int) and sorting method (h1, h2, h3)                         
+            self.build_children(beam_size, heuristic)
+        
+        print(f"New best move count: {self.best_move_count}")
 
             
 
