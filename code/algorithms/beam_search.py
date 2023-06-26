@@ -148,12 +148,12 @@ class BeamSearch(BreadthFirst):
         if int(len(self.stack)) > int(beam_size): 
             self.stack = self.stack[:int(beam_size)]
 
-    def run(self, heuristic: str = 'h1', beam_size: int = 50, first_only: bool = True) -> None:
+    def run(self, heuristic, beam_size, first_only: bool = True) -> int:
         """
         This method runs the beam search algorithm.
         """
-        print(f"heuristic: {heuristic}")
-        print(f"beam size: {beam_size}")
+        # print(f"heuristic: {heuristic}")
+        # print(f"beam size: {beam_size}")
 
         while self.stack:
             # If game is won print output to csv
@@ -171,6 +171,8 @@ class BeamSearch(BreadthFirst):
             self.build_children(heuristic, beam_size)
         
         print(f"New best move count: {self.best_move_count}")
+    
+        return self.best_move_count
 
             
 
