@@ -14,7 +14,7 @@ class BeamSearch(BreadthFirst):
     """
     def col_red_car(self) -> int:
         """ 
-        TO DO 
+        Get column of red car 
         """
  
         # get location of red car 
@@ -42,6 +42,7 @@ class BeamSearch(BreadthFirst):
         width = self.game.game_board.width 
         # calculate boxes between red vehicle and exit 
         boxes = width - self.col_red_car()
+
         return boxes
 
 
@@ -61,7 +62,8 @@ class BeamSearch(BreadthFirst):
         row_red_car: int = self.row_red_car()
         col_red_car: int = self.col_red_car()
         width = self.game.game_board.width 
-
+        
+        # set count to 0 
         count = 0 
 
         # loop through the boxes in front of the red car 
@@ -91,6 +93,7 @@ class BeamSearch(BreadthFirst):
         count = self.count_blocking_vehicles(game)
         amount_of_boxes = self.amount_of_boxes(game)
 
+        # my "formula" 
         combination = count * amount_of_boxes
 
         return combination 
@@ -101,7 +104,7 @@ class BeamSearch(BreadthFirst):
         """
         self.stack.sort(key=self.combination_heuristic)
     
-    def build_children(self, beam_size: int = 50, sorting_method: str = 'h1') -> None: 
+    def build_children(self, beam_size: int = 20, sorting_method: str = 'h2') -> None: 
         """""
         Creates all possible child-states and adds them to the list of states.
         Length of stack needs to be at least as high as the beam size 

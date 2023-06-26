@@ -19,7 +19,7 @@ def breadth_first_experiment(board_size: int, board: str, repeat: int = 1, expor
         breadth_first_algorithm.run()
         t = len(breadth_first_algorithm.visited_states)
         m = breadth_first_algorithm.best_move_count
-        tries.append(t)
+        tries.append(t) 
         moves.append(m)
         
         if export and m == min(moves):

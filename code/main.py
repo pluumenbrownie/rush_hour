@@ -66,7 +66,8 @@ if __name__ == '__main__':
         elif argv[3] == "breadth_exp":
             breadth_first_experiment(boardsize, board, 1)
         elif argv[3] == "beam_exp":
-            beam_search_experiment(boardsize, board, 1)
+            heuristic = 'h1'
+            beam_search_experiment(boardsize, board, 10, heuristic)
         elif argv[3] == "graph":
             test(boardsize, boardfile)
         elif argv[3] == "dijkstra":
@@ -85,9 +86,13 @@ if __name__ == '__main__':
         if argv[3] == "random": 
             determine_random_solution(boardsize, board, 100)
             histogram_plot(f"results/random_moves_{board}.csv", f'results/output{board}_random_graph_moves.png')
-        elif argv[3]== "random_optimized":   
+        elif argv[3]== "random_optimized":
             determine_optimized_random_solution(boardsize, board, 1000)
-            histogram_plot(f"results/random_optimized_moves_{board}.csv", f'results/output{board}_random_graph_optimized_moves.png')       
+            histogram_plot(f"results/random_optimized_moves_{board}.csv", f'results/output{board}_random_graph_optimized_moves.png')     
+        elif argv[3]== "beam":   
+            beam_search_experiment(boardsize, board, 100)
+            histogram_plot(f"results/beam_search/random_optimized_moves_{board}.csv", f'results/beam_search/output{board}_beamsearch.png')     
+
          
            
     # Animate every algorithm game using pygame
