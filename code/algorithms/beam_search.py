@@ -22,7 +22,6 @@ class BeamSearch(BreadthFirst):
         
         # only interested in the colummn 
         col_red_car: int = red_car.col 
-
         return col_red_car
     
     def row_red_car(self) -> int:
@@ -104,7 +103,7 @@ class BeamSearch(BreadthFirst):
         """
         self.stack.sort(key=self.combination_heuristic)
     
-    def build_children(self, beam_size: int = 20, sorting_method: str = 'h2') -> None: 
+    def build_children(self, heuristic: str = 'h1', beam_size: int = 50) -> None: 
         """""
         Creates all possible child-states and adds them to the list of states.
         Length of stack needs to be at least as high as the beam size 
@@ -130,12 +129,12 @@ class BeamSearch(BreadthFirst):
                 self.stack.append(copy.deepcopy(self.game))
             self.game.process_undo()
 
-        if sorting_method == "h1": 
+        if heuristic == "h1": 
             # sort the stack so that the most promising are at the front (from short to long distance)
             # print("beam search: sort by distance")
             self.sort_by_distance()
 
-        elif sorting_method == "h2": 
+        elif heuristic == "h2": 
             # sort the stack so that the states with the least blocking cars in front of red car
             # print("beam search: sort by blocking vehicles")
             self.sort_by_blocking_vehicles()
@@ -143,14 +142,35 @@ class BeamSearch(BreadthFirst):
         else: 
             # sort the stack with a combination of the two heuristics (from low to high)
             # print("beam search: combination of the two heuristics")
-            self.combination_heuristic(self.game)
-
-        # if len(self.stack) > beam_size:
-        #     print(len(self.stack))
+            self.sort_by_h3()
 
         # if n is bigger than beam size: take only those at front of the queue 
-        if len(self.stack) > beam_size: 
-            self.stack = self.stack[:beam_size]
+        if int(len(self.stack)) > int(beam_size): 
+            self.stack = self.stack[:int(beam_size)]
+
+    def run(self, heuristic: str = 'h1', beam_size: int = 50, first_only: bool = True) -> None:
+        """
+        This method runs the beam search algorithm.
+        """
+        print(f"heuristic: {heuristic}")
+        print(f"beam size: {beam_size}")
+
+        while self.stack:
+            # If game is won print output to csv
+            if self.game.is_won():
+                self.check_solution(self.game)
+            
+            new_state = self.get_next_state()
+            
+            if first_only and self.game.is_won():
+                break
+            
+            self.check_solution(new_state)
+            self.game = new_state 
+            # Beam search needs input: beam size (int) and sorting method (h1, h2, h3)                         
+            self.build_children(heuristic, beam_size)
+        
+        print(f"New best move count: {self.best_move_count}")
 
             
 

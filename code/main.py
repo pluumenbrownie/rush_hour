@@ -15,7 +15,7 @@ from experiments.random_experiment import determine_random_solution
 from experiments.random_optimized_experiment import determine_optimized_random_solution
 from experiments.breadthfirst_experiment import breadth_first_experiment
 from experiments.depthfirst_experiment import depth_first_experiment
-from experiments.beamsearch_experiment import beam_search_experiment
+from experiments.beamsearch_experiment import beamsearch_experiment
 from experiments.dijkstra_experiment import dijkstra_many_times
 
 from sys import argv
@@ -36,6 +36,7 @@ if __name__ == '__main__':
     board = "9x9_6"
 
     if len(argv) > 3:   
+        # Algorithms 
         if argv[3] == "random":
             random_algorithm = Random(game)
             random_algorithm.run()
@@ -57,11 +58,24 @@ if __name__ == '__main__':
             branchandbound_algorithm = BranchAndBound(game, bound=185)
             # branchandbound_algorithm.bound_guess()
             branchandbound_algorithm.run(first_only = False, output_file="results/output_depthfirst_12x12_7.csv")
+        # python3 code/main.py 6 gameboards/Rushhour6x6_1.csv beamsearch h1 50
+        # python3 code/main.py 9 gameboards/Rushhour9x9_4.csv beamsearch h1 50
         elif argv[3] == "beamsearch":
             beamsearch_algorithm = BeamSearch(game)
-            beamsearch_algorithm.run()
+            if argv[4] == 'h1': 
+                heuristic = 'h1'
+            elif argv[4] == 'h2': 
+                heuristic = 'h2'
+            elif argv[4] == 'h3': 
+                heuristic = 'h3'
+            beam_size = argv[5]
+            beamsearch_algorithm.run(heuristic, beam_size)
+
+        # Statespace 
         elif argv[3] == "statespace":
             print(count_statespace(boardsize, boardfile))
+
+        # Experiments
         elif argv[3] == "compare":
             determine_random_solution(boardsize, board, 15)
             determine_optimized_random_solution(boardsize, board, 15)
@@ -73,8 +87,15 @@ if __name__ == '__main__':
         elif argv[3] == "breadth_exp":
             breadth_first_experiment(boardsize, board, 1)
         elif argv[3] == "beam_exp":
-            heuristic = 'h1'
-            beam_search_experiment(boardsize, board, 10, heuristic)
+            if argv[4] == 'h1': 
+                heuristic = 'h1'
+            elif argv[4] == 'h2': 
+                heuristic = 'h2'
+            elif argv[4] == 'h3': 
+                heuristic = 'h3'
+            beam_size = argv[5]
+            beamsearch_experiment(boardsize, board, heuristic, beam_size)
+            # python3 code/main.py 6 gameboards/Rushhour6x6_1.csv beam_exp h1 50 
         elif argv[3] == "graph":
             test(boardsize, boardfile)
         elif argv[3] == "dijkstra":
@@ -98,7 +119,7 @@ if __name__ == '__main__':
             determine_optimized_random_solution(boardsize, board, 1000)
             histogram_plot(f"results/random_optimized_moves_{board}.csv", f'results/output{board}_random_graph_optimized_moves.png')     
         elif argv[3]== "beam":   
-            beam_search_experiment(boardsize, board, 100)
+            beamsearch_experiment(boardsize, board, 100)
             histogram_plot(f"results/beam_search/random_optimized_moves_{board}.csv", f'results/beam_search/output{board}_beamsearch.png')     
 
          

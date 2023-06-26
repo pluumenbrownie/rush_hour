@@ -322,6 +322,7 @@ class Board():
 
         Input:
         - vehicle: Car|Truck - object of vehicle that needs to be added to the board.
+        
         ## Post: 
         - vehicle is added to the board.
         """
