@@ -88,7 +88,7 @@ class Graph:
                 useless = 0
             # print(current_node)
             progress_bar.set_description(f"Useless moves: {useless}", refresh=False)
-            if len(self.game.history) > 300:
+            if len(self.game.history) > 200:
                 # print("Game history to large.")
                 self.reset_game()
                 current_node = self.nodes[self.starting_node]
@@ -106,6 +106,14 @@ class Graph:
         # for stat in top_stats[:10]:
         #     print(stat)
         self.reset_game()
+    
+    def reset_dijkstra(self) -> None:
+        """
+        Empty the variables used for the dijkstra algorithm.
+        """
+        for node in self.nodes.values():
+            node.dijkstra_value = 0
+            node.node_back = None
     
     def stats(self) -> None:
         print(f"{len(self.nodes)} nodes.")

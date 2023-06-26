@@ -2,6 +2,7 @@ from algorithms.greedy import Greedy
 from algorithms.random import Random
 from algorithms.depth_first import DepthFirst
 from algorithms.breadth_first import BreadthFirst
+from algorithms.branch_and_bound import BranchAndBound
 from algorithms.beam_search import BeamSearch
 from algorithms.GraphBased import Dijkstra
 from classes.models import RushHour
@@ -28,9 +29,10 @@ if __name__ == '__main__':
     boardsize = int(argv[1])
     boardfile = argv[2]  
     game = RushHour(boardsize, boardfile)
+    game.show_board()
     
     # To experiment add the board to the command
-    board = "6x6_1"
+    board = "9x9_6"
 
     if len(argv) > 3:   
         if argv[3] == "random":
@@ -40,7 +42,7 @@ if __name__ == '__main__':
             random_algorithm = Random(game)
             random_algorithm.run()
             game.optimize_solution()
-            game.export_solution(output_name="results/output_optimized.csv")
+            game.export_solution()
         elif argv[3] == "depthfirst":
             depthfirst_algorithm = DepthFirst(game)
             depthfirst_algorithm.run(first_only = False)
@@ -50,6 +52,10 @@ if __name__ == '__main__':
         elif argv[3] == "breadthfirst":
             breadthfirst_algorithm = BreadthFirst(game)
             breadthfirst_algorithm.run()
+        elif argv[3] == "branchandbound":
+            branchandbound_algorithm = BranchAndBound(game, bound=185)
+            # branchandbound_algorithm.bound_guess()
+            branchandbound_algorithm.run(first_only = False, output_file="results/output_depthfirst_12x12_7.csv")
         elif argv[3] == "beamsearch":
             beamsearch_algorithm = BeamSearch(game)
             beamsearch_algorithm.run()
@@ -66,12 +72,13 @@ if __name__ == '__main__':
         elif argv[3] == "breadth_exp":
             breadth_first_experiment(boardsize, board, 1)
         elif argv[3] == "beam_exp":
-            beam_search_experiment(boardsize, board, 1)
+            heuristic = 'h1'
+            beam_search_experiment(boardsize, board, 10, heuristic)
         elif argv[3] == "graph":
             test(boardsize, boardfile)
         elif argv[3] == "dijkstra":
             dijkstras_algorithm = Dijkstra(boardsize, boardfile)
-            dijkstras_algorithm.build_graph(50_000_000, 1000_000)
+            dijkstras_algorithm.build_graph(150_000_000, 1000_000)
             dijkstras_algorithm.run()
             dijkstras_algorithm.export_solution()
         
@@ -85,12 +92,17 @@ if __name__ == '__main__':
         if argv[3] == "random": 
             determine_random_solution(boardsize, board, 100)
             histogram_plot(f"results/random_moves_{board}.csv", f'results/output{board}_random_graph_moves.png')
-        elif argv[3]== "random_optimized":   
+        elif argv[3]== "random_optimized":
             determine_optimized_random_solution(boardsize, board, 1000)
             histogram_plot(f"results/random_optimized_moves_{board}.csv", f'results/output{board}_random_graph_optimized_moves.png')
         elif argv[3] == "greedy":
             determine_random_solution(boardsize, board, 10)
             histogram_plot(f"results/greedy_moves_{board}.csv", f'results/output{board}_greedy_graph_moves.png')       
+            histogram_plot(f"results/random_optimized_moves_{board}.csv", f'results/output{board}_random_graph_optimized_moves.png')     
+        elif argv[3]== "beam":   
+            beam_search_experiment(boardsize, board, 100)
+            histogram_plot(f"results/beam_search/random_optimized_moves_{board}.csv", f'results/beam_search/output{board}_beamsearch.png')     
+
          
            
     # Animate every algorithm game using pygame
