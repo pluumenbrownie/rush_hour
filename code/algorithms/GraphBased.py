@@ -12,11 +12,12 @@ class Dijkstra:
         self.board_file = board_file
         self.graph = Graph(board_size, board_file)
     
-    def build_graph(self, max_iterations: int = 10_000_000, max_useless: int = 10_000) -> None:
+    def build_graph(self, max_iterations: int = 10_000_000, max_useless: int = 10_000, random_cutoff: int = 200) -> None:
         statespace = count_statespace(self.board_size, self.board_file)
         print(f"{statespace=}")
         print(f"Equals {statespace/max_iterations:.2f}x max_iterations")
-        self.graph.build_graph(max_iterations, max_useless)
+        self.graph.build_graph(max_iterations, random_cutoff=200)
+        # self.graph.build_graph_full_runs(max_iterations)
         self.graph.stats()
     
     def run(self) -> None:
@@ -41,7 +42,7 @@ class Dijkstra:
                 connecting_node.node_back = self.current_node
                 self.processing_queue.add(connecting_node)
     
-    def export_solution(self, export_file: str = "results/output.csv") -> None:
+    def export_solution(self, export_file: str|None = "results/output.csv") -> int:
         moves: list[tuple[str, int]] = []
         while not self.current_node.board_hash == self.graph.starting_node:
             assert self.current_node.node_back
@@ -50,8 +51,10 @@ class Dijkstra:
             moves = [step] + moves
             self.current_node = previous_node
         
-        with open(export_file, 'w') as file:
-            file.write("car,move\n")
-            for id, direction in moves:
-                file.write(f"{id},{direction}\n")
-        print(f"Exported solution of {len(moves)} moves.")
+        if export_file:
+            with open(export_file, 'w') as file:
+                file.write("car,move\n")
+                for id, direction in moves:
+                    file.write(f"{id},{direction}\n")
+            print(f"Exported solution of {len(moves)} moves.")
+        return len(moves)

@@ -16,6 +16,7 @@ from experiments.random_optimized_experiment import determine_optimized_random_s
 from experiments.breadthfirst_experiment import breadth_first_experiment
 from experiments.depthfirst_experiment import depth_first_experiment
 from experiments.beamsearch_experiment import beam_search_experiment
+from experiments.dijkstra_experiment import dijkstra_many_times
 
 from sys import argv
   
@@ -78,10 +79,11 @@ if __name__ == '__main__':
             test(boardsize, boardfile)
         elif argv[3] == "dijkstra":
             dijkstras_algorithm = Dijkstra(boardsize, boardfile)
-            dijkstras_algorithm.build_graph(150_000_000, 1000_000)
+            dijkstras_algorithm.build_graph(100_000, 1_000_000, 2000)
             dijkstras_algorithm.run()
             dijkstras_algorithm.export_solution()
-        
+        elif argv[3] == "dijkstra_test":
+            dijkstra_many_times(boardsize, boardfile)
         # Run this if you want to play the game yourself
         elif argv[3] == "play":
             game.start_game()
