@@ -33,6 +33,7 @@ if __name__ == '__main__':
     
     # To experiment add the board to the command
     board = "9x9_6"
+    # board = "6x6_1"
 
     if len(argv) > 3:   
         # Algorithms 
