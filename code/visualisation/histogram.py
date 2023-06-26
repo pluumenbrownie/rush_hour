@@ -14,7 +14,7 @@ def histogram_plot(path_board: str, path_output: str):
     data_mean = moves.mean()
 
     # Plot the histogram
-    histogram_t = data.plot.hist(bins=100, column=['moves'])
+    histogram_t = data.plot.hist(bins=30, column=['moves'])
     plot_t = histogram_t.get_figure()
 
     # Add total runs and mean to the plot
