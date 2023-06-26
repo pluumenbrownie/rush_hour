@@ -4,18 +4,21 @@ from algorithms.greedy import Greedy
 import time
 import statistics as stat
 
-def determine_random_solution(board_size: int, board: str, repeat: int = 1, export: bool = False):
+def determine_greedy_solution(board_size: int, board: str, repeat: int = 1, export: bool = False):
     """
     Determine a random solution for the Rush Hour game.
     """
     start_time = time.time()
+    n_runs = 0
 
     tries: list[int] = []
     moves: list[int] = []
-    for _ in range(repeat):
+    while time.time() - start_time < 3600:
+        print(f"run: {n_runs}")
+        n_runs += 1
         game = RushHour(board_size, f"gameboards/Rushhour{board}.csv")
         greedy_algorithm = Greedy(game)
-        t, m = greedy_algorithm.run()
+        t, m = greedy_algorithm.run(export=False)
         tries.append(t)
         moves.append(m)
         

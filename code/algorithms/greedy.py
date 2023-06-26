@@ -114,8 +114,8 @@ class Greedy(Algorithm):
         count_tries = 0
 
         while not self.game.is_won():
-            print("")
-            self.game.show_board()
+            # print("")
+            # self.game.show_board()
             count_tries += 1
 
             # try to move red car to the right

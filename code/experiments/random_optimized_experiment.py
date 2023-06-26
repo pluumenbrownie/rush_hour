@@ -9,10 +9,13 @@ def determine_optimized_random_solution(board_size: int, board: str, repeat: int
     Determine a random solution for the Rush Hour game.
     """
     start_time = time.time()
+    n_runs = 0
 
     tries: list[int] = []
     moves: list[int] = []
-    for _ in range(repeat):
+    while time.time() - start_time < 3600:
+        print(f"run: {n_runs}")
+        n_runs += 1
         game = RushHour(board_size, f"gameboards/Rushhour{board}.csv")
         random_algorithm = Random(game)
              
