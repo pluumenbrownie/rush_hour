@@ -34,7 +34,7 @@ Het random_optimized algoritme voert als eerst het random algoritme uit. Vervolg
 ```
 python3 main.py 6 gameboards/Rushhour6x6_1.csv random_optimized histogram
 ```
-![exp_6x6_1_random_optimized_graph_moves.png](https://github.com/pluumenbrownie/rush_hour/blob/main/results/exp_6x6_1_random_optimized_graph_moves.png)
+![exp_6x6_1_random_graph_optimized_moves.png](https://github.com/pluumenbrownie/rush_hour/blob/main/results/exp_6x6_1_random_graph_optimized_moves.png)
 
 ### Greedy
 De benodigde input om de volgende resultaten van het random algoritme krijgen. Let hierbij erop dat in de main.py board = "6x6_1". Verder staat de binsize in histogram.py op 100.  
