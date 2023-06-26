@@ -58,6 +58,7 @@ if __name__ == '__main__':
             # branchandbound_algorithm.bound_guess()
             branchandbound_algorithm.run(first_only = False, output_file="results/output_depthfirst_12x12_7.csv")
         # python3 code/main.py 6 gameboards/Rushhour6x6_1.csv beamsearch h1 50
+        # python3 code/main.py 9 gameboards/Rushhour9x9_4.csv beamsearch h1 50
         elif argv[3] == "beamsearch":
             beamsearch_algorithm = BeamSearch(game)
             if argv[4] == 'h1': 
@@ -92,8 +93,8 @@ if __name__ == '__main__':
             elif argv[4] == 'h3': 
                 heuristic = 'h3'
             beam_size = argv[5]
-            beamsearch_experiment(boardsize, board, beam_size, heuristic)
-            # python3 code/main.py 6 Rushhour6x6_1.csv beam_exp h1 50
+            beamsearch_experiment(boardsize, board, heuristic, beam_size)
+            # python3 code/main.py 6 gameboards/Rushhour6x6_1.csv beam_exp h1 50 
         elif argv[3] == "graph":
             test(boardsize, boardfile)
         elif argv[3] == "dijkstra":
