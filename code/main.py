@@ -15,13 +15,9 @@ from experiments.random_experiment import determine_random_solution
 from experiments.random_optimized_experiment import determine_optimized_random_solution
 from experiments.breadthfirst_experiment import breadth_first_experiment
 from experiments.depthfirst_experiment import depth_first_experiment
-<<<<<<< HEAD
-from experiments.beamsearch_experiment import beam_search_experiment
 from experiments.greedy_experiment import determine_greedy_solution
-=======
 from experiments.beamsearch_experiment import beamsearch_experiment
 from experiments.dijkstra_experiment import dijkstra_many_times
->>>>>>> 7ae49392d79721eb7eab52ac771bfda91dda8bf6
 
 from sys import argv
   
@@ -48,7 +44,9 @@ if __name__ == '__main__':
         elif argv[3] == "randomplt":
             histogram_plot(f"results/random_moves_{board}.csv", f'results/output{board}_random_graph_moves.png')
         elif argv[3] == "greedyplt":
-            histogram_plot(f"results/greedy_moves_{board}.csv", f'results/output{board}_greedy_graph_moves.png')       
+            histogram_plot(f"results/greedy_moves_{board}.csv", f'results/output{board}_greedy_graph_moves.png')
+        elif argv[3] == "random_optimizedplt":
+            histogram_plot(f"results/random_optimized_moves_{board}.csv", f'results/output{board}_random_graph_optimized_moves.png')
         elif argv[3] == "random_optimized":
             random_algorithm = Random(game)
             random_algorithm.run()

@@ -1,6 +1,6 @@
 from classes.models import RushHour
 from algorithms.greedy import Greedy
-
+import datetime
 import time
 import statistics as stat
 
