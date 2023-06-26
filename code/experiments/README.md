@@ -13,18 +13,37 @@ In de map gameboards staan vervolgens een aantal gameboardfiles, deze staan van 
 
 ## Experiments
 ### Random
-De benodigde input om de volgende resultaten van het random algoritme krijgen. Let hierbij erop dat in de main.py board = "6x6_1". Verder staat de binsize in histogram.py op 100.  
+Het random algoritme probeert door middel van het kiezen van een random voertuig en een random directie tot een oplossing te komen.  
 
-In de grafiek is besloten om alle runs die meer dan 50000 moves nodig hadden om het bord op te lossen niet mee te nemen. Dit zijn de zogenoemde outliers. De staart van de grafiek wordt zo minder lang en het gedeelte waar de meeste oplossingen worden gevonden wordt zo ook beter zichtbaar. De outliers zijn verder wel meegenomen in het gemiddelde. 
+Hieronder zullen drie grafieken te zien zijn die de uitput van het random algoritme weergeven. De eerste grafiek laat het random algoritme zien op het 6x6_1 bord, de tweede op het 9x9_4 bord en het derde op het 12x12_7 bord. De volgende input is nodig om de volgende resultaten van het random algoritme te verkrijgen.  
+Let op!  
+Voor grafiek 1 moet in main.py board = "6x6_1". En in histogram.py bins=100.   
+Voor grafiek 2 moet in main.py board = "9x9_4". En in histogram.py bins=100.   
+Voor grafiek 3 moet in main.py board = "12x12_7". En in histogram.py bins=100.   
 
-In dit experiment heeft het random algoritme een uur gedraaid. Het aantal runs staat gelijk aan het aantal oplossingen wat het random algoritme heeft gevonden in dit uur.   
+In grafiek 1 is besloten om alle runs die meer dan 50000 moves nodig hadden om het bord op te lossen niet mee te nemen. Dit zijn de zogenoemde outliers. De staart van de grafiek wordt zo minder lang en het gedeelte waar de meeste oplossingen worden gevonden wordt zo ook beter zichtbaar. De outliers zijn verder wel meegenomen in het gemiddelde.  
+In grafiek 2 en 3 zijn alle runs meegenomen.    
 
-Het random algoritme probeert door middel van het kiezen van een random voertuig en een random directie tot een oplossing te komen. 
+Voor het experiment wat bij elk bord heeft plaatsgevonden heeft het random algoritme een uur gedraaid. Het aantal runs staat gelijk aan het aantal oplossingen wat het random algoritme heeft gevonden in dit uur.   
 
+Input 6x6_1 bord:
 ```
 python3 main.py 6 gameboards/Rushhour6x6_1.csv random histogram
 ```
 ![exp_6x6_1_random_graph_moves.png](https://github.com/pluumenbrownie/rush_hour/blob/main/results/exp_6x6_1_random_graph_moves.png)
+
+Input 9x9_4 bord:
+```
+python3 main.py 9 gameboards/Rushhour9x9_4.csv random histogram
+```
+![exp_9x9_4_random_graph_moves.png](https://github.com/pluumenbrownie/rush_hour/blob/main/results/exp_9x9_4_random_graph_moves.png)
+Input 12x12_7 bord:
+```
+python3 main.py 12 gameboards/Rushhour12x12_7.csv random histogram
+```  
+![exp_12x12_7_random_graph_moves.png](https://github.com/pluumenbrownie/rush_hour/blob/main/results/exp_12x12_7_random_graph_moves.png)
+
+
 
 ### Random optimized
 Om deze output te krijgen is de benodigde input van het random_optimized algoritme nodig. Let hierbij erop dat in de main.py board = "6x6_1". Verder staat de binsize in histogram.py op 30. Deze beslissing is gemaakt doordat de grafiek anders vertekend werd doordat de meeste oplossingen een eigen bin hadden en sommige 2 bins.   

@@ -15,10 +15,8 @@ from experiments.random_experiment import determine_random_solution
 from experiments.random_optimized_experiment import determine_optimized_random_solution
 from experiments.breadthfirst_experiment import breadth_first_experiment
 from experiments.depthfirst_experiment import depth_first_experiment
-<<<<<<< HEAD
-from experiments.beamsearch_experiment import beam_search_experiment
+# from experiments.beamsearch_experiment import beam_search_experiment
 from experiments.greedy_experiment import determine_greedy_solution
-=======
 from experiments.beamsearch_experiment import beamsearch_experiment
 from experiments.dijkstra_experiment import dijkstra_many_times
 
@@ -122,17 +120,17 @@ if __name__ == '__main__':
     # Make a plot of a histogram for random
     if len(argv) > 4 and argv[4] == "histogram":
         if argv[3] == "random": 
-            determine_random_solution(boardsize, board, 50)
+            determine_random_solution(boardsize, board, 1000)
             histogram_plot(f"results/random_moves_{board}.csv", f'results/output{board}_random_graph_moves.png')
         elif argv[3]== "random_optimized":
             determine_optimized_random_solution(boardsize, board, 1000)
             histogram_plot(f"results/random_optimized_moves_{board}.csv", f'results/output{board}_random_graph_optimized_moves.png')
         elif argv[3] == "greedy":
-            determine_greedy_solution(boardsize, board, 10)
+            determine_greedy_solution(boardsize, board, 1000)
             histogram_plot(f"results/greedy_moves_{board}.csv", f'results/output{board}_greedy_graph_moves.png')       
             # histogram_plot(f"results/random_optimized_moves_{board}.csv", f'results/output{board}_random_graph_optimized_moves.png')     
         elif argv[3]== "beam":   
-            beamsearch_experiment(boardsize, board, 100)
+            beamsearch_experiment(boardsize, board, 1000)
             histogram_plot(f"results/beam_search/random_optimized_moves_{board}.csv", f'results/beam_search/output{board}_beamsearch.png')     
 
          
