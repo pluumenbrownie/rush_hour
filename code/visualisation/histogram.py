@@ -5,16 +5,16 @@ def histogram_plot(path_board: str, path_output: str):
     # Read the data from the csv file
     data = pd.read_csv(path_board)
     
-    # Adjust moves greater than 50,000 to 50,000
-    data.loc[data['moves'] > 50000, 'moves'] = 50000
-
+    # Filter moves greater than 50,000 for plotting
+    data_filtered = data[data['moves'] <= 50000]
+    
     # Calculate total moves and mean
     moves = data['moves']
     data_total = len(moves)
     data_mean = moves.mean()
 
     # Plot the histogram
-    histogram_t = data.plot.hist(bins=30, column=['moves'])
+    histogram_t = data_filtered.plot.hist(bins=100, column=['moves'])
     plot_t = histogram_t.get_figure()
 
     # Add total runs and mean to the plot
