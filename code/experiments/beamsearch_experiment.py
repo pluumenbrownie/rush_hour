@@ -16,11 +16,11 @@ def beamsearch_experiment(board_size: int, board: str, heuristic: str = 'h1', be
     moves: list[int] = []
 
     # Each run lasts a maximum of 60 seconds and after 3600 seconds the whole thing stops
-    while time.time() - start_time < 3600:  
+    while time.time() - start_time < 60:  
         game = RushHour(board_size, f"gameboards/Rushhour{board}.csv")
         algorithm = BeamSearch(game)
         algorithm.run(heuristic, beam_size)
-        end_time = time.time()
+        # end_time = time.time()
         
         t = len(algorithm.visited_states)
         m = algorithm.best_move_count
