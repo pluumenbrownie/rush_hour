@@ -71,7 +71,7 @@ if __name__ == '__main__':
             test(boardsize, boardfile)
         elif argv[3] == "dijkstra":
             dijkstras_algorithm = Dijkstra(boardsize, boardfile)
-            dijkstras_algorithm.build_graph(50_000_000, 1000_000)
+            dijkstras_algorithm.build_graph(150_000_000, 1000_000)
             dijkstras_algorithm.run()
             dijkstras_algorithm.export_solution()
         

@@ -88,7 +88,7 @@ class Graph:
                 useless = 0
             # print(current_node)
             progress_bar.set_description(f"Useless moves: {useless}", refresh=False)
-            if len(self.game.history) > 300:
+            if len(self.game.history) > 200:
                 # print("Game history to large.")
                 self.reset_game()
                 current_node = self.nodes[self.starting_node]
