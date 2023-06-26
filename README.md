@@ -4,10 +4,12 @@ Rush hour is een relatief eenvoudig spelletje met als doel de rode auto uit de '
 ## Aan de slag 
 ### Vereisten 
 De code is geschreven met behulp van python 3.11. In requirements staat de packages die je nodig hebt om de code succesvol te kunnen laten runnen. Dit is de instructie daarvoor: 
+
 `pip install -r requirements.txt`
 
 ### Gebruik 
 Het programma kan worden aangeroepen door main.py aan te roepen. In de command line moet je de volgende argumenten meegeven: boardsize (bijvoorbeeld 6), boardfile en het algoritme dat je wil uitvoeren. Als je het random algoritme wil uitvoeren, gebruik je deze regel: 
+
 `python3 code/main.py 12 gameboards/Rushhour12x12_7.csv random` 
 
 ### Structuur
@@ -22,7 +24,7 @@ In de lijst hieronder staat beschreven waar de belangrijkste bestanden en mappen
 * `/notes`: hier staan aantekeningen van de colleges
 * `/results`: hier staan csv bestanden met uitkomsten gegenereerd door onze algoritmes. 
 
-## Auteurs
+### Auteurs
 * Amber van der Eijden
 * Wessel Beumer
 * Dionne Spaltman
