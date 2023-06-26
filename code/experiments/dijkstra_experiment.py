@@ -15,15 +15,16 @@ def dijkstra_many_times(board_size: int, board_file: str) -> None:
     cutoff_nums = [50, 100, 150, 200]
 
     for iterations, cutoff in product(iter_nums, cutoff_nums):
-        start_time = time.time()
-        dijkstras_algorithm = Dijkstra(board_size, board_file)
-        dijkstras_algorithm.build_graph(iterations, 1_000_000, cutoff)
-        try:
-            dijkstras_algorithm.run()
-            move_nr = dijkstras_algorithm.export_solution(export_file=None)
-        except IndexError:
-            move_nr = 0
-        results.append((f"{iterations=} {cutoff=}", move_nr, time.time() - start_time))
+        for _ in range(10):
+            start_time = time.time()
+            dijkstras_algorithm = Dijkstra(board_size, board_file)
+            dijkstras_algorithm.build_graph(iterations, 1_000_000, cutoff)
+            try:
+                dijkstras_algorithm.run()
+                move_nr = dijkstras_algorithm.export_solution(export_file=None)
+            except IndexError:
+                move_nr = 0
+            results.append((f"{iterations=} {cutoff=}", move_nr, time.time() - start_time))
 
     with open(f"results/dijkstra_test_{board_name}.csv", 'w') as file:
         # file.write(f"moves, running time\n")
