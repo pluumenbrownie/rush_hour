@@ -1,7 +1,6 @@
 # Rush hour
 Rush hour is een relatief eenvoudig spelletje met als doel de rode auto uit de 'file' te krijgen. Op het bord staan echter verschillende auto's, die allemaal slechts in twee richtingen kunnen bewegen. Als een auto horizontaal staat, kan de auto naar links of rechts bewegen. Als een auto verticaal staat, kan de auto naar boven en onder. 
 
-## Aan de slag 
 ### Vereisten 
 De code is geschreven met behulp van python 3.11. In requirements staat de packages die je nodig hebt om de code succesvol te kunnen laten runnen. Dit is de instructie daarvoor: 
 
