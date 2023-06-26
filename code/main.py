@@ -87,7 +87,10 @@ if __name__ == '__main__':
             histogram_plot(f"results/random_moves_{board}.csv", f'results/output{board}_random_graph_moves.png')
         elif argv[3]== "random_optimized":   
             determine_optimized_random_solution(boardsize, board, 1000)
-            histogram_plot(f"results/random_optimized_moves_{board}.csv", f'results/output{board}_random_graph_optimized_moves.png')       
+            histogram_plot(f"results/random_optimized_moves_{board}.csv", f'results/output{board}_random_graph_optimized_moves.png')
+        elif argv[3] == "greedy":
+            determine_random_solution(boardsize, board, 10)
+            histogram_plot(f"results/greedy_moves_{board}.csv", f'results/output{board}_greedy_graph_moves.png')       
          
            
     # Animate every algorithm game using pygame
