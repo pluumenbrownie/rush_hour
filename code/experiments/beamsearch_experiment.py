@@ -5,40 +5,68 @@ import time
 import statistics as stat
 
 
-def beamsearch_experiment(board_size: int, board: str, heuristic: str = 'h1', beam_size: str = 50, export: bool = False):
+def beamsearch_experiment(board_size: int, board: str, export: bool = False, repeat: int = 1):
     """
     Experiment of beam search 
+    Because it is deterministic, we are only interested in one run of each board with each heuristic with a different statespace
     """
-    start_time = time.time()
-    n_runs = 0
 
-    tries: list[int] = []
-    moves: list[int] = []
+    # Make a csv file with the chosen board 
+    with open(f"results/beam_search/beam_search_{board}.csv", 'w') as file:
+        file.write(f"board, heuristic, beam size, states\n") 
 
-    # Each run lasts a maximum of 60 seconds and after 3600 seconds the whole thing stops
-    while time.time() - start_time < 60:  
         game = RushHour(board_size, f"gameboards/Rushhour{board}.csv")
-        algorithm = BeamSearch(game)
-        algorithm.run(heuristic, beam_size)
-        # end_time = time.time()
-        
-        t = len(algorithm.visited_states)
-        m = algorithm.best_move_count
-        tries.append(t) 
-        moves.append(m)
-        n_runs += 1
-        
-        if export and m == min(moves):
-            game.export_solution(output_name=f"results/output{board}_beam_search_{heuristic}_beam{beam_size}.csv")
-   
-    # print(f"The beam search algorithm took {end_time - start_time:.3f} seconds.")
 
-    # Open file to get all the moves
-    with open(f"results/beam_search/beam_search_moves_{board}_{heuristic}_beam{beam_size}.csv", 'w') as file:
-        # file.write(f"moves, running time\n")
-        # for value1, value2 in zip(moves):
-        #     file.write(f"{value1}, {value2:.3f}\n")
-        file.write(f"moves\n")
-        for move in moves:
-            file.write(f"{move}\n")
-        
+        for beam_size in (10, 20, 50, 100, 150):  
+            for heuristic in ('h1', 'h2', 'h3'):
+                beamsearch_algorithm = BeamSearch(game)
+                n_states = beamsearch_algorithm.run(heuristic, beam_size)
+                print(f"{heuristic}, beam_size {beam_size}, states: {n_states}")
+                file.write(f"{board_size}, {heuristic}, {beam_size}, {n_states}\n")
+    
+    # Make a csv with all of the boards 
+    board1 = "Rushhour6x6_1.csv"
+    board4 = "Rushhour9x9_4.csv"
+    board7 = "Rushhour12x12_7.csv"
+
+    # Make a csv file for board 1
+    with open(f"results/beam_search/beam_search_{board1}.csv", 'w') as file:
+        file.write(f"board, heuristic, beam size, states\n") 
+
+        game = RushHour(board_size, f"gameboards/Rushhour{board1}.csv")
+
+        for beam_size in (10, 20, 50, 100, 150):  
+            for heuristic in ('h1', 'h2', 'h3'):
+                beamsearch_algorithm = BeamSearch(game)
+                n_states = beamsearch_algorithm.run(heuristic, beam_size)
+                print(f"{heuristic}, beam_size {beam_size}, states: {n_states}")
+                file.write(f"{board_size}, {heuristic}, {beam_size}, {n_states}\n")
+    
+    # Make a csv file with board 4
+    with open(f"results/beam_search/beam_search_{board4}.csv", 'w') as file:
+        file.write(f"board, heuristic, beam size, states\n") 
+
+        game = RushHour(board_size, f"gameboards/Rushhour{board4}.csv")
+
+        for beam_size in (10, 20, 50, 100, 150):  
+            for heuristic in ('h1', 'h2', 'h3'):
+                beamsearch_algorithm = BeamSearch(game)
+                n_states = beamsearch_algorithm.run(heuristic, beam_size)
+                print(f"{heuristic}, beam_size {beam_size}, states: {n_states}")
+                file.write(f"{board_size}, {heuristic}, {beam_size}, {n_states}\n")
+    
+    # Make a csv file with board 7
+    with open(f"results/beam_search/beam_search_{board7}.csv", 'w') as file:
+        file.write(f"board, heuristic, beam size, states\n") 
+
+        game = RushHour(board_size, f"gameboards/Rushhour{board7}.csv")
+
+        for beam_size in (10, 20, 50, 100, 150):  
+            for heuristic in ('h1', 'h2', 'h3'):
+                beamsearch_algorithm = BeamSearch(game)
+                n_states = beamsearch_algorithm.run(heuristic, beam_size)
+                print(f"{heuristic}, beam_size {beam_size}, states: {n_states}")
+                file.write(f"{board_size}, {heuristic}, {beam_size}, {n_states}\n")
+    
+
+

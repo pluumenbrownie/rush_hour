@@ -1,0 +1,4 @@
+board, heuristic, beam size, states
+9, h1, 10, inf
+9, h2, 10, inf
+9, h3, 10, inf
