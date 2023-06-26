@@ -273,8 +273,8 @@ class PygameRushHour(RushHour):
         pygame.quit()
 
 
-# if __name__ == "__main__":
-#     board_file = "gameboards/Rushhour6x6_1.csv"
-#     results_file = "results/output_optimized.csv"
-#     newgame = PygameRushHour(6, board_file, results_file)
-#     newgame.start()
+if __name__ == "__main__":
+    board_file = "gameboards/Rushhour9x9_6.csv"
+    results_file = "results/random_optimized_moves_6x6_1.csv"
+    newgame = PygameRushHour(9, board_file, results_file)
+    newgame.start()
