@@ -15,7 +15,13 @@ from experiments.random_experiment import determine_random_solution
 from experiments.random_optimized_experiment import determine_optimized_random_solution
 from experiments.breadthfirst_experiment import breadth_first_experiment
 from experiments.depthfirst_experiment import depth_first_experiment
+<<<<<<< HEAD
+from experiments.beamsearch_experiment import beam_search_experiment
+from experiments.greedy_experiment import determine_greedy_solution
+=======
 from experiments.beamsearch_experiment import beamsearch_experiment
+from experiments.dijkstra_experiment import dijkstra_many_times
+>>>>>>> 7ae49392d79721eb7eab52ac771bfda91dda8bf6
 
 from sys import argv
   
@@ -32,7 +38,7 @@ if __name__ == '__main__':
     game.show_board()
     
     # To experiment add the board to the command
-    board = "9x9_6"
+    board = "6x6_1"
     # board = "6x6_1"
 
     if len(argv) > 3:   
@@ -40,6 +46,10 @@ if __name__ == '__main__':
         if argv[3] == "random":
             random_algorithm = Random(game)
             random_algorithm.run()
+        elif argv[3] == "randomplt":
+            histogram_plot(f"results/random_moves_{board}.csv", f'results/output{board}_random_graph_moves.png')
+        elif argv[3] == "greedyplt":
+            histogram_plot(f"results/greedy_moves_{board}.csv", f'results/output{board}_greedy_graph_moves.png')       
         elif argv[3] == "random_optimized":
             random_algorithm = Random(game)
             random_algorithm.run()
@@ -100,10 +110,11 @@ if __name__ == '__main__':
             test(boardsize, boardfile)
         elif argv[3] == "dijkstra":
             dijkstras_algorithm = Dijkstra(boardsize, boardfile)
-            dijkstras_algorithm.build_graph(150_000_000, 1000_000)
+            dijkstras_algorithm.build_graph(100_000, 1_000_000, 2000)
             dijkstras_algorithm.run()
             dijkstras_algorithm.export_solution()
-        
+        elif argv[3] == "dijkstra_test":
+            dijkstra_many_times(boardsize, boardfile)
         # Run this if you want to play the game yourself
         elif argv[3] == "play":
             game.start_game()
@@ -112,11 +123,15 @@ if __name__ == '__main__':
     # Make a plot of a histogram for random
     if len(argv) > 4 and argv[4] == "histogram":
         if argv[3] == "random": 
-            determine_random_solution(boardsize, board, 100)
+            determine_random_solution(boardsize, board, 50)
             histogram_plot(f"results/random_moves_{board}.csv", f'results/output{board}_random_graph_moves.png')
         elif argv[3]== "random_optimized":
             determine_optimized_random_solution(boardsize, board, 1000)
-            histogram_plot(f"results/random_optimized_moves_{board}.csv", f'results/output{board}_random_graph_optimized_moves.png')     
+            histogram_plot(f"results/random_optimized_moves_{board}.csv", f'results/output{board}_random_graph_optimized_moves.png')
+        elif argv[3] == "greedy":
+            determine_greedy_solution(boardsize, board, 10)
+            histogram_plot(f"results/greedy_moves_{board}.csv", f'results/output{board}_greedy_graph_moves.png')       
+            # histogram_plot(f"results/random_optimized_moves_{board}.csv", f'results/output{board}_random_graph_optimized_moves.png')     
         elif argv[3]== "beam":   
             beamsearch_experiment(boardsize, board, 100)
             histogram_plot(f"results/beam_search/random_optimized_moves_{board}.csv", f'results/beam_search/output{board}_beamsearch.png')     
