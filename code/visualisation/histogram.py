@@ -16,6 +16,7 @@ def histogram_plot(path_board: str, path_output: str):
     data_max = moves.max()
 
     # Plot the histogram
+    # histogram_t = data_filtered.plot.hist(bins=100, column=['moves'])
     histogram_t = data.plot.hist(bins=100, column=['moves'])
     plot_t = histogram_t.get_figure()
 
@@ -24,6 +25,7 @@ def histogram_plot(path_board: str, path_output: str):
     plt.text(0.50, 0.95, f"|  Total runs: {data_total}", transform=plot_t.transFigure)
     plt.text(0.30, 0.90, f"Min: {data_min}", transform=plot_t.transFigure)
     plt.text(0.50, 0.90, f"|  Max: {data_max}", transform=plot_t.transFigure)
+    plt.xlabel('Amount of moves')
     
     # Save and show the plot
     plot_t.savefig(path_output)

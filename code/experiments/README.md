@@ -108,7 +108,7 @@ Input:
 python3 main.py 6 gameboards/Rushhour6x6_1.csv depthfirst histogram
 ```
 
-![breadth_first_scores.png](https://github.com/pluumenbrownie/rush_hour/blob/main/results/breadth_first_scores.png) 
+![exp_6x6_1_depth_first_moves.png](https://github.com/pluumenbrownie/rush_hour/blob/main/results/exp_6x6_1_depth_first_moves.png) 
 
 ### Breadthfirst
 Net zoals bij een depthfirst gaat het breadthfirst algorite alle mogelijke staten van het bord af en geeft door middel van een queue gelijk de beste oplossing.  
@@ -117,9 +117,9 @@ In het volgende figuur is te zien wat dit breathfirst algoritme als beste oploss
 
 Door een tekort aan geheugen is het niet gelukt om borden 9x9_6 & 12x12_7 op te lossen met breadthfirst.  
 
-Input
+Input:
 ```
 python3 main.py 6 gameboards/Rushhour6x6_1.csv bf_compare
 ```
 
-![exp_6x6_1_depth_first_moves.png](https://github.com/pluumenbrownie/rush_hour/blob/main/results/exp_6x6_1_depth_first_moves.png) 
+![breadth_first_scores.png](https://github.com/pluumenbrownie/rush_hour/blob/main/results/breadth_first_scores.png) 
