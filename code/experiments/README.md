@@ -6,8 +6,6 @@ Standaard input om met de algoritmen te experimenteren:
 ```
 python3 code/main.py gameboards/[gameboardfile] [algorithm] histogram  
 ```
-<!-- Voor gameboardsize kan er worden gekozen om een 6, 9 of 12 aan te geven.  -->
-De grootte van het gameboard wordt automatisch geselecteerd aan de hand van het gegeven bestandsnaam.
 In de map gameboards staan vervolgens een aantal gameboardfiles, deze staan van makkelijk naar moeilijk. Voor [gameboardfile] kan je de file kiezen door de naam van het bestand in te vullen. Om het vervolgens te runnen met het experiment moet je histogram als arg[3] geven.
 
 ## Experiments 
