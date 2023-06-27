@@ -1,25 +1,22 @@
 from classes.graphs import *
-from algorithms.GraphBased import Dijkstra
+from code.algorithms.dijkstra import Dijkstra
 from classes.models import RushHour
 from itertools import product
 import time
+import tracemalloc
 
 def dijkstra_many_times(board_size: int, board_file: str) -> None:
     board_name = board_file[19:-4]
     print(board_name)
-    results: list[tuple[str, int, float]] = []
-    # move_list: list[int] = []
-    # times: list[float] = []
-    # settings = [80, 90, 100, 120, 140, 160, 180, 200, 240, 280, 300, 450, 500]
-    # iter_nums = [5000, 10_000, 20_000, 50_000]
-    # iter_nums = [50_000, 100_000, 200_000]
-    iter_nums = [50_000, 75_000, 100_000]
-    # cutoff_nums = [50, 100, 150, 200]
-    # cutoff_nums = [200, 300, 400, 500]
-    cutoff_nums = [200, 150, 100]
+    results: list[tuple[str, int, float, int]] = []
+    iter_nums = [1, 10, 100, 1000, 10, 100, 1000, 10_000]
+    iter_nums = [100]
+    cutoff_nums = [200_000, 20_000, 2_000, 200] * 2
+    cutoff_nums = [20_000]
 
+    tracemalloc.start()
     for iterations, cutoff in zip(iter_nums, cutoff_nums):
-        for _ in range(34):
+        for _ in range(3):
             start_time = time.time()
             dijkstras_algorithm = Dijkstra(board_size, board_file)
             dijkstras_algorithm.build_graph(iterations, 1_000_000, random_cutoff=cutoff)
@@ -28,12 +25,14 @@ def dijkstra_many_times(board_size: int, board_file: str) -> None:
                 move_nr = dijkstras_algorithm.export_solution(export_file=None)
             except IndexError:
                 move_nr = 0
-            results.append((f"{iterations=} {cutoff=}", move_nr, time.time() - start_time))
+            _, mem_peak = tracemalloc.get_traced_memory()
+            results.append((f"{iterations=} {cutoff=}", move_nr, time.time() - start_time, mem_peak))
+            tracemalloc.reset_peak()
 
-    # with open(f"results/dijkstra_test_{board_name}.csv", 'w') as file:
-    #     # file.write(f"moves, running time\n")
-    #     # for value1, value2 in zip(moves):
-    #     #     file.write(f"{value1}, {value2:.3f}\n")
-    #     file.write(f"parameters,moves,time\n")
-    #     for result in results:
-    #         file.write(result[0]+f",{result[1]},{result[2]}\n")
+    with open(f"results/output_dijkstra_test_{board_name}_testtest.csv", 'w') as file:
+        # file.write(f"moves, running time\n")
+        # for value1, value2 in zip(moves):
+        #     file.write(f"{value1}, {value2:.3f}\n")
+        file.write(f"parameters,moves,time,memory\n")
+        for result in results:
+            file.write(result[0]+f",{result[1]},{result[2]},{result[3]}\n")

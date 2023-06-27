@@ -9,11 +9,14 @@ def depth_first_experiment(board_size: int, board: str, repeat: int = 1, export:
     Determine a random solution for the Rush Hour game.
     """
     start_time = time.time()
+    n_runs = 0
 
     tries: list[int] = []
     moves: list[int] = []
     
-    for _ in range(repeat):
+    while time.time() - start_time < 3600:
+        print(f"run: {n_runs}")
+        n_runs += 1
         game = RushHour(board_size, f"gameboards/Rushhour{board}.csv")
         depth_first_algorithm = DepthFirst(game)
         depth_first_algorithm.run()
@@ -29,10 +32,11 @@ def depth_first_experiment(board_size: int, board: str, repeat: int = 1, export:
     end_time = time.time()
     print(f"The depth first algorithm took {end_time - start_time:.3f} seconds.")
 
-    print(f"On average, in {repeat} games, took {round(stat.mean(tries))}±{round(stat.stdev(tries))} tries and {round(stat.mean(moves))}±{round(stat.stdev(moves))} succesfull moves.")
+    # print(f"On average, in {repeat} games, took {round(stat.mean(tries))}±{round(stat.stdev(tries))} tries and {round(stat.mean(moves))}±{round(stat.stdev(moves))} succesfull moves.")
 
     # Open file to get all the moves
     with open(f"results/depth_first_moves_{board}.csv", 'w') as file:
         file.write("moves\n")
         for value in moves:
             file.write(f"{value}\n")
+    
