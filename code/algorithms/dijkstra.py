@@ -16,7 +16,7 @@ class Dijkstra:
         statespace = count_statespace(self.board_size, self.board_file)
         print(f"{statespace=}")
         print(f"Equals {statespace/max_iterations:.2f}x max_iterations")
-        self.graph.build_graph(max_iterations, random_cutoff=200)
+        self.graph.build_graph(max_iterations, random_cutoff=random_cutoff)
         # self.graph.build_graph_full_runs(max_iterations)
         self.graph.stats()
     

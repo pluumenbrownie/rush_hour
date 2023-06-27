@@ -4,7 +4,7 @@ from algorithms.depth_first import DepthFirst
 from algorithms.breadth_first import BreadthFirst
 from algorithms.branch_and_bound import BranchAndBound
 from algorithms.beam_search import BeamSearch
-from algorithms.GraphBased import Dijkstra
+from code.algorithms.dijkstra import Dijkstra
 from classes.models import RushHour
 from visualisation.histogram import histogram_plot
 from visualisation.hist_compare_algorithms import compare_plot
@@ -15,7 +15,6 @@ from experiments.random_experiment import determine_random_solution
 from experiments.random_optimized_experiment import determine_optimized_random_solution
 from experiments.breadthfirst_experiment import breadth_first_experiment
 from experiments.depthfirst_experiment import depth_first_experiment
-# from experiments.beamsearch_experiment import beam_search_experiment
 from experiments.greedy_experiment import determine_greedy_solution
 from experiments.beamsearch_experiment import beamsearch_experiment
 from experiments.dijkstra_experiment import dijkstra_many_times
@@ -52,9 +51,7 @@ if __name__ == '__main__':
         elif argv[3] == "randomplt":
             histogram_plot(f"results/random_moves_{board}.csv", f'results/output{board}_random_graph_moves.png')
         elif argv[3] == "greedyplt":
-            histogram_plot(f"results/greedy_moves_{board}.csv", f'results/output{board}_greedy_graph_moves.png')
-        elif argv[3] == "random_optimizedplt":
-            histogram_plot(f"results/random_optimized_moves_{board}.csv", f'results/output{board}_random_graph_optimized_moves.png')
+            histogram_plot(f"results/greedy_moves_{board}.csv", f'results/output{board}_greedy_graph_moves.png')       
         elif argv[3] == "random_optimized":
             random_algorithm = Random(game)
             random_algorithm.run()
@@ -73,7 +70,6 @@ if __name__ == '__main__':
             branchandbound_algorithm = BranchAndBound(game, bound=185)
             # branchandbound_algorithm.bound_guess()
             branchandbound_algorithm.run(first_only = False, output_file="results/output_depthfirst_12x12_7.csv")
-       
         # python3 code/main.py 6 gameboards/Rushhour6x6_1.csv beamsearch h1 50
         # python3 code/main.py 9 gameboards/Rushhour9x9_4.csv beamsearch h1 50
         elif argv[3] == "beamsearch":
@@ -124,13 +120,13 @@ if __name__ == '__main__':
     # Make a plot of a histogram for random
     if len(argv) > 4 and argv[4] == "histogram":
         if argv[3] == "random": 
-            determine_random_solution(boardsize, board, 1000)
+            determine_random_solution(boardsize, board, 50)
             histogram_plot(f"results/random_moves_{board}.csv", f'results/output{board}_random_graph_moves.png')
         elif argv[3]== "random_optimized":
             determine_optimized_random_solution(boardsize, board, 1000)
             histogram_plot(f"results/random_optimized_moves_{board}.csv", f'results/output{board}_random_graph_optimized_moves.png')
         elif argv[3] == "greedy":
-            determine_greedy_solution(boardsize, board, 1000)
+            determine_greedy_solution(boardsize, board, 10)
             histogram_plot(f"results/greedy_moves_{board}.csv", f'results/output{board}_greedy_graph_moves.png')       
         elif argv[3] == "depthfirst":
             depth_first_experiment(boardsize, board, 100)

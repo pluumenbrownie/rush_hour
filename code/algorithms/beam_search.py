@@ -129,6 +129,8 @@ class BeamSearch(BreadthFirst):
                 self.stack.append(copy.deepcopy(self.game))
             self.game.process_undo()
 
+        # creating a priority queue using heuristics
+
         if heuristic == "h1": 
             # sort the stack so that the most promising are at the front (from short to long distance)
             # print("beam search: sort by distance")
