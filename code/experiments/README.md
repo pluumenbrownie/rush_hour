@@ -11,12 +11,7 @@ python3 code/main.py [gameboardsize] gameboards/[gameboardfile] [algorithm] hist
 Voor gameboardsize kan er worden gekozen om een 6, 9 of 12 aan te geven. 
 In de map gameboards staan vervolgens een aantal gameboardfiles, deze staan van makkelijk naar moeilijk. Voor [gameboardfile] kan je de file kiezen door de naam van het bestand in te vullen. Om het vervolgens te runnen met het experiment moet je histogram als arg[4] geven.
 
-## Experiments
-*<b style="color:red"> ***Let op!***</b>*  
-Voor de volgende figuren in random, random_optimized & greedy geldt het volgende:   
-Voor Figuur 1 moet in main.py board = "6x6_1"   
-Voor Figuur2 moet in main.py board = "9x9_4"   
-Voor Figuur 3 moet in main.py board = "12x12_7"  
+## Experiments 
 
 ### Random
 Het random algoritme probeert door middel van het kiezen van een random voertuig en een random directie tot een oplossing te komen.  

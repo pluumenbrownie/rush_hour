@@ -1,5 +1,5 @@
 from classes.graphs import *
-from code.algorithms.dijkstra import Dijkstra
+from algorithms.dijkstra import Dijkstra
 from classes.models import RushHour
 from itertools import product
 import time
@@ -10,16 +10,16 @@ def dijkstra_many_times(board_size: int, board_file: str) -> None:
     print(board_name)
     results: list[tuple[str, int, float, int]] = []
     iter_nums = [1, 10, 100, 1000, 10, 100, 1000, 10_000]
-    iter_nums = [100]
-    cutoff_nums = [200_000, 20_000, 2_000, 200] * 2
-    cutoff_nums = [20_000]
+    # iter_nums = [10]
+    cutoff_nums = [200_000, 20_000, 2_000, 200, 200_000, 20_000, 2_000, 200]
+    # cutoff_nums = [200_000]
 
     tracemalloc.start()
     for iterations, cutoff in zip(iter_nums, cutoff_nums):
         for _ in range(3):
             start_time = time.time()
             dijkstras_algorithm = Dijkstra(board_size, board_file)
-            dijkstras_algorithm.build_graph(iterations, 1_000_000, random_cutoff=cutoff)
+            dijkstras_algorithm.build_graph(iterations, cutoff)
             try:
                 dijkstras_algorithm.run()
                 move_nr = dijkstras_algorithm.export_solution(export_file=None)

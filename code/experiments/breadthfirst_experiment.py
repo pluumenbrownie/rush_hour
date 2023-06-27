@@ -28,7 +28,7 @@ def breadth_first_experiment(board_size: int, board: str, repeat: int = 1, expor
     end_time = time.time()
     print(f"The breadth first algorithm took {end_time - start_time:.3f} seconds.")
 
-    # print(f"On average, in {repeat} games, took {round(stat.mean(tries))}±{round(stat.stdev(tries))} tries and {round(stat.mean(moves))}±{round(stat.stdev(moves))} succesfull moves.")
+    print(f"On average, in {repeat} games, took {round(stat.mean(tries))}±{round(stat.stdev(tries))} tries and {round(stat.mean(moves))}±{round(stat.stdev(moves))} succesfull moves.")
 
     # Open file to get all the moves
     with open(f"results/breadth_first_moves_{board}.csv", 'w') as file:
