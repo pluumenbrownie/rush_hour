@@ -14,7 +14,7 @@ def depth_first_experiment(board_size: int, board: str, repeat: int = 1, export:
     tries: list[int] = []
     moves: list[int] = []
     
-    while time.time() - start_time < 5:
+    while time.time() - start_time < 3600:
         print(f"run: {n_runs}")
         n_runs += 1
         game = RushHour(board_size, f"gameboards/Rushhour{board}.csv")
