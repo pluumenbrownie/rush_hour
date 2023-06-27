@@ -5,6 +5,8 @@ Standaard input om met de algoritmen te experimenteren:
 
 Let op! In de main.py moet het board overeenkomen met de gameboardfile, anders werkt het niet. 
 
+
+
 ```
 python3 code/main.py [gameboardsize] gameboards/[gameboardfile] [algorithm] histogram 
 ```
@@ -12,14 +14,18 @@ Voor gameboardsize kan er worden gekozen om een 6, 9 of 12 aan te geven.
 In de map gameboards staan vervolgens een aantal gameboardfiles, deze staan van makkelijk naar moeilijk. Voor [gameboardfile] kan je de file kiezen door de naam van het bestand in te vullen. Om het vervolgens te runnen met het experiment moet je histogram als arg[4] geven.
 
 ## Experiments
+*<b style="color:red"> ***Let op!***</b>*  
+Voor de volgende figuren in random, random_optimized & greedy geldt het volgende:   
+Voor Figuur 1 moet in main.py board = "6x6_1"   
+Voor Figuur2 moet in main.py board = "9x9_4"   
+Voor Figuur 3 moet in main.py board = "12x12_7"  
+
 ### Random
 Het random algoritme probeert door middel van het kiezen van een random voertuig en een random directie tot een oplossing te komen.  
 
 Hieronder zullen drie grafieken te zien zijn die de uitput van het random algoritme weergeven. De eerste grafiek laat het random algoritme zien op het 6x6_1 bord, de tweede op het 9x9_4 bord en het derde op het 12x12_7 bord. De volgende input is nodig om de volgende resultaten van het random algoritme te verkrijgen.  
-<span style="color:red"> ***Let op!***</span>  
-Voor grafiek 1 moet in main.py board = "6x6_1". En in histogram.py bins=100.   
-Voor grafiek 2 moet in main.py board = "9x9_4". En in histogram.py bins=100.   
-Voor grafiek 3 moet in main.py board = "12x12_7". En in histogram.py bins=100.   
+In histogram.py staat de binsize bij elk figuur op 100.  
+  
 
 In grafiek 1 is besloten om alle runs die meer dan 50000 moves nodig hadden om het bord op te lossen niet mee te nemen. Dit zijn de zogenoemde outliers. De staart van de grafiek wordt zo minder lang en het gedeelte waar de meeste oplossingen worden gevonden wordt zo ook beter zichtbaar. De outliers zijn verder wel meegenomen in het gemiddelde.  
 In grafiek 2 en 3 zijn alle runs meegenomen.    
@@ -88,3 +94,32 @@ python3 main.py 6 gameboards/Rushhour6x6_1.csv greedy histogram
 python3 main.py 9 gameboards/Rushhour9x9_4.csv greedy histogram
 ```
 ![exp_9x9_4_greedy_graph_moves.png](https://github.com/pluumenbrownie/rush_hour/blob/main/results/exp_9x9_4_greedy_graph_moves.png)
+
+
+### Depthfirst
+Het depthfirst algoritme kijkt gaat door middel van een stack alle mogelijke states van het bord af en probeert zo tot de beste oplossing te komen.  
+Het is een deterministish algoritme en zal daardoor altijd op dezelfde oplossing komen. Voor het 6x6_1 bord komt het dan ook altijd uit op 115.  
+Echter voor het experiment is gekeken of de oplossing verbeterd kan worden door de moves te shuffelen voordat deze bij de stack komen.  
+
+Voor het experiment heeft het depthfirst algoritme een uur gedraaid om te kijken hoe het aantal moves zich verhouden tot de deterministiche oplossing.  
+
+Input:
+```
+python3 main.py 6 gameboards/Rushhour6x6_1.csv depthfirst histogram
+```
+
+![exp_6x6_1_depth_first_moves.png](https://github.com/pluumenbrownie/rush_hour/blob/main/results/exp_6x6_1_depth_first_moves.png) 
+
+### Breadthfirst
+Net zoals bij een depthfirst gaat het breadthfirst algorite alle mogelijke staten van het bord af en geeft door middel van een queue gelijk de beste oplossing.  
+
+In het volgende figuur is te zien wat dit breathfirst algoritme als beste oplossing geeft voor de eerste 5 borden geeft.  
+
+Door een tekort aan geheugen is het niet gelukt om borden 9x9_6 & 12x12_7 op te lossen met breadthfirst.  
+
+Input:
+```
+python3 main.py 6 gameboards/Rushhour6x6_1.csv bf_compare
+```
+
+![breadth_first_scores.png](https://github.com/pluumenbrownie/rush_hour/blob/main/results/breadth_first_scores.png) 

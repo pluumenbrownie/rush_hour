@@ -40,6 +40,7 @@ class RushHour():
                 
         # self.game_board.print_board()
         self.board_hash: int = hash(self.game_board)
+        # first string is vehicle, first int is direction, second int is the board hash
         self.history: list[tuple[str, int, int]] = []
     
     def show_board(self) -> None:
