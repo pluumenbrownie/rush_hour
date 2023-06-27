@@ -17,7 +17,8 @@ from experiments.breadthfirst_experiment import breadth_first_experiment
 from experiments.depthfirst_experiment import depth_first_experiment
 from experiments.greedy_experiment import determine_greedy_solution
 from experiments.beamsearch_experiment import beamsearch_experiment
-# from experiments.dijkstra_experiment import dijkstra_many_times
+from experiments.memory_experiment import memory_comparison
+from experiments.dijkstra_experiment import dijkstra_many_times
 from experiments.bf_compare import bf_plot
 
 from sys import argv
@@ -115,6 +116,9 @@ if __name__ == '__main__':
         # Running the beam search experiment (python3 code/main.py 6 gameboards/Rushhour6x6_1.csv beam_exp)
         elif argv[2] == "beam_exp":
             beamsearch_experiment(boardsize, board)
+        
+        elif argv[2] == "mem_exp":
+            memory_comparison(boardsize, boardfile)
 
         # Creating a test graph 
         elif argv[2] == "graph":
