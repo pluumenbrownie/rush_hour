@@ -16,7 +16,8 @@ def beamsearch_experiment(board_size: int, board: str, export: bool = False, rep
 
         game = RushHour(board_size, f"gameboards/Rushhour{board}.csv")
 
-        for beam_size in (200, 500, 1000):  
+        # for beam_size in (200, 500, 1000):  
+        for beam_size in (10, 20, 50, 100, 150, 200, 250):  
             for heuristic in ('h1', 'h2', 'h3'):
                 beamsearch_algorithm = BeamSearch(game)
                 print(f"Before completing: {heuristic}, beam_size {beam_size}")

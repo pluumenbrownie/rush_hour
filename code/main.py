@@ -34,8 +34,9 @@ if __name__ == '__main__':
     game.show_board()
     
     # To experiment add the board to the command
-    board = "6x6_1"
+    board = "6x6_3"
     # board = "6x6_1"
+    # board = "9x9_4"
 
     if len(argv) > 3:   
         # Algorithms 
@@ -93,15 +94,8 @@ if __name__ == '__main__':
         elif argv[3] == "breadth_exp":
             breadth_first_experiment(boardsize, board, 1)
         elif argv[3] == "beam_exp":
-            if argv[4] == 'h1': 
-                heuristic = 'h1'
-            elif argv[4] == 'h2': 
-                heuristic = 'h2'
-            elif argv[4] == 'h3': 
-                heuristic = 'h3'
-            beam_size = argv[5]
-            beamsearch_experiment(boardsize, board, heuristic, beam_size)
-            # python3 code/main.py 6 gameboards/Rushhour6x6_1.csv beam_exp h1 50 
+            beamsearch_experiment(boardsize, board)
+            # python3 code/main.py 6 gameboards/Rushhour6x6_1.csv beam_exp 
         elif argv[3] == "graph":
             test(boardsize, boardfile)
         elif argv[3] == "dijkstra":
