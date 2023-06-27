@@ -30,18 +30,11 @@ if __name__ == '__main__':
         exit(1)
     
     boardsize = int(argv[1])
-    boardfile = argv[2]  
+    boardfile = argv[2]
+      
     game = RushHour(boardsize, boardfile)
     game.show_board()
-    
-    # To experiment add the correct board to the command
-    # board = "6x6_1"
-    # board = "6x6_2"
-    # board = "6x6_3"
-    # board = "9x9_4"
-    # board = "9x9_5"
-    # board = "9x9_6"
-    board = "12x12_7"
+    board = boardfile[19:-4]
             
     if len(argv) > 3:   
         # Algorithms 
@@ -142,6 +135,6 @@ if __name__ == '__main__':
       
     # Animate every algorithm game using pygame
     elif len(argv) > 4 and argv[4] == "animate":
-        results_file = "results/output_breadth_first_moves_9x9_5.csv"
+        results_file = "results/output.csv"
         newgame = PygameRushHour(boardsize, boardfile, results_file)
         newgame.start()

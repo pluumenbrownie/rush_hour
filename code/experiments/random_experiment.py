@@ -2,7 +2,6 @@ from classes.models import RushHour
 from algorithms.random import Random
 
 import time
-import subprocess
 import statistics as stat
 
 def determine_random_solution(board_size: int, board: str, repeat: int = 1, export: bool = False):
@@ -11,11 +10,6 @@ def determine_random_solution(board_size: int, board: str, repeat: int = 1, expo
     """
     start_time = time.time()
     n_runs = 0
-
-    # while time.time() - start_time < 3600:
-    #     print(f"run: {n_runs}")
-    #     # subprocess.call(["timeout", "60", "python3", "main.py", "random_algorithm.py",])
-    #     n_runs += 1
     
     tries: list[int] = []
     moves: list[int] = []
