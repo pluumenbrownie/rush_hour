@@ -4,7 +4,7 @@ from algorithms.depth_first import DepthFirst
 from algorithms.breadth_first import BreadthFirst
 from algorithms.branch_and_bound import BranchAndBound
 from algorithms.beam_search import BeamSearch
-from code.algorithms.dijkstra import Dijkstra
+from algorithms.dijkstra import Dijkstra
 from classes.models import RushHour
 from visualisation.histogram import histogram_plot
 from visualisation.hist_compare_algorithms import compare_plot
@@ -64,7 +64,7 @@ if __name__ == '__main__':
         elif argv[3] == "branchandbound":
             branchandbound_algorithm = BranchAndBound(game, bound=185)
             # branchandbound_algorithm.bound_guess()
-            branchandbound_algorithm.run(first_only = False, output_file="results/output_depthfirst_12x12_7.csv")
+            branchandbound_algorithm.run(first_only = False)
         # python3 code/main.py 6 gameboards/Rushhour6x6_1.csv beamsearch h1 50
         # python3 code/main.py 9 gameboards/Rushhour9x9_4.csv beamsearch h1 50
         elif argv[3] == "beamsearch":
@@ -100,7 +100,7 @@ if __name__ == '__main__':
             test(boardsize, boardfile)
         elif argv[3] == "dijkstra":
             dijkstras_algorithm = Dijkstra(boardsize, boardfile)
-            dijkstras_algorithm.build_graph(100_000, 1_000_000, 2000)
+            dijkstras_algorithm.build_graph(100_000, 2000)
             dijkstras_algorithm.run()
             dijkstras_algorithm.export_solution()
         elif argv[3] == "dijkstra_test":
