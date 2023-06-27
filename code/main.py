@@ -33,14 +33,9 @@ if __name__ == '__main__':
     game = RushHour(boardsize, boardfile)
     game.show_board()
     
-    # To experiment add the correct board to the command
+    # To experiment add the board to the command
     board = "6x6_1"
-    # board = "6x6_2"
-    # board = "6x6_3"
-    # board = "9x9_4"
-    # board = "9x9_5"
-    # board = "9x9_6"
-    # board = "12x12_7"
+    # board = "6x6_1"
 
     if len(argv) > 3:   
         # Algorithms 
@@ -50,9 +45,7 @@ if __name__ == '__main__':
         elif argv[3] == "randomplt":
             histogram_plot(f"results/random_moves_{board}.csv", f'results/output{board}_random_graph_moves.png')
         elif argv[3] == "greedyplt":
-            histogram_plot(f"results/greedy_moves_{board}.csv", f'results/output{board}_greedy_graph_moves.png')
-        elif argv[3] == "random_optimizedplt":
-            histogram_plot(f"results/random_optimized_moves_{board}.csv", f'results/output{board}_random_graph_optimized_moves.png')
+            histogram_plot(f"results/greedy_moves_{board}.csv", f'results/output{board}_greedy_graph_moves.png')       
         elif argv[3] == "random_optimized":
             random_algorithm = Random(game)
             random_algorithm.run()
@@ -71,7 +64,6 @@ if __name__ == '__main__':
             branchandbound_algorithm = BranchAndBound(game, bound=185)
             # branchandbound_algorithm.bound_guess()
             branchandbound_algorithm.run(first_only = False, output_file="results/output_depthfirst_12x12_7.csv")
-       
         # python3 code/main.py 6 gameboards/Rushhour6x6_1.csv beamsearch h1 50
         # python3 code/main.py 9 gameboards/Rushhour9x9_4.csv beamsearch h1 50
         elif argv[3] == "beamsearch":
@@ -101,8 +93,15 @@ if __name__ == '__main__':
         elif argv[3] == "breadth_exp":
             breadth_first_experiment(boardsize, board, 1)
         elif argv[3] == "beam_exp":
-            beamsearch_experiment(boardsize, board)
-            # python3 code/main.py 6 gameboards/Rushhour6x6_1.csv beam_exp 
+            if argv[4] == 'h1': 
+                heuristic = 'h1'
+            elif argv[4] == 'h2': 
+                heuristic = 'h2'
+            elif argv[4] == 'h3': 
+                heuristic = 'h3'
+            beam_size = argv[5]
+            beamsearch_experiment(boardsize, board, heuristic, beam_size)
+            # python3 code/main.py 6 gameboards/Rushhour6x6_1.csv beam_exp h1 50 
         elif argv[3] == "graph":
             test(boardsize, boardfile)
         elif argv[3] == "dijkstra":
@@ -120,13 +119,13 @@ if __name__ == '__main__':
     # Make a plot of a histogram for random
     if len(argv) > 4 and argv[4] == "histogram":
         if argv[3] == "random": 
-            determine_random_solution(boardsize, board, 1000)
+            determine_random_solution(boardsize, board, 50)
             histogram_plot(f"results/random_moves_{board}.csv", f'results/output{board}_random_graph_moves.png')
         elif argv[3]== "random_optimized":
             determine_optimized_random_solution(boardsize, board, 1000)
             histogram_plot(f"results/random_optimized_moves_{board}.csv", f'results/output{board}_random_graph_optimized_moves.png')
         elif argv[3] == "greedy":
-            determine_greedy_solution(boardsize, board, 1000)
+            determine_greedy_solution(boardsize, board, 10)
             histogram_plot(f"results/greedy_moves_{board}.csv", f'results/output{board}_greedy_graph_moves.png')       
             # histogram_plot(f"results/random_optimized_moves_{board}.csv", f'results/output{board}_random_graph_optimized_moves.png')    
          
