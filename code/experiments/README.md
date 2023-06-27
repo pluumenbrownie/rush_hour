@@ -18,7 +18,7 @@ In de map gameboards staan vervolgens een aantal gameboardfiles, deze staan van 
 ### Random
 Het random algoritme probeert door middel van het kiezen van een random voertuig en een random directie tot een oplossing te komen.  
 
-Hieronder zullen drie grafieken te zien zijn die de uitput van het random algoritme weergeven. De eerste grafiek laat het random algoritme zien op het 6x6_1 bord, de tweede op het 9x9_4 bord en het derde op het 12x12_7 bord. De volgende input is nodig om de volgende resultaten van het random algoritme te verkrijgen.  
+Hieronder zullen drie grafieken te zien zijn die de uitput van het random algoritme weergeven. De eerste grafiek laat het random algoritme zien op het 6x6_1 bord, de tweede op het 9x9_4 bord en het derde op het 12x12_7 bord. De volgende input is nodig om de volgende resultaten van het random algoritme te verkrijgen.                             
 In histogram.py staat de binsize bij elk figuur op 100.  
   
 
