@@ -39,9 +39,9 @@ if __name__ == '__main__':
     # board = "6x6_2"
     # board = "6x6_3"
     # board = "9x9_4"
-    board = "9x9_5"
+    # board = "9x9_5"
     # board = "9x9_6"
-    # board = "12x12_7"
+    board = "12x12_7"
             
     if len(argv) > 3:   
         # Algorithms 
