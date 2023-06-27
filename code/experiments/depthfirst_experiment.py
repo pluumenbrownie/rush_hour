@@ -17,7 +17,7 @@ def depth_first_experiment(board_size: int, board: str, repeat: int = 1, export:
     while time.time() - start_time < 3600:
         print(f"run: {n_runs}")
         n_runs += 1
-        game = RushHour(board_size, f"gameboards/{board}.csv")
+        game = RushHour(board_size, f"gameboards/Rushhour{board}.csv")
         depth_first_algorithm = DepthFirst(game)
         depth_first_algorithm.run()
         t = len(depth_first_algorithm.visited_states)

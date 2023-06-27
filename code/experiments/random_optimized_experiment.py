@@ -32,7 +32,7 @@ def determine_optimized_random_solution(board_size: int, board: str, repeat: int
     
     print(f"The random optimized algorithm took {end_time - start_time:.3f} seconds.")
 
-    print(f"On average, in {repeat} games, took {round(stat.mean(tries))}±{round(stat.stdev(tries))} tries and {round(stat.mean(moves))}±{round(stat.stdev(moves))} succesfull moves.")
+    print(f"On average, in {n_runs} games, took {round(stat.mean(tries))}±{round(stat.stdev(tries))} tries and {round(stat.mean(moves))}±{round(stat.stdev(moves))} succesfull moves.")
 
     # Open file to get all the moves
     with open(f"results/random_optimized_moves_{board}.csv", 'w') as file:

@@ -3,10 +3,8 @@
 ## Usage 
 Standaard input om met de algoritmen te experimenteren:
 
-
-
 ```
-python3 code/main.py [gameboardsize] gameboards/[gameboardfile] [algorithm] histogram 
+python3 code/main.py gameboards/[gameboardfile] [algorithm] histogram  
 ```
 <!-- Voor gameboardsize kan er worden gekozen om een 6, 9 of 12 aan te geven.  -->
 De grootte van het gameboard wordt automatisch geselecteerd aan de hand van het gegeven bestandsnaam.
@@ -17,7 +15,7 @@ In de map gameboards staan vervolgens een aantal gameboardfiles, deze staan van 
 ### Random
 Het random algoritme probeert door middel van het kiezen van een random voertuig en een random directie tot een oplossing te komen.  
 
-Hieronder zullen drie grafieken te zien zijn die de uitput van het random algoritme weergeven. De eerste grafiek laat het random algoritme zien op het 6x6_1 bord, de tweede op het 9x9_4 bord en het derde op het 12x12_7 bord. De volgende input is nodig om de volgende resultaten van het random algoritme te verkrijgen.  
+Hieronder zullen drie grafieken te zien zijn die de uitput van het random algoritme weergeven. De eerste grafiek laat het random algoritme zien op het 6x6_1 bord, de tweede op het 9x9_4 bord en het derde op het 12x12_7 bord. De volgende input is nodig om de volgende resultaten van het random algoritme te verkrijgen.                             
 In histogram.py staat de binsize bij elk figuur op 100.  
   
 
