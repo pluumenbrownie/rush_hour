@@ -80,7 +80,7 @@ class BranchAndBound(DepthFirst):
                 print(f"New best solution: {self.best_move_count} moves.")
                 self.best_solution.export_solution(output_name=self.output_file) 
     
-    def run(self, first_only: bool = True, output_file: str = "results/output.csv") -> None:
+    def run(self, first_only: bool = True, output_file: str = "results/output.csv") -> int|float:
         """
         This method runs the depth first algorithm.
         """
@@ -105,6 +105,7 @@ class BranchAndBound(DepthFirst):
             self.build_children()
         
         print(f"New best move count: {self.best_move_count}")
+        return self.best_move_count
     
     def bound_guess(self, tries: int = 1000) -> None:
         """
