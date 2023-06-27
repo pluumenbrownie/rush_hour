@@ -20,7 +20,7 @@ class Greedy(Algorithm):
         self.vehicle_ids = game.get_vehicle_ids()
         self.directions = [1, -1]
         self.archive = set()
-        self.count_moves: int = 0
+        self.moves: int = 0
 
     
     def move_red_car(self) -> bool: 
@@ -36,7 +36,7 @@ class Greedy(Algorithm):
 
         if visited not in self.archive:
             self.archive.add(visited)
-            self.count_moves += 1
+            self.moves += 1
             return True 
         
         # if state is already in archive, undo move
@@ -64,7 +64,7 @@ class Greedy(Algorithm):
 
             # if state is a new state, add states to archive 
             if visited not in self.archive:
-                self.count_moves += 1
+                self.moves += 1
                 self.archive.add(visited)
                 return True 
 
@@ -85,37 +85,34 @@ class Greedy(Algorithm):
 
         success = self.game.process_turn(vehicle, direction)
         if success: 
-            # self.count_moves += 1
             return True 
         
         return False
     
     def move_random_car(self) -> bool: 
         """
-        If no other moves are possible, select a random car
+        If no other moves are possible, select a random car and a random direction 
         """
-        # get a random car
         vehicle = self.choose_vehicle()
-
-        # get a random direction
         direction = self.choose_direction()
 
         # make move 
         success = self.game.process_turn(vehicle, direction)
 
         if success:
-            self.count_moves += 1
+            self.moves += 1
             return True
         
         return False
 
 
     def run(self, export: bool = True) -> tuple[int, int]:
+        """
+        Run the greedy algorithm. It returns the tries and moves (valid tries)
+        """
         count_tries = 0
 
         while not self.game.is_won():
-            # print("")
-            # self.game.show_board()
             count_tries += 1
 
             # try to move red car to the right
@@ -126,17 +123,12 @@ class Greedy(Algorithm):
             if self.move_blocking_vehicle():
                 continue
             
-            # last option is to move a random movable car
-            # if self.move_random_movable_car(): 
-            #     # count_moves += 1
-            #     continue
-
+            # if the first two options weren't possible, move a random car 
             if self.move_random_car(): 
                 continue
         
         if export:
             self.game.export_solution()
 
-
-        print(f"It took the algorithm {count_tries} tries and {self.count_moves} moves")
-        return count_tries, self.count_moves
+        print(f"It took the algorithm {count_tries} tries and {self.moves} moves")
+        return count_tries, self.moves

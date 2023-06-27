@@ -12,23 +12,23 @@ class BeamSearch(BreadthFirst):
     - Number of vehicles that are blocking the red car 
     - A combination of these two 
     """
-    def col_red_car(self) -> int:
+    def col_red_car(self, game:RushHour) -> int:
         """ 
         Get column of red car 
         """
  
         # get location of red car 
-        red_car = self.game.game_board.vehicle_dict["X"]
+        red_car = game.game_board.vehicle_dict["X"]
         
         # only interested in the colummn 
         col_red_car: int = red_car.col 
         return col_red_car
     
-    def row_red_car(self) -> int:
+    def row_red_car(self, game:RushHour) -> int:
         """ 
         Get the row of the red car 
         """
-        red_car = self.game.game_board.vehicle_dict["X"]
+        red_car = game.game_board.vehicle_dict["X"]
         row_red_car: int = red_car.row
         return row_red_car
 
@@ -38,14 +38,14 @@ class BeamSearch(BreadthFirst):
         Get the amount of boxes that are between the red car and the exit 
         """
         # get width of board 
-        width = self.game.game_board.width 
+        width = game.game_board.width 
         # calculate boxes between red vehicle and exit 
-        boxes = width - self.col_red_car()
-
+        boxes = width - self.col_red_car(game)
+        # print(f"boxes: {boxes}")
         return boxes
 
 
-    def sort_by_distance(self): 
+    def sort_by_distance(self) -> None: 
         """ 
         Heuristic (h1): states with red car closest to the exit are the best states 
         Pre: a stack with children states
@@ -58,25 +58,24 @@ class BeamSearch(BreadthFirst):
         Heuristic (h2): states with no or very little blocking vehicles are the best states
         """
         # get row and column of red car 
-        row_red_car: int = self.row_red_car()
-        col_red_car: int = self.col_red_car()
-        width = self.game.game_board.width 
+        row_red_car: int = self.row_red_car(game)
+        col_red_car: int = self.col_red_car(game)
+        width = game.game_board.width 
         
         # set count to 0 
         count = 0 
 
         # loop through the boxes in front of the red car 
         for i in range(col_red_car, width): 
-            # print(i)
             # look for vehicle in this sport 
-            vehicle = self.game.get_vehicle_from_location(row_red_car, i)
+            vehicle = game.get_vehicle_from_location(row_red_car, i)
             if vehicle: 
                 count += 1
     
         return count
 
 
-    def sort_by_blocking_vehicles(self):
+    def sort_by_blocking_vehicles(self) -> None:
         """ 
         Using h2 to sort
         """
@@ -95,9 +94,11 @@ class BeamSearch(BreadthFirst):
         # my "formula" 
         combination = count * amount_of_boxes
 
+        # print(f"combination: {combination}")
+
         return combination 
     
-    def sort_by_h3(self):
+    def sort_by_h3(self) -> None:
         """ 
         Using combination heuristic to sort
         """
@@ -133,24 +134,22 @@ class BeamSearch(BreadthFirst):
 
         if heuristic == "h1": 
             # sort the stack so that the most promising are at the front (from short to long distance)
-            # print("beam search: sort by distance")
             self.sort_by_distance()
 
         elif heuristic == "h2": 
             # sort the stack so that the states with the least blocking cars in front of red car
-            # print("beam search: sort by blocking vehicles")
             self.sort_by_blocking_vehicles()
 
         else: 
             # sort the stack with a combination of the two heuristics (from low to high)
-            # print("beam search: combination of the two heuristics")
             self.sort_by_h3()
 
         # if n is bigger than beam size: take only those at front of the queue 
         if int(len(self.stack)) > int(beam_size): 
             self.stack = self.stack[:int(beam_size)]
+        
 
-    def run(self, heuristic, beam_size, first_only: bool = True) -> int:
+    def run(self, heuristic, beam_size, first_only: bool = False) -> int:
         """
         This method runs the beam search algorithm.
         """
@@ -161,6 +160,7 @@ class BeamSearch(BreadthFirst):
             # If game is won print output to csv
             if self.game.is_won():
                 self.check_solution(self.game)
+                # self.best_solution.export_solution(f"results/beam_search/beam_search_results_{heuristic}_{beam_size}.csv") 
             
             new_state = self.get_next_state()
             
@@ -171,7 +171,7 @@ class BeamSearch(BreadthFirst):
             self.game = new_state 
             # Beam search needs input: beam size (int) and sorting method (h1, h2, h3)                         
             self.build_children(heuristic, beam_size)
-        
+
         print(f"New best move count: {self.best_move_count}")
     
         return self.best_move_count

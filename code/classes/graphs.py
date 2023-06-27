@@ -9,46 +9,38 @@ class Node:
     """
     Node class for use in the graph.
     """
+
     def __init__(self, board_hash: int, is_won: bool) -> None:
         self.board_hash: int = board_hash
         self.connections: dict[Node, tuple[str, int]] = {}
         self.dijkstra_value: int = 0
-        # self.heuristic_value: int = 0
         self.is_won: bool = is_won
-        self.node_back: Node|None = None
-    
+        self.node_back: Node | None = None
+
     def __repr__(self) -> str:
         return str(self.board_hash)
-    
+
     def __str__(self) -> str:
         output = self.__repr__()
         output += " <= " + repr(self.node_back)
         for other_node in self.connections:
             output += f"\n|-{repr(other_node)}"
         return output
-    
-    # def __eq__(self, other: Self) -> bool:
-    #     return self.dijkstra_value + self.heuristic_value == other.dijkstra_value + other.heuristic_value
-    
+
     def __ne__(self, other: Self) -> bool:
         return not self.dijkstra_value == other.dijkstra_value
-        return not self.dijkstra_value + self.heuristic_value == other.dijkstra_value + other.heuristic_value
-    
+
     def __gt__(self, other: Self) -> bool:
         return self.dijkstra_value > other.dijkstra_value
-        return self.dijkstra_value + self.heuristic_value > other.dijkstra_value + other.heuristic_value
-    
+
     def __ge__(self, other: Self) -> bool:
         return self.dijkstra_value >= other.dijkstra_value
-        return self.dijkstra_value + self.heuristic_value >= other.dijkstra_value + other.heuristic_value
-    
+
     def __lt__(self, other: Self) -> bool:
         return self.dijkstra_value < other.dijkstra_value
-        return self.dijkstra_value + self.heuristic_value < other.dijkstra_value + other.heuristic_value
-    
+
     def __le__(self, other: Self) -> bool:
         return self.dijkstra_value <= other.dijkstra_value
-        return self.dijkstra_value + self.heuristic_value <= other.dijkstra_value + other.heuristic_value
 
 
 class Graph:
@@ -62,12 +54,26 @@ class Graph:
         }
         self.vehicle_ids = self.game.get_vehicle_ids()
         self.game.show_board()
-    
+
     def reset_game(self) -> None:
+        """
+        Replace the current self.game with a new `RushHour`.
+        """
         del self.game
         self.game = RushHour(self.board_size, self.file_location)
-        
-    def build_graph(self, max_iterations: int = 100_000, max_useless: int = 10_000, random_cutoff: int = 200) -> None:
+
+    def build_graph(
+        self, max_iterations: int = 100_000, random_cutoff: int = 200
+    ) -> None:
+        """
+        Start construction of the state space graph. Graph is constructed by
+        playing games with random moves.
+        - `max_iterations`: int = 1000 - Amount of random games to run.
+        - `random_cutoff`: int = 1000 - Amount of random moves per game.
+
+        Example: for the defaults, `build_graph` will run 1000 games, each with
+        1000 moves.
+        """
         current_node = self.nodes[self.starting_node]
         progress_bar = tqdm.tqdm(range(max_iterations), desc=self.file_location)
         success = False
@@ -88,83 +94,16 @@ class Graph:
                 if not connection_exists:
                     connection_added = (vehicle_moved, direction_moved)
                     current_node.connections[next_node] = connection_added
-                    next_node.connections[current_node] = (vehicle_moved, direction_moved * -1)
-                    # useless = 0
-                # print(current_node)
-                # progress_bar.set_description(f"Useless moves: {useless}", refresh=False)
+                    next_node.connections[current_node] = (
+                        vehicle_moved,
+                        direction_moved * -1,
+                    )
                 current_node = next_node
-                # if len(self.game.history) > random_cutoff:
-                #     # print("Game history to large.")
             self.reset_game()
             current_node = self.nodes[self.starting_node]
-                #     # useless = 0
-                #     continue
-
-                # if useless > max_useless:
-                #     print("Useless threshold reached. Stopping graph construction")
-                #     break
-        # snapshot = tracemalloc.take_snapshot()
-        # top_stats = snapshot.statistics('lineno')
-
-        # print("[ Top 10 ]")
-        # for stat in top_stats[:10]:
-        #     print(stat)
+            
         self.reset_game()
-        
-    def build_graph_full_runs(self, max_iterations: int = 1_000_000) -> None:
-        print("Running full runs.")
-        # tracemalloc.start()
-        current_node = self.nodes[self.starting_node]
-        # useless = 0
-        run_nr = 0
-        progress_bar = tqdm.tqdm(range(max_iterations), desc=self.file_location)
-        for _ in progress_bar:
-            random_vehicle = rd.choice(self.vehicle_ids)
-            random_direction = rd.choice([-1, 1])
-            success = self.game.process_turn(random_vehicle, random_direction)
-            if not success:
-                continue
-            # useless += 1
 
-            vehicle_moved, direction_moved, state_hash = self.game.history[-1]
-            next_node = self.nodes.get(state_hash, None)
-            if not next_node:
-                next_node = Node(state_hash, self.game.is_won())
-                self.nodes[state_hash] = next_node
-                # useless = 0
-
-            # connection_exists = current_node.connections.get(next_node, None)
-            connection_exists = next_node in current_node.connections
-            if not connection_exists:
-                connection_added = (vehicle_moved, direction_moved)
-                current_node.connections[next_node] = connection_added
-                next_node.connections[current_node] = (vehicle_moved, direction_moved * -1)
-                # useless = 0
-            # print(current_node)
-            if self.game.is_won():
-            #     # print("Game history to large.")
-                self.reset_game()
-                current_node = self.nodes[self.starting_node]
-                run_nr += 1
-                progress_bar.set_description(f"Run nr.: {run_nr}", refresh=False)
-                continue
-            current_node = next_node
-            #     # useless = 0
-            #     continue
-
-            # if useless > max_useless:
-            #     print("Useless threshold reached. Stopping graph construction")
-            #     break
-        # snapshot = tracemalloc.take_snapshot()
-        # top_stats = snapshot.statistics('lineno')
-
-        # print("[ Top 10 ]")
-        # for stat in top_stats[:10]:
-        #     print(stat)
-        self.reset_game()
-        print("Running short runs.")
-        self.build_graph(10_000, 10000, 500)
-    
     def reset_dijkstra(self) -> None:
         """
         Empty the variables used for the dijkstra algorithm.
@@ -172,8 +111,11 @@ class Graph:
         for node in self.nodes.values():
             node.dijkstra_value = 0
             node.node_back = None
-    
+
     def stats(self) -> None:
+        """
+        Prints the amount of nodes, the amount of connections and the amount of winning nodes.
+        """
         print(f"{len(self.nodes)} nodes.")
         connection_total = 0
         winning_states = 0
@@ -182,7 +124,9 @@ class Graph:
             if node.is_won:
                 winning_states += 1
         print(f"{winning_states} winning state.")
-        print(f"{connection_total} connections; {connection_total/len(self.nodes):.2f} per node avg.")
+        print(
+            f"{connection_total} connections; {connection_total/len(self.nodes):.2f} per node avg."
+        )
 
 
 def test(board_size: int, file_location: str):
