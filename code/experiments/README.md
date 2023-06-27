@@ -3,8 +3,6 @@
 ## Usage 
 Standaard input om met de algoritmen te experimenteren:
 
-Let op! In de main.py moet het board overeenkomen met de gameboardfile, anders werkt het niet. 
-
 
 
 ```
@@ -123,3 +121,20 @@ python3 main.py 6 gameboards/Rushhour6x6_1.csv bf_compare
 ```
 
 ![breadth_first_scores.png](https://github.com/pluumenbrownie/rush_hour/blob/main/results/breadth_first_scores.png) 
+
+### Beam search 
+Bij beam search hebben we een grid search gedaan. Hierbij kijken we naar de verschillende heuristieken (H1, H2, H3) en naar verschillende beam sizes. Wat interessant is, is om te kijken welke heuristiek het over het algemeen het beste doet.
+
+Om een experiment te runnen voor beam search moet je het volgende command gebruiken: 
+```
+python3 main.py 6 gameboards/Rushhour6x6_1.csv beam_exp
+```
+
+In het mapje results/beam_search staan de resultaten in een csv bestand. Je ziet hier vier kolommen: de grootte van het bord dat je gebruikt, de heuristiek, de beam size en het aantal states dat nodig was om de beste oplossing te bereiken. 
+
+Op de kleinste borden doet H2, die kijkt naar het aantal blokkerende voertuigen, de beste resultaten levert. Het is nog niet gelukt om het algoritme te runnen op de 9x9 borden en het 12x12 bord. 
+
+
+
+
+
