@@ -19,6 +19,7 @@ from experiments.depthfirst_experiment import depth_first_experiment
 from experiments.greedy_experiment import determine_greedy_solution
 from experiments.beamsearch_experiment import beamsearch_experiment
 from experiments.dijkstra_experiment import dijkstra_many_times
+from experiments.bf_compare import bf_plot
 
 from sys import argv
   
@@ -35,14 +36,14 @@ if __name__ == '__main__':
     game.show_board()
     
     # To experiment add the correct board to the command
-    board = "6x6_1"
+    # board = "6x6_1"
     # board = "6x6_2"
-    # board = "6x6_3"
+    board = "6x6_3"
     # board = "9x9_4"
     # board = "9x9_5"
     # board = "9x9_6"
     # board = "12x12_7"
-
+            
     if len(argv) > 3:   
         # Algorithms 
         if argv[3] == "random":
@@ -91,14 +92,16 @@ if __name__ == '__main__':
             print(count_statespace(boardsize, boardfile))
 
         # Experiments
+        if argv[1] == "bf_compare":
+            bf_plot()
         elif argv[3] == "compare":
             determine_random_solution(boardsize, board, 15)
             determine_optimized_random_solution(boardsize, board, 15)
             breadth_first_experiment(boardsize, board, 15)
             depth_first_experiment(boardsize, board, 15)
             compare_plot(board)
-        elif argv[3] == "depth_exp":
-            depth_first_experiment(boardsize, board, 1)
+        # elif argv[3] == "depth_exp":
+        #     depth_first_experiment(boardsize, board, 100)
         elif argv[3] == "breadth_exp":
             breadth_first_experiment(boardsize, board, 1)
         elif argv[3] == "beam_exp":
@@ -129,7 +132,9 @@ if __name__ == '__main__':
         elif argv[3] == "greedy":
             determine_greedy_solution(boardsize, board, 1000)
             histogram_plot(f"results/greedy_moves_{board}.csv", f'results/output{board}_greedy_graph_moves.png')       
-            # histogram_plot(f"results/random_optimized_moves_{board}.csv", f'results/output{board}_random_graph_optimized_moves.png')     
+        elif argv[3] == "depthfirst":
+            depth_first_experiment(boardsize, board, 100)
+            histogram_plot(f"results/depth_first_moves_{board}.csv", f'results/output{board}_depth_first_moves.png')     
         elif argv[3]== "beam":   
             beamsearch_experiment(boardsize, board, 1000)
             histogram_plot(f"results/beam_search/random_optimized_moves_{board}.csv", f'results/beam_search/output{board}_beamsearch.png')     

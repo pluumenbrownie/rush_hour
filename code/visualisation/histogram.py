@@ -12,14 +12,18 @@ def histogram_plot(path_board: str, path_output: str):
     moves = data['moves']
     data_total = len(moves)
     data_mean = moves.mean()
+    data_min = moves.min()
+    data_max = moves.max()
 
     # Plot the histogram
     histogram_t = data.plot.hist(bins=100, column=['moves'])
     plot_t = histogram_t.get_figure()
 
     # Add total runs and mean to the plot
-    plt.text(0.30, 0.90, f"Mean: {data_mean:.2f}", transform=plot_t.transFigure)
-    plt.text(0.50, 0.90, f"|  Total runs: {data_total:.2f}", transform=plot_t.transFigure)
-
+    plt.text(0.30, 0.95, f"Mean: {data_mean:.2f}", transform=plot_t.transFigure)
+    plt.text(0.50, 0.95, f"|  Total runs: {data_total}", transform=plot_t.transFigure)
+    plt.text(0.30, 0.90, f"Min: {data_min}", transform=plot_t.transFigure)
+    plt.text(0.50, 0.90, f"|  Max: {data_max}", transform=plot_t.transFigure)
+    
     # Save and show the plot
     plot_t.savefig(path_output)
