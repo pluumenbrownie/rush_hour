@@ -4,7 +4,7 @@ from algorithms.depth_first import DepthFirst
 from algorithms.breadth_first import BreadthFirst
 from algorithms.branch_and_bound import BranchAndBound
 from algorithms.beam_search import BeamSearch
-from algorithms.GraphBased import Dijkstra
+from code.algorithms.dijkstra import Dijkstra
 from classes.models import RushHour
 from visualisation.histogram import histogram_plot
 from visualisation.hist_compare_algorithms import compare_plot

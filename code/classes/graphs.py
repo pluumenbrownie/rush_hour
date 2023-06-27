@@ -6,6 +6,9 @@ import tracemalloc
 
 
 class Node:
+    """
+    Node class for use in the graph.
+    """
     def __init__(self, board_hash: int, is_won: bool) -> None:
         self.board_hash: int = board_hash
         self.connections: dict[Node, tuple[str, int]] = {}
@@ -65,9 +68,7 @@ class Graph:
         self.game = RushHour(self.board_size, self.file_location)
         
     def build_graph(self, max_iterations: int = 100_000, max_useless: int = 10_000, random_cutoff: int = 200) -> None:
-        # tracemalloc.start()
         current_node = self.nodes[self.starting_node]
-        # useless = 0
         progress_bar = tqdm.tqdm(range(max_iterations), desc=self.file_location)
         success = False
         for _ in progress_bar:
@@ -77,18 +78,12 @@ class Graph:
                     random_direction = rd.choice([-1, 1])
                     success = self.game.process_turn(random_vehicle, random_direction)
                 success = False
-                # if not success:
-                #     continue
-                # useless += 1
 
                 vehicle_moved, direction_moved, state_hash = self.game.history[-1]
                 next_node = self.nodes.get(state_hash, None)
                 if not next_node:
                     next_node = Node(state_hash, self.game.is_won())
                     self.nodes[state_hash] = next_node
-                    # useless = 0
-
-                # connection_exists = current_node.connections.get(next_node, None)
                 connection_exists = next_node in current_node.connections
                 if not connection_exists:
                     connection_added = (vehicle_moved, direction_moved)
