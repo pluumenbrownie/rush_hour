@@ -3,13 +3,10 @@
 ## Usage 
 Standaard input om met de algoritmen te experimenteren:
 
-
-
 ```
-python3 code/main.py [gameboardsize] gameboards/[gameboardfile] [algorithm] histogram 
+python3 code/main.py gameboards/[gameboardfile] [algorithm] histogram  
 ```
-Voor gameboardsize kan er worden gekozen om een 6, 9 of 12 aan te geven. 
-In de map gameboards staan vervolgens een aantal gameboardfiles, deze staan van makkelijk naar moeilijk. Voor [gameboardfile] kan je de file kiezen door de naam van het bestand in te vullen. Om het vervolgens te runnen met het experiment moet je histogram als arg[4] geven.
+In de map gameboards staan vervolgens een aantal gameboardfiles, deze staan van makkelijk naar moeilijk. Voor [gameboardfile] kan je de file kiezen door de naam van het bestand in te vullen. Om het vervolgens te runnen met het experiment moet je histogram als arg[3] geven.
 
 ## Experiments 
 
@@ -27,18 +24,18 @@ Voor het experiment wat bij elk bord heeft plaatsgevonden heeft het random algor
 
 Input 6x6_1 bord:
 ```
-python3 main.py 6 gameboards/Rushhour6x6_1.csv random histogram
+python3 main.py gameboards/Rushhour6x6_1.csv random histogram
 ```
 ![exp_6x6_1_random_graph_moves.png](https://github.com/pluumenbrownie/rush_hour/blob/main/results/exp_6x6_1_random_graph_moves.png)
 
 Input 9x9_4 bord:
 ```
-python3 main.py 9 gameboards/Rushhour9x9_4.csv random histogram
+python3 main.py gameboards/Rushhour9x9_4.csv random histogram
 ```
 ![exp_9x9_4_random_graph_moves.png](https://github.com/pluumenbrownie/rush_hour/blob/main/results/exp_9x9_4_random_graph_moves.png)  
 Input 12x12_7 bord:
 ```
-python3 main.py 12 gameboards/Rushhour12x12_7.csv random histogram
+python3 main.py gameboards/Rushhour12x12_7.csv random histogram
 ```  
 ![exp_12x12_7_random_graph_moves.png](https://github.com/pluumenbrownie/rush_hour/blob/main/results/exp_12x12_7_random_graph_moves.png)
 
@@ -52,17 +49,17 @@ In dit experiment heeft het random_optimized algoritme een uur gedraaid op de ve
 Het random_optimized algoritme voert als eerst het random algoritme uit. Vervolgens verwijderd het alle states waarin het al eerder is geweest.  
 
 ```
-python3 main.py 6 gameboards/Rushhour6x6_1.csv random_optimized histogram
+python3 main.py gameboards/Rushhour6x6_1.csv random_optimized histogram
 ```
 ![exp_6x6_1_random_graph_optimized_moves.png](https://github.com/pluumenbrownie/rush_hour/blob/main/results/exp_6x6_1_random_graph_optimized_moves.png)  
 Input 9x9_4 bord:
 ```
-python3 main.py 9 gameboards/Rushhour9x9_4.csv random_optimized histogram
+python3 main.py gameboards/Rushhour9x9_4.csv random_optimized histogram
 ```
 ![exp_9x9_4_random_graph_optimized_moves.png](https://github.com/pluumenbrownie/rush_hour/blob/main/results/exp_9x9_4_random_graph_optimized_moves.png)  
 Input 12x12_7 bord:
 ```
-python3 main.py 12 gameboards/Rushhour12x12_7.csv random_optimized histogram
+python3 main.py gameboards/Rushhour12x12_7.csv random_optimized histogram
 ```  
 ![exp_12x12_7_random_graph_optimized_moves.png](https://github.com/pluumenbrownie/rush_hour/blob/main/results/exp_12x12_7_random_graph_optimized_moves.png)
 
@@ -80,11 +77,11 @@ In dit experiment heeft het greedy algoritme een uur gedraaid op beide borden. H
  
 
 ```
-python3 main.py 6 gameboards/Rushhour6x6_1.csv greedy histogram
+python3 main.py gameboards/Rushhour6x6_1.csv greedy histogram
 ```
 ![exp_6x6_1_greedy_graph_moves.png](https://github.com/pluumenbrownie/rush_hour/blob/main/results/exp_6x6_1_greedy_graph_moves.png)  
 ```
-python3 main.py 9 gameboards/Rushhour9x9_4.csv greedy histogram
+python3 main.py gameboards/Rushhour9x9_4.csv greedy histogram
 ```
 ![exp_9x9_4_greedy_graph_moves.png](https://github.com/pluumenbrownie/rush_hour/blob/main/results/exp_9x9_4_greedy_graph_moves.png)
 
@@ -98,7 +95,7 @@ Voor het experiment heeft het depthfirst algoritme een uur gedraaid om te kijken
 
 Input:
 ```
-python3 main.py 6 gameboards/Rushhour6x6_1.csv depthfirst histogram
+python3 main.py gameboards/Rushhour6x6_1.csv depthfirst histogram
 ```
 
 ![exp_6x6_1_depth_first_moves.png](https://github.com/pluumenbrownie/rush_hour/blob/main/results/exp_6x6_1_depth_first_moves.png) 
@@ -112,7 +109,7 @@ Door een tekort aan geheugen is het niet gelukt om borden 9x9_6 & 12x12_7 op te 
 
 Input:
 ```
-python3 main.py 6 gameboards/Rushhour6x6_1.csv bf_compare
+python3 main.py gameboards/Rushhour6x6_1.csv bf_compare
 ```
 
 ![breadth_first_scores.png](https://github.com/pluumenbrownie/rush_hour/blob/main/results/breadth_first_scores.png) 
@@ -122,7 +119,7 @@ Bij beam search hebben we een grid search gedaan. Hierbij kijken we naar de vers
 
 Om een experiment te runnen voor beam search moet je het volgende command gebruiken: 
 ```
-python3 main.py 6 gameboards/Rushhour6x6_1.csv beam_exp
+python3 main.py gameboards/Rushhour6x6_1.csv beam_exp
 ```
 
 In het mapje results/beam_search staan de resultaten in een csv bestand. Je ziet hier vier kolommen: de grootte van het bord dat je gebruikt, de heuristiek, de beam size en het aantal states dat nodig was om de beste oplossing te bereiken. 
