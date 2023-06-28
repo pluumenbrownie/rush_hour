@@ -6,7 +6,7 @@ import statistics as stat
 
 def breadth_first_experiment(board_size: int, board: str, repeat: int = 1, export: bool = False):
     """
-    Determine a random solution for the Rush Hour game.
+    Run the breadth-first search algorithm to determine the optimal solution for the Rush Hour game.
     """
     start_time = time.time()
 

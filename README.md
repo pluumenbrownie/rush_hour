@@ -7,9 +7,9 @@ De code is geschreven met behulp van python 3.11. In requirements staat de packa
 `pip install -r requirements.txt`
 
 ### Gebruik 
-Het programma kan worden aangeroepen door main.py aan te roepen. In de command line moet je de volgende argumenten meegeven: boardsize (bijvoorbeeld 6), boardfile en het algoritme dat je wil uitvoeren. Als je het random algoritme wil uitvoeren, gebruik je deze regel: 
+Het programma kan worden aangeroepen door main.py aan te roepen. In de command line moet je de volgende argumenten meegeven: boardfile en het algoritme dat je wil uitvoeren. Als je het random algoritme wil uitvoeren, gebruik je deze regel: 
 
-`python3 code/main.py 12 gameboards/Rushhour12x12_7.csv random` 
+`python3 code/main.py gameboards/Rushhour12x12_7.csv random` 
 
 ### Structuur
 In de lijst hieronder staat beschreven waar de belangrijkste bestanden en mappen te vinden zijn: 

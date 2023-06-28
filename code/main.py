@@ -94,7 +94,7 @@ if __name__ == '__main__':
         
         # Running the depth first search experiment 
         elif argv[2] == "depth_exp":
-            depth_first_experiment(boardsize, board, 1)
+            depth_first_experiment(boardsize, board)
 
         # Running the breadth first search experiment 
         elif argv[2] == "breadth_exp":
@@ -126,9 +126,9 @@ if __name__ == '__main__':
         
         # Compare plot for the practice presentation 
         elif argv[2] == "compare":
-            determine_random_solution(boardsize, board, 15)
-            determine_optimized_random_solution(boardsize, board, 15)
-            breadth_first_experiment(boardsize, board, 15)
+            determine_random_solution(boardsize, board)
+            determine_optimized_random_solution(boardsize, board)
+            breadth_first_experiment(boardsize, board, 1)
             depth_first_experiment(boardsize, board)
             compare_plot(board)
         
@@ -153,16 +153,16 @@ if __name__ == '__main__':
     # Run the experiments and make a plot of a histogram for the chosen algorithm
     if len(argv) > 3 and argv[3] == "histogram":
         if argv[2] == "random": 
-            determine_random_solution(boardsize, board, 50)
+            determine_random_solution(boardsize, board)
             histogram_plot(f"results/random_moves_{board}.csv", f'results/output{board}_random_graph_moves.png')
         elif argv[2]== "random_optimized":
-            determine_optimized_random_solution(boardsize, board, 1000)
+            determine_optimized_random_solution(boardsize, board)
             histogram_plot(f"results/random_optimized_moves_{board}.csv", f'results/output{board}_random_graph_optimized_moves.png')
         elif argv[2] == "greedy":
-            determine_greedy_solution(boardsize, board, 10)
+            determine_greedy_solution(boardsize, board)
             histogram_plot(f"results/greedy_moves_{board}.csv", f'results/output{board}_greedy_graph_moves.png')       
         elif argv[2] == "depthfirst":
-            depth_first_experiment(boardsize, board, 100)
+            depth_first_experiment(boardsize, board)
             histogram_plot(f"results/depth_first_moves_{board}.csv", f'results/output{board}_depth_first_moves.png')     
         elif argv[2]== "beam":   
             beamsearch_experiment(boardsize, board, 1000)

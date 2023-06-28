@@ -67,12 +67,4 @@ class Algorithm():
                 blocking_vehicle = self.game.get_vehicle_from_location(col, row - 1)
 
         return blocking_vehicle
-        
 
-# if __name__ == '__main__': 
-#     board_file = "gameboards/Rushhour6x6_1.csv"
-#     game =  RushHour(6, board_file)
-#     solver = Algorithm(game)
-#     solver.random_algorithm()
-
-    
