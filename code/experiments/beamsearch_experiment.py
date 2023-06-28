@@ -12,7 +12,7 @@ def beamsearch_experiment(board_size: int, board: str, repeat: int = 1, export: 
     """
 
     # make a csv file with the chosen board 
-    with open(f"results/beam_search/beam_search_experiment_{board}.csv", 'w') as file:
+    with open(f"results/beam_search_experiment_{board}.csv", 'w') as file:
         # write the first line 
         file.write(f"board, heuristic, beam size, states\n") 
 
