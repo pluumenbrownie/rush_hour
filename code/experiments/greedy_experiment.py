@@ -3,9 +3,12 @@ from algorithms.greedy import Greedy
 import time
 import statistics as stat
 
-def determine_greedy_solution(board_size: int, board: str, repeat: int = 1, export: bool = False):
+def determine_greedy_solution(board_size: int, board: str, export: bool = False):
     """
-    Determine a random solution for the Rush Hour game.
+    Determine a semi random solution for the Rush Hour game using the greedy algorithm.
+
+    The greedy algorithm is executed multiple times until one hour of execution time is reached.
+    Statistics such as the number of tries and successful moves are collected and printed.
     """
     start_time = time.time()
     n_runs = 0
@@ -27,7 +30,7 @@ def determine_greedy_solution(board_size: int, board: str, repeat: int = 1, expo
     end_time = time.time()
     print(f"The greedy algorithm took {end_time - start_time:.3f} seconds.")
 
-    print(f"On average, in {repeat} games, took {round(stat.mean(tries))}±{round(stat.stdev(tries))} tries and {round(stat.mean(moves))}±{round(stat.stdev(moves))} succesfull moves.")
+    print(f"On average, in {n_runs} games, took {round(stat.mean(tries))}±{round(stat.stdev(tries))} tries and {round(stat.mean(moves))}±{round(stat.stdev(moves))} succesfull moves.")
 
     # Open file to get all the moves
     with open(f"results/greedy_moves_{board}.csv", 'w') as file:

@@ -17,7 +17,8 @@ from experiments.breadthfirst_experiment import breadth_first_experiment
 from experiments.depthfirst_experiment import depth_first_experiment
 from experiments.greedy_experiment import determine_greedy_solution
 from experiments.beamsearch_experiment import beamsearch_experiment
-# from experiments.dijkstra_experiment import dijkstra_many_times
+from experiments.memory_experiment import memory_comparison
+from experiments.dijkstra_experiment import dijkstra_many_times
 from experiments.bf_compare import bf_plot
 
 from sys import argv
@@ -27,16 +28,17 @@ if __name__ == '__main__':
     
     # Code to ask user for input, boardsize and algorithm    
     if len(argv) == 1:
-        print("Usage: python3 code/main.py [boardsize] gameboards/[boardfile] algorithm")
+        print("Usage: python3 code/main.py gameboards/[boardfile] algorithm")
         exit(1)
     
-    # boardsize = int(argv[1])
     boardfile = argv[1]
     boardsize = int(re.findall(r"\d+", boardfile)[0])
+    board = boardfile[19:-4]
 
     game = RushHour(boardsize, boardfile)
     game.show_board()
-    board = boardfile[19:-4]
+
+# -------------------------------------------------Running the Algorithms-------------------------------------------------#
             
     if len(argv) > 2:   
         # Running the random algorithm 
@@ -44,18 +46,10 @@ if __name__ == '__main__':
             random_algorithm = Random(game)
             random_algorithm.run()
 
-        # Getting a plot of running the random algorithm 
-        elif argv[2] == "randomplt":
-            histogram_plot(f"results/random_moves_{board}.csv", f'results/output{board}_random_graph_moves.png')
-
         # Running the greedy algorithm 
         elif argv[2] == "greedy":
             greedy_algorithm = Greedy(game)
-            greedy_algorithm.run()
-
-        # Getting a plot of running the greedy algorithm 
-        elif argv[2] == "greedyplt":
-            histogram_plot(f"results/greedy_moves_{board}.csv", f'results/output{board}_greedy_graph_moves.png')       
+            greedy_algorithm.run() 
         
         # Running the random optimized algorithm 
         elif argv[2] == "random_optimized":
@@ -81,6 +75,8 @@ if __name__ == '__main__':
             branchandbound_algorithm.run(first_only = False)
         # python3 code/main.py 6 gameboards/Rushhour6x6_1.csv beamsearch h1 50
         # python3 code/main.py 9 gameboards/Rushhour9x9_4.csv beamsearch h1 50
+        
+        # Running the beamsearch algorithm 
         elif argv[2] == "beamsearch":
             beamsearch_algorithm = BeamSearch(game)
             if argv[3] == 'h1': 
@@ -95,14 +91,6 @@ if __name__ == '__main__':
         # Calculating the statespace  
         elif argv[2] == "statespace":
             print(count_statespace(boardsize, boardfile))
-
-        # Compare plot for the practice presentation 
-        elif argv[2] == "compare":
-            determine_random_solution(boardsize, board, 15)
-            determine_optimized_random_solution(boardsize, board, 15)
-            breadth_first_experiment(boardsize, board, 15)
-            depth_first_experiment(boardsize, board, 15)
-            compare_plot(board)
         
         # Running the depth first search experiment 
         elif argv[2] == "depth_exp":
@@ -115,6 +103,9 @@ if __name__ == '__main__':
         # Running the beam search experiment (python3 code/main.py 6 gameboards/Rushhour6x6_1.csv beam_exp)
         elif argv[2] == "beam_exp":
             beamsearch_experiment(boardsize, board)
+        
+        elif argv[2] == "mem_exp":
+            memory_comparison(boardsize, boardfile)
 
         # Creating a test graph 
         elif argv[2] == "graph":
@@ -130,13 +121,36 @@ if __name__ == '__main__':
         # Running a test of dijkstra 
         elif argv[2] == "dijkstra_test":
             dijkstra_many_times(boardsize, boardfile)
+
+# -------------------------------------------------Visualisation & Experiments-------------------------------------------------#
+        
+        # Compare plot for the practice presentation 
+        elif argv[2] == "compare":
+            determine_random_solution(boardsize, board, 15)
+            determine_optimized_random_solution(boardsize, board, 15)
+            breadth_first_experiment(boardsize, board, 15)
+            depth_first_experiment(boardsize, board)
+            compare_plot(board)
+        
+        # Make a plot of the outcome of the bf algorithms    
+        elif argv[2] == "bfcompare":
+            bf_plot()
     
         # Run this if you want to play the game yourself
         elif argv[2] == "play":
             game.start_game()
+        
+        # Code for adjusting the different kind of histograms without running the experiment
+        elif argv[2] == "randomplt":
+            histogram_plot(f"results/random_moves_{board}.csv", f'results/output{board}_random_graph_moves.png') 
+        elif argv[2] == "greedyplt":
+            histogram_plot(f"results/greedy_moves_{board}.csv", f'results/output{board}_greedy_graph_moves.png')    
+        elif argv[2] == "random_optimized_plt":
+            histogram_plot(f"results/random_optimized_moves_{board}.csv", f'results/output{board}_random_graph_optimized_moves.png')
+        elif argv[2] == "depthfirstplt":
+            histogram_plot(f"results/depth_first_moves_{board}.csv", f'results/output{board}_depth_first_moves.png')     
 
-    # --------------------------------------------Visualisation--------------------------------------------#
-    # Make a plot of a histogram for random
+    # Run the experiments and make a plot of a histogram for the chosen algorithm
     if len(argv) > 3 and argv[3] == "histogram":
         if argv[2] == "random": 
             determine_random_solution(boardsize, board, 50)
@@ -152,9 +166,7 @@ if __name__ == '__main__':
             histogram_plot(f"results/depth_first_moves_{board}.csv", f'results/output{board}_depth_first_moves.png')     
         elif argv[2]== "beam":   
             beamsearch_experiment(boardsize, board, 1000)
-            histogram_plot(f"results/beam_search/random_optimized_moves_{board}.csv", f'results/beam_search/output{board}_beamsearch.png')     
-      
-            histogram_plot(f"results/greedy_moves_{board}.csv", f'results/output{board}_greedy_graph_moves.png')                
+            histogram_plot(f"results/beam_search/random_optimized_moves_{board}.csv", f'results/beam_search/output{board}_beamsearch.png')                 
            
     # Animate every algorithm game using pygame
     elif len(argv) > 3 and argv[3] == "animate":

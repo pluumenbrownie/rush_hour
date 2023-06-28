@@ -10,9 +10,7 @@ def dijkstra_many_times(board_size: int, board_file: str) -> None:
     print(board_name)
     results: list[tuple[str, int, float, int]] = []
     iter_nums = [1, 10, 100, 1000, 10, 100, 1000, 10_000]
-    # iter_nums = [10]
     cutoff_nums = [200_000, 20_000, 2_000, 200, 200_000, 20_000, 2_000, 200]
-    # cutoff_nums = [200_000]
 
     tracemalloc.start()
     for iterations, cutoff in zip(iter_nums, cutoff_nums):
@@ -29,10 +27,7 @@ def dijkstra_many_times(board_size: int, board_file: str) -> None:
             results.append((f"{iterations=} {cutoff=}", move_nr, time.time() - start_time, mem_peak))
             tracemalloc.reset_peak()
 
-    with open(f"results/output_dijkstra_test_{board_name}_testtest.csv", 'w') as file:
-        # file.write(f"moves, running time\n")
-        # for value1, value2 in zip(moves):
-        #     file.write(f"{value1}, {value2:.3f}\n")
+    with open(f"results/output_dijkstra_test_{board_name}.csv", 'w') as file:
         file.write(f"parameters,moves,time,memory\n")
         for result in results:
             file.write(result[0]+f",{result[1]},{result[2]},{result[3]}\n")

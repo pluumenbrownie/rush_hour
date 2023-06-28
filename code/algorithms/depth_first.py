@@ -70,7 +70,7 @@ class DepthFirst:
                 self.best_solution.show_board()
                 self.best_solution.export_solution() 
     
-    def run(self, first_only: bool = True) -> None:
+    def run(self, first_only: bool = True) -> int|float:
         """
         This method runs the depth first algorithm.
         """
@@ -94,3 +94,4 @@ class DepthFirst:
             self.build_children()
         
         print(f"New best move count: {self.best_move_count}")
+        return self.best_move_count
