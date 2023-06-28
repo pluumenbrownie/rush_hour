@@ -19,12 +19,6 @@ class BranchAndBound(DepthFirst):
         
         self.best_solution = None
         self.best_move_count = bound
-        
-    def get_next_state(self) -> RushHour:
-        """
-        Method that get the next state from the list of states.
-        """
-        return self.stack.pop()
 
     def archive_check(self, visited: int, new_depth: int) -> bool:
         is_visited = visited not in self.visited_states or self.visited_states[visited] > new_depth
@@ -45,9 +39,6 @@ class BranchAndBound(DepthFirst):
                 if self.game.game_board.is_move_valid(vehicle_id, direction):
                     moves.append((vehicle_id, direction))
 
-        # Shuffle the moves
-        # rd.shuffle(moves)
-
         # Loop over all the possible moves
         for move in moves:
             vehicle_id, direction = move
@@ -55,14 +46,10 @@ class BranchAndBound(DepthFirst):
             
             # Check if state is already been visited
             visited = self.game.get_board_hash()
-            # print(f"{self.visited_states.get(visited, 'Not set')} < {new_depth=}", end="")
             if self.archive_check(visited, new_depth):
-                # print("   Added", end="")
                 self.visited_states[visited] = new_depth
                 # Copying is delayed until we're sure it's necessary
                 self.stack.append(copy.deepcopy(self.game))
-            # print("")
-            # if self.visited_states[visited] < new_depth:
             self.game.process_undo()
          
     def check_solution(self, new_state: RushHour) -> None:
@@ -83,26 +70,11 @@ class BranchAndBound(DepthFirst):
         This method runs the depth first algorithm.
         """
         self.output_file = output_file
-        while self.stack:
-            # If game is won print output to csv
-            if self.game.is_won():
-                self.check_solution(self.game)
-            
-            new_state = self.get_next_state()
-            
-            if first_only and self.game.is_won():
-                break
-            
-            self.check_solution(new_state)
-            self.game = new_state
-            self.build_children()
-        
-        print(f"New best move count: {self.best_move_count}")
-        return self.best_move_count
+        return super().run(first_only)
     
     def bound_guess(self, tries: int = 1000) -> None:
         """
-        Run random solutions to find upper bound for best solution.
+        Run random solutions to find upper bound for best solution. Limits running time
         """
         print("Guessing bound.")
         moves: list[int] = []
