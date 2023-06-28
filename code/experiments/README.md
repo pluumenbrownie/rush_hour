@@ -24,18 +24,18 @@ Voor het experiment wat bij elk bord heeft plaatsgevonden heeft het random algor
 
 Input 6x6_1 bord:
 ```
-python3 main.py gameboards/Rushhour6x6_1.csv random histogram
+python3 code/main.py gameboards/Rushhour6x6_1.csv random histogram
 ```
 ![exp_6x6_1_random_graph_moves.png](https://github.com/pluumenbrownie/rush_hour/blob/main/graphs/exp_6x6_1_random_graph_moves.png)
 
 Input 9x9_4 bord:
 ```
-python3 main.py gameboards/Rushhour9x9_4.csv random histogram
+python3 code/main.py gameboards/Rushhour9x9_4.csv random histogram
 ```
 ![exp_9x9_4_random_graph_moves.png](https://github.com/pluumenbrownie/rush_hour/blob/main/graphs/exp_9x9_4_random_graph_moves.png)  
 Input 12x12_7 bord:
 ```
-python3 main.py gameboards/Rushhour12x12_7.csv random histogram
+python3 code/main.py gameboards/Rushhour12x12_7.csv random histogram
 ```  
 ![exp_12x12_7_random_graph_moves.png](https://github.com/pluumenbrownie/rush_hour/blob/main/graphs/exp_12x12_7_random_graph_moves.png)
 
@@ -49,17 +49,17 @@ In dit experiment heeft het random_optimized algoritme een uur gedraaid op de ve
 Het random_optimized algoritme voert als eerst het random algoritme uit. Vervolgens verwijderd het alle states waarin het al eerder is geweest.  
 
 ```
-python3 main.py gameboards/Rushhour6x6_1.csv random_optimized histogram
+python3 code/main.py gameboards/Rushhour6x6_1.csv random_optimized histogram
 ```
 ![exp_6x6_1_random_graph_optimized_moves.png](https://github.com/pluumenbrownie/rush_hour/blob/main/graphs/exp_6x6_1_random_graph_optimized_moves.png)  
 Input 9x9_4 bord:
 ```
-python3 main.py gameboards/Rushhour9x9_4.csv random_optimized histogram
+python3 code/main.py gameboards/Rushhour9x9_4.csv random_optimized histogram
 ```
 ![exp_9x9_4_random_graph_optimized_moves.png](https://github.com/pluumenbrownie/rush_hour/blob/main/graphs/exp_9x9_4_random_graph_optimized_moves.png)  
 Input 12x12_7 bord:
 ```
-python3 main.py gameboards/Rushhour12x12_7.csv random_optimized histogram
+python3 code/main.py gameboards/Rushhour12x12_7.csv random_optimized histogram
 ```  
 ![exp_12x12_7_random_graph_optimized_moves.png](https://github.com/pluumenbrownie/rush_hour/blob/main/graphs/exp_12x12_7_random_graph_optimized_moves.png)
 
@@ -77,11 +77,11 @@ In dit experiment heeft het greedy algoritme een uur gedraaid op beide borden. H
  
 
 ```
-python3 main.py gameboards/Rushhour6x6_1.csv greedy histogram
+python3 code/main.py gameboards/Rushhour6x6_1.csv greedy histogram
 ```
 ![exp_6x6_1_greedy_graph_moves.png](https://github.com/pluumenbrownie/rush_hour/blob/main/graphs/exp_6x6_1_greedy_graph_moves.png)  
 ```
-python3 main.py gameboards/Rushhour9x9_4.csv greedy histogram
+python3 code/main.py gameboards/Rushhour9x9_4.csv greedy histogram
 ```
 ![exp_9x9_4_greedy_graph_moves.png](https://github.com/pluumenbrownie/rush_hour/blob/main/graphs/exp_9x9_4_greedy_graph_moves.png)
 
@@ -95,7 +95,7 @@ Voor het experiment heeft het depthfirst algoritme een uur gedraaid om te kijken
 
 Input:
 ```
-python3 main.py gameboards/Rushhour6x6_1.csv depthfirst histogram
+python3 code/main.py gameboards/Rushhour6x6_1.csv depthfirst histogram
 ```
 
 ![exp_6x6_1_depth_first_moves.png](https://github.com/pluumenbrownie/rush_hour/blob/main/graphs/exp_6x6_1_depth_first_moves.png) 
@@ -109,7 +109,7 @@ Door een tekort aan geheugen is het niet gelukt om borden 9x9_6 & 12x12_7 op te 
 
 Input:
 ```
-python3 main.py gameboards/Rushhour6x6_1.csv bf_compare
+python3 code/main.py gameboards/Rushhour6x6_1.csv bf_compare
 ```
 
 ![breadth_first_scores.png](https://github.com/pluumenbrownie/rush_hour/blob/main/graphs/breadth_first_scores.png) 
@@ -119,7 +119,7 @@ Bij beam search hebben we een grid search gedaan. Hierbij kijken we naar de vers
 
 Om een experiment te runnen voor beam search moet je het volgende command gebruiken: 
 ```
-python3 main.py gameboards/Rushhour6x6_1.csv beam_exp
+python3 code/main.py gameboards/Rushhour6x6_1.csv beam_exp
 ```
 
 In het mapje results/beam_search staan de resultaten in een csv bestand. Je ziet hier vier kolommen: de grootte van het bord dat je gebruikt, de heuristiek, de beam size en het aantal states dat nodig was om de beste oplossing te bereiken. 
@@ -129,7 +129,7 @@ Op de kleinste borden doet H2, die kijkt naar het aantal blokkerende voertuigen,
 ### Vergelijking van geheugengebruik
 Het geheugengebruik van Breadth first, Branch and Bound en Beamsearch kunnen met elkaar vergeleken worden, door het commando
 ```
-python3 main.py gameboards/Rushhour6x6_1.csv mem_exp
+python3 code/main.py gameboards/Rushhour6x6_1.csv mem_exp
 ```
 met een gameboard naar keuze uit te voeren. Let hierbij op dat Branch and Bound erg lang kan draaien. Branch and Bound is ook ingesteld met een maximumbound van 100 moves om de uitvoeringstijd te beperken. De resultaten van dit experiment worden aan het einde in de terminal geprint en kunnen handmatig gekopiëerd worden.
 
@@ -151,7 +151,7 @@ Voor het graaf gebasseerde/Dijkstra algoritme wordt een RushHour class gebruikt 
 
 Om dit aspect van het algoritme te testen, kan het volgende commando uitgevoert worden met een bord naar keuze:
 ```
-python3 main.py gameboards/Rushhour6x6_1.csv dijkstra_exp
+python3 code/main.py gameboards/Rushhour6x6_1.csv dijkstra_exp
 ```
 Het programma zal voor het gegeven bord variëren tussen een langere reeks aan moves met maar weinig resets en korte (minimaal 200) reeksen, maar vaker uitgevoerd. De resultaten van dit experiment worden naar een bestand geschreven onder de naam `results/output_dijkstra_experiment_6x6_1.csv` corresponderend met het gegeven bord. 
 
