@@ -1,5 +1,3 @@
-import copy
-
 from classes.models import RushHour
 from algorithms.depth_first import DepthFirst
 

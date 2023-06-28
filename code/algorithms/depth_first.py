@@ -62,7 +62,6 @@ class DepthFirst:
         Checks and accepts better solutions than the current solution.
         """
         if new_state.is_won():
-            # print("State is won")
             new_move_count = len(new_state.history)
             if new_move_count < self.best_move_count:
                 self.best_solution = new_state
@@ -74,12 +73,7 @@ class DepthFirst:
         """
         This method runs the depth first algorithm.
         """
-        
         while self.stack:
-            # print("")
-            # self.game.show_board()
-            # print(f"{self.game.is_won()=}")
-            
             # If game is won print output to csv
             if self.game.is_won():
                 self.check_solution(self.game)

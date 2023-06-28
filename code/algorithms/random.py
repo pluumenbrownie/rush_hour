@@ -22,19 +22,24 @@ class Random(Algorithm):
         """
         counter = 0
         success_counter = 0
+
         while not self.game.is_won():
-            # choose a random car
+            # Choose a random car and a random directon 
             vehicle = self.choose_vehicle() 
-            # Choose a random move
             move = self.choose_direction()
-            # move the car in the game
+
+            # Move the car in the game
             success = self.game.process_turn(vehicle, move)
-            # add counter 
+           
+            # Add counter 
             counter += 1 
             if success:
                 success_counter += 1
-        # Print the output of the game in output.csv
+       
+       # Print the output of the game in output.csv
         if export:
             self.game.export_solution()
+       
         print(f"It took the algorithm {counter} tries, {success_counter} of which were valid.")
+       
         return counter, success_counter

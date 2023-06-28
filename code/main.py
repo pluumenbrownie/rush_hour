@@ -73,8 +73,6 @@ if __name__ == '__main__':
             branchandbound_algorithm = BranchAndBound(game, bound=185)
             # branchandbound_algorithm.bound_guess()
             branchandbound_algorithm.run(first_only = False)
-        # python3 code/main.py 6 gameboards/Rushhour6x6_1.csv beamsearch h1 50
-        # python3 code/main.py 9 gameboards/Rushhour9x9_4.csv beamsearch h1 50
         
         # Running the beamsearch algorithm 
         elif argv[2] == "beamsearch":

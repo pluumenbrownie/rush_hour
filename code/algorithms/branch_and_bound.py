@@ -47,10 +47,9 @@ class BranchAndBound(DepthFirst):
 
         # Shuffle the moves
         # rd.shuffle(moves)
-        # print(len(self.game.history))
+
         # Loop over all the possible moves
         for move in moves:
-            # new_state = copy.deepcopy(self.game)
             vehicle_id, direction = move
             self.game.process_turn(vehicle_id, direction)
             
@@ -71,7 +70,6 @@ class BranchAndBound(DepthFirst):
         Checks and accepts better solutions than the current solution.
         """
         if new_state.is_won():
-            # print("State is won")
             new_move_count = len(new_state.history)
             if new_move_count < self.best_move_count:
                 self.best_solution = new_state
@@ -86,10 +84,6 @@ class BranchAndBound(DepthFirst):
         """
         self.output_file = output_file
         while self.stack:
-            # print("")
-            # self.game.show_board()
-            # print(f"{self.game.is_won()=}")
-            
             # If game is won print output to csv
             if self.game.is_won():
                 self.check_solution(self.game)
@@ -101,7 +95,6 @@ class BranchAndBound(DepthFirst):
             
             self.check_solution(new_state)
             self.game = new_state
-            # self.game.show_board()
             self.build_children()
         
         print(f"New best move count: {self.best_move_count}")
@@ -123,4 +116,5 @@ class BranchAndBound(DepthFirst):
             
             if m == min(moves):
                 self.best_move_count = m
+                
         print(f"New bound: {self.best_move_count}")
