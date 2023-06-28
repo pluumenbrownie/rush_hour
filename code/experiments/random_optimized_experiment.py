@@ -4,9 +4,9 @@ from algorithms.random import Random
 import time
 import statistics as stat
 
-def determine_optimized_random_solution(board_size: int, board: str, repeat: int = 1, export: bool = False):
+def determine_optimized_random_solution(board_size: int, board: str, export: bool = False):
     """
-    Determine a random solution for the Rush Hour game.
+    Run the optimized random algorithm to determine a solution for the Rush Hour game within a time limit.
     """
     start_time = time.time()
     n_runs = 0

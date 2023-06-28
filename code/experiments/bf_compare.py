@@ -28,7 +28,7 @@ def bf_plot():
     plt.title('Optimal score of the breadth-first algorithm')
     plt.xticks(rotation=45, ha='right')  # Rotate x-axis labels for better readability
     plt.tight_layout()  # Adjust spacing to prevent label overlapping
-    plt.savefig('results/output_breadth_first_scores.png')
+    plt.savefig('graphs/output_breadth_first_scores.png')
 
 # Call the function
 bf_plot()

@@ -94,7 +94,7 @@ if __name__ == '__main__':
         
         # Running the depth first search experiment 
         elif argv[2] == "depth_exp":
-            depth_first_experiment(boardsize, board, 1)
+            depth_first_experiment(boardsize, board)
 
         # Running the breadth first search experiment 
         elif argv[2] == "breadth_exp":
@@ -126,9 +126,9 @@ if __name__ == '__main__':
         
         # Compare plot for the practice presentation 
         elif argv[2] == "compare":
-            determine_random_solution(boardsize, board, 15)
-            determine_optimized_random_solution(boardsize, board, 15)
-            breadth_first_experiment(boardsize, board, 15)
+            determine_random_solution(boardsize, board)
+            determine_optimized_random_solution(boardsize, board)
+            breadth_first_experiment(boardsize, board, 1)
             depth_first_experiment(boardsize, board)
             compare_plot(board)
         
