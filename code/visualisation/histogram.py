@@ -2,6 +2,10 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 def histogram_plot(path_board: str, path_output: str):
+    """
+    Generate a histogram plot of the moves from a board data file.
+    """
+    
     # Read the data from the csv file
     data = pd.read_csv(path_board)
     
