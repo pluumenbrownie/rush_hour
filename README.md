@@ -1,12 +1,12 @@
 # Rush hour
 Rush hour is een spelletje dat bestaat uit een bord van 6x6. Op het bord zijn verschillende voertuigen geplaatst, waaronder een rode auto. Het doel van het spelletje is om de rode auto naar de uitgang te 'schuiven'.  Er staan echter voertuigen in de weg. De voertuigen zijn allemaal twee of drie vakjes groot (auto's en vrachtwagens) en ze hebben een bepaalde oriëntatie die niet aangepast kan worden: de voertuigen staan verticaal op het bord of horizontaal. Als een voertuig horizontaal op het bord staat, kan het alleen naar links of naar rechts schuiven. Een voertuig dat verticaal op het bord staat, kan alleen naar boven of beneden. En heel belangrijk: voertuigen kunnen niet botsen (oftewel op hetzelfde vakje staan). De uitdaging van het spel is om het rode autootje in zo min mogelijk moves naar de uitgang te krijgen. 
 
-# Vereisten 
+## Vereisten 
 De code is geschreven met behulp van python 3.11. In requirements staat de packages die je nodig hebt om de code succesvol te kunnen laten runnen. Dit is de instructie daarvoor: 
 ```
 pip install -r requirements.txt
 ```
-# Gebruik 
+## Gebruik 
 Het programma kan worden aangeroepen door main.py aan te roepen. In de command line moet je de volgende argumenten meegeven: boardfile en het algoritme dat je wil uitvoeren. Als je een algoritme wilt uitvoeren, gebruik je deze volgende format: 
 ```
 python3 code/main.py gameboards/Rushhour12x12_7.csv [naam_algoritme] <opties>
@@ -66,7 +66,7 @@ Er kunnen ook vele andere experimenten uitgevoerd worden. Meer informatie is te 
 - play
   - Hiermee kun je in de terminal zelf het spel proberen op te lossen.
 
-# Structuur
+## Structuur
 In de lijst hieronder staat beschreven waar de belangrijkste bestanden en mappen te vinden zijn: 
 * `/code`: bevat alle code van het project, waaronder main.py en pygame_rushhour.py. De laatste is voor de visualisatie. 
   * `/code/algorithms`: bevat de algoritmen. 
@@ -80,8 +80,30 @@ In de lijst hieronder staat beschreven waar de belangrijkste bestanden en mappen
   * `/results/best_solutions`: hier staan csv files met exacte moves en door welk voertuig deze is gedaan om tot de beste oplossing te komen
 * `/requirements.txt`: in dit bestand staan alles wat je moet installeren om te zorgen dat onze code werkt. 
 
+## Statespace
+Bij het nadenken over onze statespace hebben wij de beslissing genomen dat een state voor ons een versie is van het spelbord. 
 
-# Auteurs
+Wij gaan daarnaast uit van de situatie dat je een leeg bord vult met voertuigen. Als je op die manier redeneert, is er geen sprake van repetition omdat je voertuigen niet twee keer op het bord kan zetten. Er is geen order, omdat het niet uitmaakt of je eerst het ene autootje plaatst en daarna de ander. Je zou ook kunnen rederenen vanuit moves: dan is er wel repetition omdat je vaker dan eens kan kiezen voor +1 of -1. Maar dit hebben wij dus niet gedaan. 
+
+Er is geen repetition en geen order, dus komen we uit bij de volgende formule: n!/(r!*(n-r)!)
+
+Onze aannames zijn dat het bord vierkant is, dat voertuigen niet kunnen wisselen van rij en dat we rekening houden met voertuigen in dezelfde rij/kolom (ze kunnen dus niet botsen). Wel is het nog mogelijk voor voertuigen om te botsen als ze niet in dezelfde kolom of rij zitten. Voertuigen in dezelfde rij kunnen elkaar niet 'inhalen'. 
+
+Voor elke rij en kolom doen wij de eerdergenoemde formule en al die resultaten vermenigvuldigen we met elkaar om tot de uiteindelijke statespace te komen. 
+
+### Voorbeeld berekening statespace 
+Met een voorbeeld willen we laten zien dat de formule klopt. Bedenk een rij van een 6x6 bord met daarop twee auto's. De mogelijkheden die er dan bestaan zijn (V = voertuig, O = open vakje): VOOV, VOVO, VVOO, OVVO, OVOV, OOVV. Er zijn dus zes mogelijkheden van dit bord. 
+In dit geval is het aantal keuzes dat je moet maken (r) gelijk aan het aantal voertuigen dat je op het bord moet plaatsen. Dat zijn er dus 2, omdat er twee auto's zijn. De keuzemogelijkheden is het aantal open vakjes plus het aantal voertuigen. Dat is dus 2 open vakjes plus 2 auto's = 4 keuzemogelijkheden. 
+n!/(r!*(n-r)!)= 4!/(2!*(4-2)!)=4!/(2!*(2)!)=6
+
+Als je een vrachtwagen hebt en een auto, ziet het er weer anders uit: VOV, VVO, OVV. Je hebt dan dus maar drie mogelijkheden. Het aantal keuzes dat je moet maken (r) is gelijk aan het aantal voertuigen, dus dat is 2. De keuzemogelijkheden is het aantal open vakjes plus het aantal voertuigen, dus 3. 
+In de formule zou dat moeten zijn n!/(r!*(n-r)!)= 3!/(2!*(3-2)!) = 3.
+
+Voor het grootste bord is de statespace 1.124.640.192.614.400. Je kan de statespace voor elk ander bord laten uitrekenen door het volgende aan te roepen: 
+
+`python3 code/main.py gameboards/Rushhour12x12_7.csv statespace`
+
+## Auteurs
 * Amber van der Eijden
 * Wessel Beumer
 * Dionne Spaltman
