@@ -36,7 +36,7 @@ def dijkstra_many_times(board_size: int, board_file: str) -> None:
             results.append((f"{iterations=} {cutoff=}", move_nr, time.time() - start_time, mem_peak))
             tracemalloc.reset_peak()
 
-    with open(f"results/output_dijkstra_test_{board_name}.csv", 'w') as file:
+    with open(f"results/dijkstra/output_dijkstra_experiment_{board_name}.csv", 'w') as file:
         file.write(f"parameters,moves,time,memory\n")
         for result in results:
             file.write(result[0]+f",{result[1]},{result[2]},{result[3]}\n")

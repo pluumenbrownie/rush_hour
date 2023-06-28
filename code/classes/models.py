@@ -38,7 +38,6 @@ class RushHour():
                     raise ValueError("Vehicle can only be length 2 or 3.")
                 self.game_board.add_vehicle(new_vehicle)
                 
-        # self.game_board.print_board()
         self.board_hash: int = hash(self.game_board)
         # first string is vehicle, first int is direction, second int is the board hash
         self.history: list[tuple[str, int, int]] = []
