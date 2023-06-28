@@ -151,11 +151,11 @@ Voor het graaf gebasseerde/Dijkstra algoritme wordt een RushHour class gebruikt 
 
 Om dit aspect van het algoritme te testen, kan het volgende commando uitgevoert worden met een bord naar keuze:
 ```
-python3 main.py gameboards/Rushhour6x6_1.csv dijkstra_test
+python3 main.py gameboards/Rushhour6x6_1.csv dijkstra_exp
 ```
-Het programma zal voor het gegeven bord variëren tussen een langere reeks aan moves met maar weinig resets en korte (minimaal 200) reeksen, maar vaker uitgevoerd. De resultaten van dit experiment worden naar een bestand geschreven onder de naam `results/output_dijkstra_test_6x6_1.csv` corresponderend met het gegeven bord. 
+Het programma zal voor het gegeven bord variëren tussen een langere reeks aan moves met maar weinig resets en korte (minimaal 200) reeksen, maar vaker uitgevoerd. De resultaten van dit experiment worden naar een bestand geschreven onder de naam `results/output_dijkstra_experiment_6x6_1.csv` corresponderend met het gegeven bord. 
 
-Neem bijvoorbeeld `results/dijkstra_test_9x9_4.csv`. Er is duidelijk te zien dat het algoritme betere resultaten geeft bij meer datapunten. Het experiment is verdeeld in twee delen: het eerste deel doet 200_000 moves, het tweede 2_000_000. In het tweede deel zijn de gevonden oplossingen veel beter dan in het eerste deel.
+Neem bijvoorbeeld `results/dijkstra_experiment_9x9_4.csv`. Er is duidelijk te zien dat het algoritme betere resultaten geeft bij meer datapunten. Het experiment is verdeeld in twee delen: het eerste deel doet 200_000 moves, het tweede 2_000_000. In het tweede deel zijn de gevonden oplossingen veel beter dan in het eerste deel.
 
 Wanneer het algorthme geen oplossing kan vinden (een 0 in het csv bestand), is het algoritme geen winnende state tegen gekomen. Het lijkt erop dat bij te korte random reeksen de kans om op een winnende state te komen te klein is om consistent resultaten te behalen. 
 

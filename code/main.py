@@ -9,7 +9,6 @@ from classes.models import RushHour
 from visualisation.histogram import histogram_plot
 from visualisation.hist_compare_algorithms import compare_plot
 from classes.models import RushHour, count_statespace
-from classes.graphs import test
 from pygame_rushhour import PygameRushHour
 from experiments.random_experiment import determine_random_solution
 from experiments.random_optimized_experiment import determine_optimized_random_solution
@@ -104,10 +103,6 @@ if __name__ == '__main__':
         
         elif argv[2] == "mem_exp":
             memory_comparison(boardsize, boardfile)
-
-        # Creating a test graph 
-        elif argv[2] == "graph":
-            test(boardsize, boardfile)
         
         # Running the dijkstra algorithm
         elif argv[2] == "dijkstra":
@@ -117,7 +112,7 @@ if __name__ == '__main__':
             dijkstras_algorithm.export_solution()
 
         # Running a test of dijkstra 
-        elif argv[2] == "dijkstra_test":
+        elif argv[2] == "dijkstra_exp":
             dijkstra_many_times(boardsize, boardfile)
 
 # -------------------------------------------------Visualisation & Experiments-------------------------------------------------#
@@ -161,10 +156,7 @@ if __name__ == '__main__':
             histogram_plot(f"results/greedy_moves_{board}.csv", f'results/output{board}_greedy_graph_moves.png')       
         elif argv[2] == "depthfirst":
             depth_first_experiment(boardsize, board)
-            histogram_plot(f"results/depth_first_moves_{board}.csv", f'results/output{board}_depth_first_moves.png')     
-        elif argv[2]== "beam":   
-            beamsearch_experiment(boardsize, board)
-            histogram_plot(f"results/beam_search/random_optimized_moves_{board}.csv", f'results/beam_search/output{board}_beamsearch.png')
+            histogram_plot(f"results/depth_first_moves_{board}.csv", f'results/output{board}_depth_first_moves.png')
            
     # Animate every algorithm game using pygame
     elif len(argv) > 3 and argv[3] == "animate":
