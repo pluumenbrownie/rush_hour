@@ -4,7 +4,6 @@ from classes.vehicle import *
 import math as mt
 import csv
 
-
 class RushHour():
     """ 
     A class for the game rush hour. 
@@ -29,17 +28,20 @@ class RushHour():
                 col = int(line[2])
                 row = int(line[3])
                 length = int(line[4])
-                # print(id, orientation, col, row, length)
                 if length == 2:
+                    # Create a car object
                     new_vehicle = Car(veh_id, orientation, col, row)
                 elif length == 3:
+                    # Create a truck object
                     new_vehicle = Truck(veh_id, orientation, col, row)
                 else:
                     raise ValueError("Vehicle can only be length 2 or 3.")
+                # Add cars and trucks to the the game
                 self.game_board.add_vehicle(new_vehicle)
                 
         self.board_hash: int = hash(self.game_board)
-        # first string is vehicle, first int is direction, second int is the board hash
+
+        # First string is vehicle, first int is direction, second int is the board hash
         self.history: list[tuple[str, int, int]] = []
     
     def show_board(self) -> None:
@@ -71,12 +73,13 @@ class RushHour():
             - Raises KeyError if vehicle with `id=vehicle_id` does not exist.
         - `self.history` and `self.hash_set` are not updated.
         """
+        # Check is a move is valid 
         move_viability = self.game_board.is_move_valid(vehicle_id, direction)
-        #print("Can move:", move_viability)
         if move_viability:
             self.game_board.move_vehicle(vehicle_id, direction)
             self.board_hash = hash(self.game_board)
             return True
+        
         return False
     
     def is_won(self) -> bool:
@@ -133,19 +136,20 @@ class RushHour():
         turns = 0
         while not self.is_won():
             turns += 1
-            # get user input
+
+            # Get user input
             print(f"Board hash: {self.get_board_hash()}")
             target_vehicle = input("What vehicle to move? ")
             direction = int(input("What direction? "))
 
-            # process turn and show board
+            # Process turn and show board
             success = self.process_turn(target_vehicle, direction)
             if not success:
                 print("Move failed.")
             self.show_board()
 
         self.export_solution()
-        print(f"You won! I'm so proud of you! (Took {turns} turns)")
+        print(f"You won! I'm so proud of you. It took {turns} turns")
     
     def process_turn(self, target_vehicle_id: str, direction: int) -> bool:
         """ 
@@ -164,7 +168,7 @@ class RushHour():
 
         if success:
             self.history.append((target_vehicle_id, direction, self.get_board_hash()))
-            # print(target_vehicle_id, direction)
+
         return success
 
     def process_undo(self) -> None:
@@ -197,21 +201,19 @@ class RushHour():
         - Post: returns list of tuples, which contain the `vehicle.id` of the movable 
         vehicle and the direction of the move. 
         """
-        # returns a dict with str and Vehicle object 
+        # Returns a dict with str and Vehicle object 
         vehicles = self.get_vehicles()
-        # make empty list 
+
+        # Make empty list 
         movable_vehicles: list[tuple[str, int]] = []
-        movable_vehicles_ids: list[str] = []
-        
-        # loop over all the vehicles on the board 
+
         for vehicle in vehicles: 
             if self.game_board.is_move_valid(vehicle, 1):
-                # add tuple to list 
+                # Add tuple to list 
                 movable_vehicles.append((vehicle, 1))
 
-
             if self.game_board.is_move_valid(vehicle, -1): 
-                # add tuple to list 
+                # Add tuple to list 
                 movable_vehicles.append((vehicle, -1))
 
         return movable_vehicles
@@ -242,7 +244,7 @@ class RushHour():
         """
         hash_seen: dict[int, int] = {}
 
-        # count how often unique board_hashes exist in self.history
+        # Count how often unique board_hashes exist in self.history
         for _, _, board_hash in self.history:
             if hash_seen.get(board_hash, False):
                 hash_seen[board_hash] += 1
@@ -253,17 +255,15 @@ class RushHour():
         important_hash = None
         removed_steps = 0
 
-        # build new history
+        # Build new history
         for veh_id, direction, board_hash in self.history:
-            # print(f"{veh_id=}, {direction=}, {board_hash=}, {important_hash=}, {hash_seen[board_hash]=}" )
-            # if we are not in a loop
+            # If we are not in a loop
             if not important_hash:
                 new_history.append((veh_id, direction, board_hash))
             else:
                 removed_steps += 1
-
             hash_seen[board_hash] -= 1
-            # important_hash is set to the hash to indicate a loop
+            # Important_hash is set to the hash to indicate a loop
             if hash_seen[board_hash] > 0 and not important_hash:
                 important_hash = board_hash
             elif hash_seen[board_hash] == 0 and important_hash == board_hash:
@@ -295,6 +295,7 @@ class Board():
         """
         self.width = width
 
+        # The board is saved as a list 
         self.board: list[list[Car|Truck|None]] = []
         for _ in range(width):
             empty_row = []
@@ -338,7 +339,6 @@ class Board():
         Pre: get the row and column 
         Post: it returns the object if there is one in the location, otherwise none 
         """
-
         return self.board[row-1][col-1]
     
     def is_move_valid(self, vehicle_id: str, direction: int) -> bool:
@@ -362,29 +362,29 @@ class Board():
         if not (direction == 1 or direction == -1):
             raise ValueError("Invalid move direction.")
 
+        # If the vehicle's orientation is horizontal 
         if target_vehicle.orientation == "H":
-
-            # move to the left <-
+            # Move to the left 
             if direction == -1:
                 if target_vehicle.col - 2 < 0:
                     return False
                 next_tile = self.get_vehicle_from_location(target_vehicle.row, target_vehicle.col - 1)
 
-            # move to the right ->
+            # Move to the right 
             elif direction == 1:
                 if target_vehicle.col + target_vehicle.size > self.width:
                     return False
                 next_tile = self.get_vehicle_from_location(target_vehicle.row, target_vehicle.col + target_vehicle.size)
 
+        # If the vehicle's orientation is vertical 
         elif target_vehicle.orientation == "V":
-
-            # move up ^
+            # Move up ^
             if direction == -1:
                 if target_vehicle.row - 2 < 0:
                     return False
                 next_tile = self.get_vehicle_from_location(target_vehicle.row - 1, target_vehicle.col)
 
-            # move down v
+            # Move down v
             elif direction == 1:
                 if target_vehicle.row + target_vehicle.size > self.width:
                     return False
@@ -392,11 +392,11 @@ class Board():
             
         else:
             raise ValueError("Invalid direction in vehicle.")
-        # print(next_tile)
 
-        # return true if next_tile empty
+        # Return true if next_tile empty
         if next_tile:
             return False
+        
         return True
     
     def move_vehicle(self, vehicle_id: str, direction: int) -> None:
@@ -410,17 +410,15 @@ class Board():
         without first check the validity of the move via `Board.is_move_valid`. This
         method could move vehicles off the board or overwrite other vehicles. Bad 
         stuff. 
-        
-        TO DO: isn't this redundant as we already have two very similar methods? 
         """
         target_vehicle = self.vehicle_dict[vehicle_id]
 
-        # remove the vehicle
+        # Remove the vehicle
         tiles_to_empty = target_vehicle.get_tiles_occupied()
         for col, row in tiles_to_empty:
             self.board[row - 1][col - 1] = None
 
-        # replace vehicle in new position
+        # Replace vehicle in new position
         target_vehicle.move(direction)
         tiles_to_fill = target_vehicle.get_tiles_occupied()
         for col, row in tiles_to_fill:
@@ -445,7 +443,6 @@ class Board():
         - Post: Returns hash of the board state.
         """
         return hash(self.hashing_tuple)
-        # return hash(pickle.dumps(self.vehicle_dict, protocol=5, fix_imports=False))
     
 
 def count_statespace(width: int, board_file: str) -> int:
@@ -495,7 +492,7 @@ def count_statespace(width: int, board_file: str) -> int:
                 V_spaces[vehicle_col] -= int(line[4])
 
     states = 1
-    # using i should be fine here
+    # Using i should be fine here
     for i in range(6):
         v = H_cars[i] 
         n = H_cars[i] + H_spaces[i]

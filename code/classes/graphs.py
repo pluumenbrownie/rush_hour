@@ -1,9 +1,9 @@
 from typing import Self
 from classes.models import RushHour
+
 import random as rd
 import tqdm
 import tracemalloc
-
 
 class Node:
     """
@@ -62,9 +62,7 @@ class Graph:
         del self.game
         self.game = RushHour(self.board_size, self.file_location)
 
-    def build_graph(
-        self, max_iterations: int = 100_000, random_cutoff: int = 200
-    ) -> None:
+    def build_graph(self, max_iterations: int = 100_000, random_cutoff: int = 200) -> None:
         """
         Start construction of the state space graph. Graph is constructed by
         playing games with random moves.
@@ -77,6 +75,7 @@ class Graph:
         current_node = self.nodes[self.starting_node]
         progress_bar = tqdm.tqdm(range(max_iterations), desc=self.file_location)
         success = False
+        
         for _ in progress_bar:
             for _ in range(random_cutoff):
                 while not success:
