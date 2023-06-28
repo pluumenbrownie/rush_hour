@@ -20,16 +20,9 @@ In de lijst hieronder staat beschreven waar de belangrijkste bestanden en mappen
   * `/code/visualisation`: bevat bestanden die nodig zijn voor het visualiseren, zoals een bestand met kleuren die gebruikt wordt voor pygame. Ook de code voor de histogrammen staan hier. 
 * `/gameboards`: hier staan alle bestanden van de spelborden
 * `/images`: als we ergens in de README een afbeelding gebruiken, komt deze hier te staan
-* `/notes`: hier staan aantekeningen van de colleges
 * `/results`: hier staan csv bestanden met uitkomsten gegenereerd door onze algoritmes. 
 
 ### Auteurs
 * Amber van der Eijden
 * Wessel Beumer
 * Dionne Spaltman
-
-
-
-
-
-
