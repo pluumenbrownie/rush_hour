@@ -126,11 +126,3 @@ class Graph:
         print(
             f"{connection_total} connections; {connection_total/len(self.nodes):.2f} per node avg."
         )
-
-
-def test(board_size: int, file_location: str):
-    graph = Graph(board_size, file_location)
-    graph.build_graph()
-    graph.stats()
-    graph.build_graph()
-    graph.stats()
