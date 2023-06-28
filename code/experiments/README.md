@@ -26,18 +26,18 @@ Input 6x6_1 bord:
 ```
 python3 main.py gameboards/Rushhour6x6_1.csv random histogram
 ```
-![exp_6x6_1_random_graph_moves.png](https://github.com/pluumenbrownie/rush_hour/blob/main/results/exp_6x6_1_random_graph_moves.png)
+![exp_6x6_1_random_graph_moves.png](https://github.com/pluumenbrownie/rush_hour/blob/main/graphs/exp_6x6_1_random_graph_moves.png)
 
 Input 9x9_4 bord:
 ```
 python3 main.py gameboards/Rushhour9x9_4.csv random histogram
 ```
-![exp_9x9_4_random_graph_moves.png](https://github.com/pluumenbrownie/rush_hour/blob/main/results/exp_9x9_4_random_graph_moves.png)  
+![exp_9x9_4_random_graph_moves.png](https://github.com/pluumenbrownie/rush_hour/blob/main/graphs/exp_9x9_4_random_graph_moves.png)  
 Input 12x12_7 bord:
 ```
 python3 main.py gameboards/Rushhour12x12_7.csv random histogram
 ```  
-![exp_12x12_7_random_graph_moves.png](https://github.com/pluumenbrownie/rush_hour/blob/main/results/exp_12x12_7_random_graph_moves.png)
+![exp_12x12_7_random_graph_moves.png](https://github.com/pluumenbrownie/rush_hour/blob/main/graphs/exp_12x12_7_random_graph_moves.png)
 
 
 
@@ -51,17 +51,17 @@ Het random_optimized algoritme voert als eerst het random algoritme uit. Vervolg
 ```
 python3 main.py gameboards/Rushhour6x6_1.csv random_optimized histogram
 ```
-![exp_6x6_1_random_graph_optimized_moves.png](https://github.com/pluumenbrownie/rush_hour/blob/main/results/exp_6x6_1_random_graph_optimized_moves.png)  
+![exp_6x6_1_random_graph_optimized_moves.png](https://github.com/pluumenbrownie/rush_hour/blob/main/graphs/exp_6x6_1_random_graph_optimized_moves.png)  
 Input 9x9_4 bord:
 ```
 python3 main.py gameboards/Rushhour9x9_4.csv random_optimized histogram
 ```
-![exp_9x9_4_random_graph_optimized_moves.png](https://github.com/pluumenbrownie/rush_hour/blob/main/results/exp_9x9_4_random_graph_optimized_moves.png)  
+![exp_9x9_4_random_graph_optimized_moves.png](https://github.com/pluumenbrownie/rush_hour/blob/main/graphs/exp_9x9_4_random_graph_optimized_moves.png)  
 Input 12x12_7 bord:
 ```
 python3 main.py gameboards/Rushhour12x12_7.csv random_optimized histogram
 ```  
-![exp_12x12_7_random_graph_optimized_moves.png](https://github.com/pluumenbrownie/rush_hour/blob/main/results/exp_12x12_7_random_graph_optimized_moves.png)
+![exp_12x12_7_random_graph_optimized_moves.png](https://github.com/pluumenbrownie/rush_hour/blob/main/graphs/exp_12x12_7_random_graph_optimized_moves.png)
 
 
 
@@ -79,11 +79,11 @@ In dit experiment heeft het greedy algoritme een uur gedraaid op beide borden. H
 ```
 python3 main.py gameboards/Rushhour6x6_1.csv greedy histogram
 ```
-![exp_6x6_1_greedy_graph_moves.png](https://github.com/pluumenbrownie/rush_hour/blob/main/results/exp_6x6_1_greedy_graph_moves.png)  
+![exp_6x6_1_greedy_graph_moves.png](https://github.com/pluumenbrownie/rush_hour/blob/main/graphs/exp_6x6_1_greedy_graph_moves.png)  
 ```
 python3 main.py gameboards/Rushhour9x9_4.csv greedy histogram
 ```
-![exp_9x9_4_greedy_graph_moves.png](https://github.com/pluumenbrownie/rush_hour/blob/main/results/exp_9x9_4_greedy_graph_moves.png)
+![exp_9x9_4_greedy_graph_moves.png](https://github.com/pluumenbrownie/rush_hour/blob/main/graphs/exp_9x9_4_greedy_graph_moves.png)
 
 
 ### Depthfirst
@@ -98,7 +98,7 @@ Input:
 python3 main.py gameboards/Rushhour6x6_1.csv depthfirst histogram
 ```
 
-![exp_6x6_1_depth_first_moves.png](https://github.com/pluumenbrownie/rush_hour/blob/main/results/exp_6x6_1_depth_first_moves.png) 
+![exp_6x6_1_depth_first_moves.png](https://github.com/pluumenbrownie/rush_hour/blob/main/graphs/exp_6x6_1_depth_first_moves.png) 
 
 ### Breadthfirst
 Net zoals bij een depthfirst gaat het breadthfirst algorite alle mogelijke staten van het bord af en geeft door middel van een queue gelijk de beste oplossing.  
@@ -112,7 +112,7 @@ Input:
 python3 main.py gameboards/Rushhour6x6_1.csv bf_compare
 ```
 
-![breadth_first_scores.png](https://github.com/pluumenbrownie/rush_hour/blob/main/results/breadth_first_scores.png) 
+![breadth_first_scores.png](https://github.com/pluumenbrownie/rush_hour/blob/main/graphs/breadth_first_scores.png) 
 
 ### Beam search 
 Bij beam search hebben we een grid search gedaan. Hierbij kijken we naar de verschillende heuristieken (H1, H2, H3) en naar verschillende beam sizes. Wat interessant is, is om te kijken welke heuristiek het over het algemeen het beste doet.

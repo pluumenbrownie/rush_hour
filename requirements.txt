@@ -1,7 +1,7 @@
 # Requirements needed to install
-python=3.11
-pygame=2.4.0
-tqdm=4.65.0
-sortedcontainers=2.4.0
-matplotlib=2.7.1
-pandas=2.0.2
+python==3.11
+pygame==2.4.0
+tqdm==4.65.0
+sortedcontainers==2.4.0
+matplotlib==2.7.1
+pandas==2.0.2
