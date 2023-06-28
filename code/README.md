@@ -1,4 +1,4 @@
-# Uitleg over de map code
+# Code
 In deze map staat de code voor de algoritmes, de classes en de experimenten. 
 
 De algoritmes die we hebben geschreven: 

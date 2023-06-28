@@ -28,6 +28,7 @@ class RushHour():
                 col = int(line[2])
                 row = int(line[3])
                 length = int(line[4])
+
                 if length == 2:
                     # Create a car object
                     new_vehicle = Car(veh_id, orientation, col, row)
@@ -36,6 +37,7 @@ class RushHour():
                     new_vehicle = Truck(veh_id, orientation, col, row)
                 else:
                     raise ValueError("Vehicle can only be length 2 or 3.")
+               
                 # Add cars and trucks to the the game
                 self.game_board.add_vehicle(new_vehicle)
                 
@@ -134,6 +136,7 @@ class RushHour():
         Post: whether you won gets printed to the screen
         """
         turns = 0
+        
         while not self.is_won():
             turns += 1
 

@@ -15,13 +15,14 @@ python3 code/main.py gameboards/Rushhour12x12_7.csv random
 ### Structuur
 In de lijst hieronder staat beschreven waar de belangrijkste bestanden en mappen te vinden zijn: 
 * `/code`: bevat alle code van het project, waaronder main.py en pygame_rushhour.py. De laatste is voor de visualisatie. 
-  * `/code/algorithms`: bevat de algoritmen
+  * `/code/algorithms`: bevat de algoritmen. 
   * `/code/classes`: bevat de verschillende classes die we voor dit project hebben aangemaakt, zoals models.py (classes RushHour en Board), vehicle.py (classes Vehicle, Car en Truck) en graphs.py (classes Node en Graph). 
   * `/code/experiments`: hierin staan de bestanden die nodig zijn voor de experimenten. Dit gaat om experimenten voor de beam search, breadth first, depth first, random en random optimized. 
   * `/code/visualisation`: bevat bestanden die nodig zijn voor het visualiseren, zoals een bestand met kleuren die gebruikt wordt voor pygame. Ook de code voor de histogrammen staan hier. 
-* `/gameboards`: hier staan alle bestanden van de spelborden
-* `/images`: als we ergens in de README een afbeelding gebruiken, komt deze hier te staan
+* `/gameboards`: hier staan alle bestanden van de spelborden. 
+* `/images`: als we ergens in de README een afbeelding gebruiken, komt deze hier te staan. 
 * `/results`: hier staan csv bestanden met uitkomsten gegenereerd door onze algoritmes. 
+  * `/results/best_solutions`: hier staan csv files met exacte moves en door welk voertuig deze is gedaan om tot de beste oplossing te komen
 
 ### Auteurs
 * Amber van der Eijden
