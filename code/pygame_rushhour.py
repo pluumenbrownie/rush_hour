@@ -10,6 +10,16 @@ COLOR_NAMES = [name for name in COLORS.keys()]
 
 
 class PygameRushHour(RushHour):
+    """
+    An interactive verstion of the `RushHour` class. Run the `.start()` method to
+    show a pygame render of the game board.
+    
+    Inputs:
+    - `width: int` - The size of the board.
+    - `board_file: str` - The file location of the board layout.
+    - `solution_file: str | None = None` - When given a file with vehicle moves for
+    the current board, pygame can animate the moves made in the file.
+    """
     def __init__(
         self, width: int, board_file: str, solution_file: str | None = None
     ) -> None:
@@ -73,6 +83,9 @@ class PygameRushHour(RushHour):
                 vehicle.color = rd.choice(COLOR_NAMES)
 
     def draw_board(self) -> None:
+        """
+        Draw the grid of the Rush Hour board.
+        """
         # Create "outside" of board
         board = pygame.Rect(
             self.board_start_left,
@@ -111,6 +124,9 @@ class PygameRushHour(RushHour):
             )
 
     def draw_cars(self) -> None:
+        """
+        Draw the cars on the board.
+        """
         # Give vehicles a position on the board
         for vehicle in self.vehicles.values():
             tiles_occupied = vehicle.get_tiles_occupied()
@@ -139,6 +155,10 @@ class PygameRushHour(RushHour):
             pygame.draw.rect(self.screen, vehicle.color, vehicle_rect)
 
     def draw_playbutton(self) -> pygame.Rect:
+        """
+        Draws a play button next to the game board. Returns an object corresponding
+        to the button for use in detecting mouse clicks.
+        """
         button_x = self.board_size + self.board_start_left + 50
         button_y = self.board_start_top
         button_size = 100
@@ -153,6 +173,12 @@ class PygameRushHour(RushHour):
         )
 
     def draw_speed_setting(self, turn_nr: int) -> tuple[pygame.Rect, pygame.Rect]:
+        """
+        Draws a speed indicator for the amount of moves made per second; an indicator
+        for how many moves have been made and how much are left; and buttons to change
+        the speed. Returns objects corresponding to the minus and plus buttons,
+        respectively.
+        """
         display_x = self.board_size + self.board_start_left + 50
         display_y = self.board_size + self.board_start_top - 100
         font_path = pygame.font.match_font(pygame.font.get_default_font())
@@ -219,19 +245,19 @@ class PygameRushHour(RushHour):
                 minus_button, plus_button = self.draw_speed_setting(turn_nr)
                 # clicked on play
                 if (
-                    mouse_first_button_pressed 
+                    mouse_first_button_pressed
                     and play_button.collidepoint(mouse_position)
                 ):
                     play_pressed = True
                 # clicked on --
                 if (
-                    mouse_first_button_pressed 
+                    mouse_first_button_pressed
                     and minus_button.collidepoint(mouse_position)
                 ):
                     self.cars_per_frame /= 2 if self.cars_per_frame > 0.01 else 1
                 # clicked on +
                 if (
-                    mouse_first_button_pressed 
+                    mouse_first_button_pressed
                     and  plus_button.collidepoint(mouse_position)
                 ):
                     self.cars_per_frame *= 2 if self.cars_per_frame < 100 else 1
@@ -251,7 +277,7 @@ class PygameRushHour(RushHour):
         # Move vehicles every frame
         if self.cars_per_frame >= 1:
             try:
-                for _ in range(int(self.cars_per_frame)):
+                for _ in range(round(self.cars_per_frame)):
                     game_move = self.solution_moves.pop(0)
                     self.process_turn(*game_move)
                     turn_nr += 1
