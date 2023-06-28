@@ -54,6 +54,7 @@ class Vehicle():
         """
         return hash((self.id, self.col, self.row))
 
+
 class Car(Vehicle):
     """ 
     A car with a direction. 
