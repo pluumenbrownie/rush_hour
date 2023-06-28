@@ -163,8 +163,8 @@ if __name__ == '__main__':
             depth_first_experiment(boardsize, board)
             histogram_plot(f"results/depth_first_moves_{board}.csv", f'results/output{board}_depth_first_moves.png')     
         elif argv[2]== "beam":   
-            beamsearch_experiment(boardsize, board, 1000)
-            histogram_plot(f"results/beam_search/random_optimized_moves_{board}.csv", f'results/beam_search/output{board}_beamsearch.png')                 
+            beamsearch_experiment(boardsize, board)
+            histogram_plot(f"results/beam_search/random_optimized_moves_{board}.csv", f'results/beam_search/output{board}_beamsearch.png')
            
     # Animate every algorithm game using pygame
     elif len(argv) > 3 and argv[3] == "animate":
