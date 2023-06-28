@@ -6,7 +6,7 @@ from classes.vehicle import *
 
 class Algorithm():
     """ 
-    A class to use algorithms to solve the game. 
+    A class on which we base algorithms to solve the game. 
     """
     
     def __init__(self, game: RushHour) -> None:
@@ -35,7 +35,6 @@ class Algorithm():
         Choose move direction by randomly selecting from list of available directions.
         """
         return rd.choice(movable_vehicles)
-
 
     def find_blocking_vehicle(self, target_car: Car|Truck, direction: int) -> Car|Truck|None:
         """
@@ -67,4 +66,3 @@ class Algorithm():
                 blocking_vehicle = self.game.get_vehicle_from_location(col, row - 1)
 
         return blocking_vehicle
-

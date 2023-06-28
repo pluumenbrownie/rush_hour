@@ -31,4 +31,5 @@ def bf_plot():
     plt.savefig('graphs/output_breadth_first_scores.png')
 
 # Call the function
-bf_plot()
+if __name__ == '__main__':
+    bf_plot()
