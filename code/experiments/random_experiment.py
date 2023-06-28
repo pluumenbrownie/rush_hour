@@ -31,7 +31,7 @@ def determine_random_solution(board_size: int, board: str, repeat: int = 1, expo
     print(f"On average, in {n_runs} games, took {round(stat.mean(tries))}±{round(stat.stdev(tries))} tries and {round(stat.mean(moves))}±{round(stat.stdev(moves))} succesfull moves.")
 
     # Open file to get all the moves
-    with open(f"results/random_moves_{board}.csv", 'w') as file:
+    with open(f"results/random/random_moves_{board}.csv", 'w') as file:
         file.write("moves\n")
         for value in moves:
             file.write(f"{value}\n")
