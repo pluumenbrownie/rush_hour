@@ -26,4 +26,4 @@ def compare_plot(board: str) -> None:
     plt.xlabel('Algorithms')
     plt.ylabel('Mean')
     plt.title('Comparison of the means')
-    plt.savefig(f'results/output{board}_compare_algorithms.png')
+    plt.savefig(f'graphs/output{board}_compare_algorithms.png')
