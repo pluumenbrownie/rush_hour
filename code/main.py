@@ -129,7 +129,7 @@ if __name__ == '__main__':
             determine_random_solution(boardsize, board, 15)
             determine_optimized_random_solution(boardsize, board, 15)
             breadth_first_experiment(boardsize, board, 15)
-            depth_first_experiment(boardsize, board, 15)
+            depth_first_experiment(boardsize, board)
             compare_plot(board)
         
         # Make a plot of the outcome of the bf algorithms    

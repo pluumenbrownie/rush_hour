@@ -2,6 +2,13 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 def bf_plot():
+    """
+    Generate a bar plot of the optimal scores obtained by the breadth-first algorithm for different boards.
+
+    Reads data from CSV files, creates a bar plot with the boards as x-axis labels and the scores as y-axis values,
+    and saves the plot as a PNG file.
+    """
+    
     # Read the data from the csv file
     data_6x6_1 = pd.read_csv("results/breadth_first_moves_6x6_1.csv", header=0, names=['moves'])
     data_6x6_2 = pd.read_csv("results/breadth_first_moves_6x6_2.csv", header=0, names=['moves'])

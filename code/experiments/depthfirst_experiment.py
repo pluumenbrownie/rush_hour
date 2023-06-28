@@ -4,10 +4,14 @@ from algorithms.depth_first import DepthFirst
 import time
 import statistics as stat
 
-def depth_first_experiment(board_size: int, board: str, repeat: int = 1, export: bool = False):
+def depth_first_experiment(board_size: int, board: str, export: bool = False):
     """
-    Determine a random solution for the Rush Hour game.
+    Run an experiment using the depth-first algorithm on a Rush Hour game board.
+
+    The depth-first algorithm is executed multiple times until one hour of execution time is reached.
+    Statistics such as the number of tries and successful moves are collected and printed.
     """
+    
     start_time = time.time()
     n_runs = 0
 

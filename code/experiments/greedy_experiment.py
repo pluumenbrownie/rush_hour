@@ -3,9 +3,12 @@ from algorithms.greedy import Greedy
 import time
 import statistics as stat
 
-def determine_greedy_solution(board_size: int, board: str, repeat: int = 1, export: bool = False):
+def determine_greedy_solution(board_size: int, board: str, export: bool = False):
     """
-    Determine a random solution for the Rush Hour game.
+    Determine a semi random solution for the Rush Hour game using the greedy algorithm.
+
+    The greedy algorithm is executed multiple times until one hour of execution time is reached.
+    Statistics such as the number of tries and successful moves are collected and printed.
     """
     start_time = time.time()
     n_runs = 0
