@@ -21,7 +21,7 @@ def beamsearch_experiment(board_size: int, board: str, export: bool = False, rep
  
         # if needed, you can adjust which beam size you want to try here 
         # for beam_size in (10, 20, 50, 100, 150, 200, 250, 300, 400):  
-        for beam_size in (20, 50, 100, 150):  
+        for beam_size in (50, 100, 150):  
             for heuristic in ('h1', 'h2', 'h3'):
                 beamsearch_algorithm = BeamSearch(game)
                 # print(f"Before completing: {heuristic}, beam_size {beam_size}")
